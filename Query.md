@@ -2,9 +2,7 @@ need to document
 
 #### Prepared statements
 
-I'm still working on the API for prepared statements.  Check out the
-tests for more up to date examples, but what I'm working towards is
-something like this:
+I'm still working on the API for prepared statements.  Check out the tests for more up to date examples, but what I'm working towards is something like this:
 
 
      var client = new Client({
