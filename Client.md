@@ -1,10 +1,6 @@
-Basically a facade on top of the connection to provide a _much_ more
-user friendly, "node style" interface for doing all the lovely things
-you like with PostgreSQL.
+Basically a facade on top of the connection to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
 
-Now that I've got the __Connection__ api in place, the bulk and meat of
-the work is being done on the __Client__ to provide the best possible
-API.  Help? Yes please!
+Now that I've got the __Connection__ api in place, the bulk and meat of the work is being done on the __Client__ to provide the best possible API.  Help? Yes please!
 
     var client = new Client({
       user: 'brian',
