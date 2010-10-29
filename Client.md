@@ -14,8 +14,9 @@ API.  Help? Yes please!
     client.query("create temp table ids(id integer)");
     client.query("insert into ids(id) values(1)");
     client.query("insert into ids(id) values(2)");
-    var query = client.query("select * from ids", function(row) {
-      row.fields[0] // <- that equals 1 the first time. 2 the second time.
+    var query = client.query("select * from ids");
+    query.on('row', function(row) {
+        console.log(row);
     });
     query.on('end', function() {
       client.end();
