@@ -1,0 +1,22 @@
+  - Query results returned
+    - some way to return number of rows inserted/updated etc
+    (supported in protocol and handled in __Connection__ but not sure
+    where on the __Client__ api to add this functionality)
+  - Typed result set support in client
+    - simple queries
+    - bound commands
+    - edge cases
+      - [numeric 'NaN' result](http://www.postgresql.org/docs/8.4/static/datatype-numeric.html)
+      - float Infinity, -Infinity
+  - Error handling
+    - disconnection, removal of listeners on errors
+    - passing errors to callbacks?
+  - more integration testing
+  - bound command support in client
+    - type specification
+    - parameter specification
+    - transparent bound command caching?
+    - nice "cursor" (portal) api
+  - connection pooling
+  - copy data?
+  - kiss the sky
