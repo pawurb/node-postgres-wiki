@@ -79,4 +79,5 @@ Only used during testing, so the implementation is pretty much _crap_ but it wor
         host of database
 
     --down 
-        only applies when running the script to create test data.  Will run the 'down' migration, bringing the database back to a state it was before the script was run
+        only applies when running the script to create test data.  
+        Will run the 'down' migration, bringing the database back to before script ran
