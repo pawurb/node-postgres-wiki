@@ -4,5 +4,6 @@ Welcome to the node-postgres wiki!
     * [[Client]]
     * [[Query]]
     * [[Connection]]
+* [[Error Handling]]
 * [[Testing]]
 * [[Todo]]
