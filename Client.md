@@ -1,7 +1,9 @@
 Basically a facade on top of the connection to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
 
-### new Client(Object config) : Client
-
+## Constructor
+---
+### new Client(_object_ config) : _Client_
+Creates a new instance of a Client configured via supplied configuration object.  In normal instantiation the client will _not_ be connected automatically.
 ##### parameters
 
 - __config__: [_object_] can contain any of the following optional properties
@@ -38,3 +40,13 @@ Basically a facade on top of the connection to provide a _much_ more user friend
       port: 5313
     });
 ```
+## Methods
+---
+### connect() : _null_
+Initializes underlying net.Stream() and startup communication with PostgreSQL server.  Once the connection is finished, the __Client__ emits the _connect_ event.
+
+### end() : _null_
+Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().
+
+### query(_string_ text) : _[[Query]]_
+
