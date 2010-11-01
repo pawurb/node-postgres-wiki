@@ -50,9 +50,9 @@ Creates a new instance of a Client configured via supplied configuration object.
 
 Initializes underlying net.Stream() and startup communication with PostgreSQL server.  Once the connection is finished, the __Client__ emits the _connect_ event.
 
-<div id="method-end">
-<h3>end() : _null_</h3>
-</div>
+<div id="method-end">&nbsp;</div>
+### end() : _null_
+
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().
 
 <div id="method-query-simple">&nbsp;</div>
@@ -79,6 +79,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     });
     query.on('end', client.end.bind(client));
 ```
+
 <div id="method-query-prepared">&nbsp;</div>
 ### query(_object_ config) : _[[Query]]_
 
