@@ -45,18 +45,19 @@ Creates a new instance of a Client configured via supplied configuration object.
 
 ## Methods
 
-<div id="method-connect">
-<h3>connect() : _null_</h3>
-</div>
+<div id="method-connect">&nbsp;</div>
+### connect() : _null_
+
 Initializes underlying net.Stream() and startup communication with PostgreSQL server.  Once the connection is finished, the __Client__ emits the _connect_ event.
 
 <div id="method-end">
 <h3>end() : _null_</h3>
 </div>
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().
-<div id="method-query-simple">
-<h3>query(_string_ text) : _[[Query]]_</h3>
-</div>
+
+<div id="method-query-simple">&nbsp;</div>
+### query(_string_ text) : _[[Query]]_
+
 Simply: Creates a query object, queues it for execution, and returns it.
 
 In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|QueryQueue]].  The query is executed as a simple query within PostgresSQL, takes no parameters, and it is parsed, bound, executed, and all rows are streamed backed to the __Client__ in one step within the PostgreSQL server.  For more detailed information [you can read the PostgreSQL protocol documentation](http://developer.postgresql.org/pgdocs/postgres/protocol-flow.html#AEN87085).
@@ -78,9 +79,9 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     });
     query.on('end', client.end.bind(client));
 ```
-<div id="method-query-prepared">
-<h3>query(_object_ config) : _[[Query]]_</h3>
-</div>
+<div id="method-query-prepared">&nbsp;</div>
+### query(_object_ config) : _[[Query]]_
+
 Creates a (optionally named) query object, queues it for execution, and returns it.
 
 If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="/Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manor as a <a href="#method-query-simple">simple query</a>.
