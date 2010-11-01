@@ -85,7 +85,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 
 Creates a (optionally named) query object, queues it for execution, and returns it.
 
-If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="/Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manor as a <a href="#method-query-simple">simple query</a>.
+If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manor as a <a href="#method-query-simple">simple query</a>.
 
 ##### parameters
 - __config__: [_object_] can contain any of the following optional properties
