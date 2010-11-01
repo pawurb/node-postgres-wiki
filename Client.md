@@ -1,7 +1,9 @@
 Basically a facade on top of the connection to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
 
 ## Constructor
+
 ---
+
 ### new Client(_object_ config) : _Client_
 Creates a new instance of a Client configured via supplied configuration object.  In normal instantiation the client will _not_ be connected automatically.
 ##### parameters
@@ -41,7 +43,9 @@ Creates a new instance of a Client configured via supplied configuration object.
     });
 ```
 ## Methods
+
 ---
+
 ### connect() : _null_
 Initializes underlying net.Stream() and startup communication with PostgreSQL server.  Once the connection is finished, the __Client__ emits the _connect_ event.
 
