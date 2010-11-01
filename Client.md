@@ -45,17 +45,19 @@ Creates a new instance of a Client configured via supplied configuration object.
 
 ## Methods
 
+<div id="method-connect">
 ### connect() : _null_
-
+</div>
 Initializes underlying net.Stream() and startup communication with PostgreSQL server.  Once the connection is finished, the __Client__ emits the _connect_ event.
 
+<div id="method-end">
 ### end() : _null_
-
+</div>
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().
-
-### query(_string_ text) : _[[Query]]_
-
-Simply: Executes a simple, parameterless text query and returns rows.
+<div id="method-query-simple">
+### query(_string_ text) : _[[Query]]_ 
+</div>
+Simply: Creates a query object, queues it for execution, and returns it.
 
 In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|QueryQueue]].  The query is executed as a simple query within PostgresSQL, takes no parameters, and it is parsed, bound, executed, and all rows are streamed backed to the __Client__ in one step within the PostgreSQL server.  For more detailed information [you can read the PostgreSQL protocol documentation](http://developer.postgresql.org/pgdocs/postgres/protocol-flow.html#AEN87085).
 
@@ -76,4 +78,45 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     });
     query.on('end', client.end.bind(client));
 ```
+<div id="method-query-prepared">
 ### query(_object_ config) : _[[Query]]_
+</div>
+Creates a (optionally named) query object, queues it for execution, and returns it.
+
+If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="/Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manor as a <a href="#method-query-simple">simple query</a>.
+
+##### parameters
+- __config__: [_object_] can contain any of the following optional properties
+  - __text__: [_string_] 
+    - The text of the query
+    - _example:_ `select name from user where email = $1`
+  -__name__: [_string_]
+    - The name of the prepared statement
+    - Can be used to reference the same statement again later and is used internally to cache and skip the preparation step
+  - __values__: [_array_]
+    - The values to supply as parameters
+    - Values may be any [[object type supported|Supportedtypes]] by the Client
+
+##### example
+```javascript
+    var client = new ...
+    var query = client.query({
+      text: 'select name from user where email = $1',
+      name: 'get user by email',
+      values: ['brianc@example.com']
+    });
+    query.on('row', function() {
+      //do something w/ yer row data
+    });
+
+   var again = client.query({
+      name: 'get user by email',
+      values: ['brianc@example.net']
+    });
+
+    again.on('row', function() {
+      //do something else
+    });
+
+    again.on('end', client.end.bind(client));
+```
