@@ -1,19 +1,13 @@
 Basically a facade on top of the connection to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
 
-Now that I've got the __Connection__ api in place, the bulk and meat of the work is being done on the __Client__ to provide the best possible API.  Help? Yes please!
+### new Client(Object config) : Client
 
-    var client = new Client({
-      user: 'brian',
-      database: 'postgres',
-    });
+##### parameters
 
-    client.query("create temp table ids(id integer)");
-    client.query("insert into ids(id) values(1)");
-    client.query("insert into ids(id) values(2)");
-    var query = client.query("select * from ids");
-    query.on('row', function(row) {
-        console.log(row);
-    });
-    query.on('end', function() {
-      client.end();
-    });    
+- __config__: [_object_] can contain any of the following properties
+  - __user__: [_string_] 
+    - default value: `''`
+    - PostgreSQL user
+  - __database__: [_string_] database to use when connecting to PostgreSQL server
+  - __port__: [_number_] port to use when connecting to PostgreSQL server
+  - __host__: [_string_]
