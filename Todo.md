@@ -3,8 +3,7 @@
     (supported in protocol and handled in __Connection__ but not sure
     where on the __Client__ api to add this functionality)
   - Typed result set support in client
-    - simple queries
-    - bound commands
+    - date handling
     - edge cases
       - [numeric 'NaN' result](http://www.postgresql.org/docs/8.4/static/datatype-numeric.html)
       - float Infinity, -Infinity
