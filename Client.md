@@ -26,3 +26,15 @@ Basically a facade on top of the connection to provide a _much_ more user friend
   - __connection__: [_[[Connection]]_]
     - default value: `new Connection(config)`
     - the __[[Connection]]__ object used by client.  Only really provided as a config option to aid in testing.  Will be used in the future when connection pooling is implemented
+
+##### example
+
+```javascript
+    var client = new Client({
+      user: 'brianc',
+      password: 'boom!'
+      database: 'test'
+      host: 'example.com'
+      port: 5313
+    });
+```
