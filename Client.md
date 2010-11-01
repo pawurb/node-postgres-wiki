@@ -122,4 +122,5 @@ If either `name` or `values` is provided within the `config` object the query wi
     });
 
     again.on('end', client.end.bind(client));
+
 ```
