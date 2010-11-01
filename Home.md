@@ -1,4 +1,4 @@
-Welcome to the node-postgres wiki!
+__MAJOR__ work in progress
 
 * API
     * [[Client]]
