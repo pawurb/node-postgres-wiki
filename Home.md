@@ -5,5 +5,7 @@ Welcome to the node-postgres wiki!
     * [[Query]]
     * [[Connection]]
 * [[Error Handling]]
+* Internals
+  * [[Query Queue|Queryqueue]]
 * [[Testing]]
 * [[Todo]]
