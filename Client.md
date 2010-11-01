@@ -100,6 +100,7 @@ If either `name` or `values` is provided within the `config` object the query wi
     - Values may be any [[object type supported|Supportedtypes]] by the Client
 
 ##### example
+
 ```javascript
     var client = new ...
     var query = client.query({
@@ -111,7 +112,7 @@ If either `name` or `values` is provided within the `config` object the query wi
       //do something w/ yer row data
     });
 
-   var again = client.query({
+    var again = client.query({
       name: 'get user by email',
       values: ['brianc@example.net']
     });
