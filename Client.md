@@ -80,7 +80,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     //PostgreSQL server is ready for a query
     var query = client.query("select name from user")
     query.on('row', function(row) {
-      console.log(row.fields[0]);
+      console.log(row.name);
     });
     query.on('end', client.end.bind(client));
 ```
