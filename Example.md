@@ -32,7 +32,7 @@ app.get('/', ?(req, res) {
     when.on('row', ?(whenRow) {            
       var lines = ["hello world, I've been hit " + countRow.count + " times, most recently at " + whenRow.date,
                   '<a href="http://github.com/brianc/node-postgres/wiki/Example">you can view the source on github</a>',
-                  'or you can have a listen to a (beta) song I wrote about <a href="http://static.brianc.me/pub/greeny.mp3">creativity and community</a>']
+                  'or you can have a listen to a (beta) <a href="http://static.brianc.me/pub/greeny.mp3">song I wrote</a>']
 
       res.send(lines.join('<br />'));
     });
