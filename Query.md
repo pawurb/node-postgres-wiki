@@ -1,4 +1,10 @@
-need to document
+## incomplete documentation
+
+Not to be created directly from its constructor, the __Query__ is returned from [[Client#connect|Client#method-query-simple]]. It functions primarily as an EventEmitter allowing you to handle returned rows.
+
+- events
+  - [[row|Query#event-row]]
+  - [[end|Query#event-end]]
 
 #### Prepared statements
 
