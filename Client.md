@@ -136,19 +136,6 @@ If either `name` or `values` is provided within the `config` object the query wi
 
 ## Events
 
-<div id="event-error">&nbsp;</div>
-### error : _object_ error
-
-Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
-
-##### example
-```javascript
-    var client = new Client({user: 'not a valid user name', database: 'postgres'});
-    client.connect();
-    client.on('error', function(error) {
-      console.log(error);
-    });                    
-```
 <div id="event-drain">&nbsp;</div>
 ### drain :
 
@@ -163,4 +150,17 @@ Raised when the internal [[query queue|Queryqueue]] has been emptied and all que
     client.on('drain', client.end.bind(client));
     //carry on doing whatever it was you wanted with the query results once they return
     users.on('row', function(row){ ...... });
+```
+<div id="event-error">&nbsp;</div>
+### error : _object_ error
+
+Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
+
+##### example
+```javascript
+    var client = new Client({user: 'not a valid user name', database: 'postgres'});
+    client.connect();
+    client.on('error', function(error) {
+      console.log(error);
+    });                    
 ```
