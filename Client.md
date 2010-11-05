@@ -1,4 +1,5 @@
 Your main interface point with the PostgreSQL server, the __Client__ is basically a facade on top of the [[Connection]] to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
+
 - methods
   - [[connect|Client#method-connect]]
   - [[end|Client#method-end]]
