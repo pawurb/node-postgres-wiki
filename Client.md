@@ -1,10 +1,13 @@
 Your main interface point with the PostgreSQL server, the __Client__ is basically a facade on top of the [[Connection]] to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
-
-- [[connect|Client#method-connect]]
-- [[end|Client#method-end]]
-- [[query (simple)|Client#method-query-simple]]
-- [[query (prepared statement)|Client#method-query-prepared]]
-
+- methods
+  - [[connect|Client#method-connect]]
+  - [[end|Client#method-end]]
+  - [[query (simple)|Client#method-query-simple]]
+  - [[query (prepared statement)|Client#method-query-prepared]]
+- events
+  - [[drain|Client#event-drain]]
+  - [[error|Client#event-error]]
+  
 ## Constructor
 
 ### new Client(_object_ config) : _Client_
@@ -13,26 +16,26 @@ Creates a new instance of a Client configured via supplied configuration object.
 
 ##### parameters
 
-- __config__: [_object_] can contain any of the following optional properties
-  - __user__: [_string_] 
+- _object_ __config__: can contain any of the following optional properties
+  - _string_ __user__:
     - default value: `null`
     - PostgreSQL user
-  - __database__: [_string_] 
+  - _string_ __database__:
     - default value: `null`
     - database to use when connecting to PostgreSQL server
-  - __password__: [_string_]
+  - _string_ __password__:
     - default value: `null`
     - user's password for PostgreSQL server
-  - __port__: [_number_] 
+  - _number_ __port__:
     - default value: `5432`
     - port to use when connecting to PostgreSQL server
     - will support unix domain sockets in future
     - used to initialize underlying net.Stream()
-  - __host__: [_string_]
+  - _string_ __host__:
     - default value: `null`
     - host address of PostgreSQL server
     - used to initialize underlying net.Stream()
-  - __connection__: [_[[Connection]]_]
+  - [_[[Connection]]_] __connection__:
     - default value: `new Connection(config)`
     - the __[[Connection]]__ object used by client.  Only really provided as a config option to aid in testing.  Will be used in the future when connection pooling is implemented
 
@@ -53,7 +56,7 @@ Creates a new instance of a Client configured via supplied configuration object.
 <div id="method-connect">&nbsp;</div>
 ### connect() : _null_
 
-Initializes underlying net.Stream() and startup communication with PostgreSQL server.  Once the connection is finished, the __Client__ emits the _connect_ event.
+Initializes underlying net.Stream() and startup communication with PostgreSQL server including password negotiation.
 
 <div id="method-end">&nbsp;</div>
 ### end() : _null_
@@ -69,7 +72,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 
 ##### parameters
 
- - __text__: [_string_] the query text
+ - _string_ __text__: the query text
 
 ##### example
 
@@ -93,14 +96,14 @@ Creates a (optionally named) query object, queues it for execution, and returns 
 If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manor as a <a href="#method-query-simple">simple query</a>.
 
 ##### parameters
-- __config__: [_object_] can contain any of the following optional properties
-  - __text__: [_string_] 
+- _object_ __config__:  can contain any of the following optional properties
+  - _string_ __text__: 
     - The text of the query
     - _example:_ `select name from user where email = $1`
-  -__name__: [_string_]
+  - _string_ __name__:
     - The name of the prepared statement
     - Can be used to reference the same statement again later and is used internally to cache and skip the preparation step
-  - __values__: [_array_]
+  - _array_ __values__:
     - The values to supply as parameters
     - Values may be any [[object type supported|Supportedtypes]] by the Client
 
@@ -128,4 +131,35 @@ If either `name` or `values` is provided within the `config` object the query wi
 
     again.on('end', client.end.bind(client));
 
+```
+
+## Events
+
+<div id="event-error">&nbsp;</div>
+### error : _object_ error
+
+Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
+
+##### example
+```javascript
+    var client = new Client({user: 'not a valid user name', database: 'postgres'});
+    client.connect();
+    client.on('error', function(error) {
+      console.log(error);
+    });                    
+```
+<div id="event-drain">&nbsp;</div>
+### drain :
+
+Raised when the internal [[query queue|Queryqueue]] has been emptied and all queued queries have been executed.  Useful for disconnecting the client after running an undetermined number of queries.  
+
+##### example
+```javascript
+    var client = new Client({user: 'brianc', database: 'postgres'});
+    client.connect();
+    var users = client.query("select * from user");
+    var superdoods = client.query("select * from superman");
+    client.on('drain', client.end.bind(client));
+    //carry on doing whatever it was you wanted with the query results once they return
+    users.on('row', function(row){ ...... });
 ```
