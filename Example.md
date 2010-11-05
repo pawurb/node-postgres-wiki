@@ -29,8 +29,10 @@ app.get('/', ?(req, res) {
   //because query execution is ordered we can handle row events in                                                                                                               
   //order with confidence                                                                                                                                                        
   hitcount.on('row', ?(countRow) {
-    when.on('row', ?(whenRow) {
-      res.send("hello world, I've been hit " + countRow.count + " times, most recently at " + whenRow.date);
+    when.on('row', ?(whenRow) {      
+      var lines = ["hello world, I've been hit " + countRow.count + " times, most recently at " + whenRow.date,
+                       '<a href="http://github.com/brianc/node-postgres/wiki/Example">you can view the source on github</a>']
+      res.send(lines.join('<br />'));
     });
   });
 
