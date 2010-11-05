@@ -8,7 +8,7 @@ var Client = require('pg').Client;
 var client = new Client({
   user: 'postgres',
   database: 'postgres',
-  password: '1234'
+  password: '*******'
 });
 
 var express = require('express');
