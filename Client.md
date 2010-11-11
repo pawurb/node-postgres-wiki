@@ -11,6 +11,19 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
   
 ## Constructor
 
+### new Client(_string_ url): _Client_
+
+Creates a new client from a url based connection string `postgres://user:password@host:port/database`.
+
+Internally the connection string is parsed and a _config_ object is created with the same defaults as outlined below.  All parts of the connection string url are optional.  This is handy for use in managed hosting like [[Heroku|http://heroku.com]].
+
+##### example
+```javascript
+    var client = new Client('postgres://brian:mypassword@localhost:5432/dev');
+    var client = new Client('postgres://brian@localhost/dev'); //will use defaults
+    var client = new Client(process.env.DATABASE_URL); //something like this should get you running with heroku
+```
+
 ### new Client(_object_ config) : _Client_
 
 Creates a new instance of a Client configured via supplied configuration object.  In normal instantiation the client will _not_ be connected automatically.
