@@ -9,7 +9,7 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
   - [[drain|Client#event-drain]]
   - [[error|Client#event-error]]
   
-## Constructor
+## Constructors
 
 ### new Client(_string_ url): _Client_
 
