@@ -67,17 +67,17 @@ Creates a new instance of a Client configured via supplied configuration object.
 
 ## Methods
 
-<div id="method-connect">&nbsp;</div>
+<div id="method-connect"></div>
 ### connect() : _null_
 
 Initializes underlying net.Stream() and startup communication with PostgreSQL server including password negotiation.
 
-<div id="method-end">&nbsp;</div>
+<div id="method-end"></div>
 ### end() : _null_
 
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().
 
-<div id="method-query-simple">&nbsp;</div>
+<div id="method-query-simple"></div>
 ### query(_string_ text) : _[[Query]]_
 
 Simply: Creates a query object, queues it for execution, and returns it.
@@ -102,7 +102,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     query.on('end', client.end.bind(client));
 ```
 
-<div id="method-query-prepared">&nbsp;</div>
+<div id="method-query-prepared"></div>
 ### query(_object_ config) : _[[Query]]_
 
 Creates a (optionally named) query object, queues it for execution, and returns it.
@@ -149,7 +149,7 @@ If either `name` or `values` is provided within the `config` object the query wi
 
 ## Events
 
-<div id="event-drain">&nbsp;</div>
+<div id="event-drain"></div>
 ### drain :
 
 Raised when the internal [[query queue|Queryqueue]] has been emptied and all queued queries have been executed.  Useful for disconnecting the client after running an undetermined number of queries.  
@@ -164,7 +164,7 @@ Raised when the internal [[query queue|Queryqueue]] has been emptied and all que
     //carry on doing whatever it was you wanted with the query results once they return
     users.on('row', function(row){ ...... });
 ```
-<div id="event-error">&nbsp;</div>
+<div id="event-error"></div>
 ### error : _object_ error
 
 Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
