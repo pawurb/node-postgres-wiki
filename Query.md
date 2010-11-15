@@ -4,8 +4,8 @@ Not to be created directly from its constructor, the __Query__ is returned from 
 
 - events
   - [[row|Query#event-row]]
-  - [[end|Query#event-end]]
   - [[error|Query#event-error]]
+  - [[end|Query#event-end]]
 
 ## Events
 
@@ -38,7 +38,7 @@ _note: if this event is not handled it will propagate to the global event loop. 
 ```
 
 <div id="event-end"></div>
-## End
+### End
 
 Emitted by the query when all rows have been returned __or__ when an error has been encountered.  In either circumstance, the query's execution is finished and it is no longer interacting with the connection.
 
