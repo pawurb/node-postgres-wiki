@@ -2,6 +2,8 @@
 
 This app is running live [[right here|http://explodemy.com]]
 
+You'll need to first "npm install express" and in your postgres database "create table visits (date date)".
+
 ```javascript
 var Client = require('pg').Client;
 
