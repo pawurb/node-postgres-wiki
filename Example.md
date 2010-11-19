@@ -16,7 +16,7 @@ var client = new Client({
 var express = require('express');
 var app = express.createServer();
 
-app.get('/', ?(req, res) {
+app.get('/', function(req, res) {
 
   var hitcount= client.query({
     name: 'hitcount',
@@ -30,8 +30,8 @@ app.get('/', ?(req, res) {
 
   //because query execution is ordered we can handle row events in                                                                                                               
   //order with confidence                                                                                                                                                        
-  hitcount.on('row', ?(countRow) {
-    when.on('row', ?(whenRow) {            
+  hitcount.on('row', function(countRow) {
+    when.on('row', function(whenRow) {            
       var lines = ["hello world, I've been hit " + countRow.count + " times, most recently at " + whenRow.date,
                   '<a href="http://github.com/brianc/node-postgres/wiki/Example">you can view the source on github</a>']
       res.send(lines.join('<br />'));
@@ -47,10 +47,10 @@ app.get('/', ?(req, res) {
   });
 });
 
-app.listen(3000, ?() {
+app.listen(3000, function() {
   //this error handling is not very good
   //I'm working on the api
-  client.on('error', ?(err) {
+  client.on('error', function(err) {
     console.log(err);
   });
   client.connect();
