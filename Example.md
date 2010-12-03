@@ -2,13 +2,13 @@
 
 This app is running live [[right here|http://explodemy.com]]
 
-You'll need to first "npm install express" and in your postgres database "create table visits (date date)".
+You'll need to first "create table visits (date date)" in your postgres database
 
 ```javascript
 var sys = require('sys');
 var http = require('http');
 var pg = require('pg')
-var connectionString = "postgres://postgres:1234@localhost:5432/postgres";
+var connectionString = "postgres://postgres:abcd@localhost:5432/postgres";
 
 var server = http.createServer(?(req, res) {
   if(req.url != "/") {
