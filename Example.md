@@ -5,54 +5,41 @@ This app is running live [[right here|http://explodemy.com]]
 You'll need to first "npm install express" and in your postgres database "create table visits (date date)".
 
 ```javascript
-var Client = require('pg').Client;
+var sys = require('sys');
+var http = require('http');
+var pg = require('pg')
+var connectionString = "postgres://postgres:1234@localhost:5432/postgres";
 
-var client = new Client({
-  user: 'postgres',
-  database: 'postgres',
-  password: '*******'
-});
+var server = http.createServer(?(req, res) {
+  if(req.url != "/") {
+    res.writeHead(404);
+    return res.end("404'd")
+  }
+  var after = ?(callback) {
+    return ?(err, queryResult) {
+      if(err) {
+        res.writeHead(500, {"Content-Type" : "text/plain"});
+        return res.end("Error! " + sys.inspect(err))
+      }
+      callback(queryResult)
+    }
+  }
+  
+  pg.connect(connectionString, after(?(client) {
+    client.query("SELECT COUNT(date) as count FROM visit", after(?(result) {
+      client.query("SELECT date FROM visit ORDER BY date DESC LIMIT 1", after(?(dateResult) {
+        var text = ["<html><head><title>Postgres Node Hello</title><body>",
+                    "<p>I have been viewed ", result.rows[0].count, " times</p>",
+                    "<p>Most recently I was viewed at ", dateResult.rows[0].date, "</p>",
+                    'you can view the source <a href="http://github.com/brianc/node-postgres">on github</a>',
+                    "</body></html>"].join('')
+        res.writeHead(200, {"Content-Type": "text/html"})
+        res.end(text);
+        client.query('INSERT INTO visit(date) VALUES($1)', [new Date()])
+      }))
+    }))
+  }))
+})
 
-var express = require('express');
-var app = express.createServer();
-
-app.get('/', function(req, res) {
-
-  var hitcount= client.query({
-    name: 'hitcount',
-    text: 'SELECT COUNT(date) as count FROM visit'
-  });
-
-  var when = client.query({
-    name: 'last',
-    text: 'SELECT date FROM visit ORDER BY date DESC LIMIT 1'
-  });
-
-  //because query execution is ordered we can handle row events in                                                                                                               
-  //order with confidence                                                                                                                                                        
-  hitcount.on('row', function(countRow) {
-    when.on('row', function(whenRow) {            
-      var lines = ["hello world, I've been hit " + countRow.count + " times, most recently at " + whenRow.date,
-                  '<a href="http://github.com/brianc/node-postgres/wiki/Example">you can view the source on github</a>']
-      res.send(lines.join('<br />'));
-    });
-  });
-
-  //this query is executed in the background  after the response has                                                                                                             
-  //been sent to the user. we don't actually care about the values                                                                                                               
-  //returned so there's no need to handle events                                                                                                                                 
-  client.query({
-    name: 'update visits',
-    text:"insert into visit(date) VALUES(NOW())"
-  });
-});
-
-app.listen(3000, function() {
-  //this error handling is not very good
-  //I'm working on the api
-  client.on('error', function(err) {
-    console.log(err);
-  });
-  client.connect();
-});
+server.listen(3001)
 ```
