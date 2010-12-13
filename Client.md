@@ -73,11 +73,13 @@ Creates a new instance of a Client configured via supplied configuration object.
 Initializes underlying net.Stream() and startup communication with PostgreSQL server including password negotiation.
 
 <div id="method-end"></div>
+
 ### end() : _null_
 
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().  _note: do not call this on a client when the client is managed by a connection pool_
 
-<div id="method-query-simple">&nbps;</div>
+<div id="method-query-simple"></div>
+
 ### query(_string_ text) : _[[Query]]_
 
 Simply: Creates a query object, queues it for execution, and returns it.
