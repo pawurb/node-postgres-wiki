@@ -51,7 +51,7 @@ Creates a new instance of a Client configured via supplied configuration object.
     - used to initialize underlying net.Stream()
   - [_[[Connection]]_] __connection__:
     - default value: `new Connection(config)`
-    - the __[[Connection]]__ object used by client.  Only really provided as a config option to aid in testing.  Will be used in the future when connection pooling is implemented
+    - the __[[Connection]]__ object used by client.  Only really provided as a config option to aid in testing.
 
 ##### example
 
