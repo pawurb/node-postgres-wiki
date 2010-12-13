@@ -10,7 +10,7 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
   - [[error|Client#event-error]]
   
 ## Constructors
-
+_note: _Client_ instances created via the constructor do __not__ participate in connection pooling (this might change in the future...open to suggestions).  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
 ### new Client(_string_ url): _Client_
 
 Creates a new client from a url based connection string `postgres://user:password@host:port/database`.
@@ -26,7 +26,7 @@ Internally the connection string is parsed and a _config_ object is created with
 
 ### new Client(_object_ config) : _Client_
 
-Creates a new instance of a Client configured via supplied configuration object.  In normal instantiation the client will _not_ be connected automatically.
+Creates a new instance of a Client configured via supplied configuration object.  In normal instantiation the client will _not_ be connected automatically (requires you to call Client#[[connect|Client#method-connect]]).
 
 ##### parameters
 
@@ -75,7 +75,7 @@ Initializes underlying net.Stream() and startup communication with PostgreSQL se
 <div id="method-end"></div>
 ### end() : _null_
 
-Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().
+Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().  _note: do not call this on a client when the client is managed by a connection pool_
 
 <div id="method-query-simple"></div>
 ### query(_string_ text) : _[[Query]]_
