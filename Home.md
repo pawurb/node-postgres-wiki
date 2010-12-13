@@ -1,11 +1,9 @@
-__MAJOR__ work in progress
-
-* [[Example App|Example]]
 * API
-    * [[pg|Index]]
+    * [[pg]]
     * [[Client]]
     * [[Query]]
     * [[Connection]]
+* [[Example App|Example]]
 * [[Error Handling]]
 * Internals
   * [[Query Queue|Queryqueue]]
