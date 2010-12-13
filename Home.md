@@ -2,6 +2,7 @@ __MAJOR__ work in progress
 
 * [[Example App|Example]]
 * API
+    * [[pg|Index]]
     * [[Client]]
     * [[Query]]
     * [[Connection]]
