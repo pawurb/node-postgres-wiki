@@ -80,7 +80,7 @@ Immediately sends a termination message to the PostgreSQL server and closes the 
 
 <div id="method-query-simple"></div>
 
-### query(_string_ text) : _[[Query]]_
+### query(_string_ text, _optional function_ callback) : _[[Query]]_
 
 Simply: Creates a query object, queues it for execution, and returns it.
 
@@ -89,6 +89,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 ##### parameters
 
  - _string_ __text__: the query text
+ - _optional function_ __callback__: optionally provided function which will be passed the error object (if the query raises an error) or the entire result set buffered into memory.  _note: do not provide this function for large result sets unless you're okay with loading the entire result set into memory_
 
 ##### example
 
@@ -102,10 +103,14 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
       console.log(row.name);
     });
     query.on('end', client.end.bind(client));
+
+    //can also provide a callback as the second argument
+    //which will buffer all rows into memory.  more info below
 ```
 
 <div id="method-query-prepared"></div>
-### query(_object_ config) : _[[Query]]_
+### query(_object_ config, _optional function_ callback) : _[[Query]]_
+### query(_string_ queryText, _array_ values, _optional function_ callback): _[[Query]]_
 
 Creates a (optionally named) query object, queues it for execution, and returns it.
 
@@ -122,6 +127,13 @@ If either `name` or `values` is provided within the `config` object the query wi
   - _array_ __values__:
     - The values to supply as parameters
     - Values may be any [[object type supported|Supportedtypes]] by the Client
+- _optional function_ __callback__: callback function
+  - _function_ callback(_object_ error, _object_ result) 
+    - Called only if provided
+    - __buffers all rows into memory before calling__
+      - rows only buffered if callback is provided
+      - can impact memory when buffering large result sets (i.e. do not provide a callback)
+    - used as a shortcut instead of subscribing to the 'row' query event
 
 ##### example
 
@@ -146,6 +158,16 @@ If either `name` or `values` is provided within the `config` object the query wi
     });
 
     again.on('end', client.end.bind(client));
+
+    var another = client.query("select * from user where name = $1", ["brianc"], function(err, result) {
+      if(err != null) {
+        throw err;
+      }
+      var rows = result.rows; //an array of all rows returned from the query
+      result.rows.forEach(function(row) {
+        console.log(row.name);
+      })
+    });
 
 ```
 
