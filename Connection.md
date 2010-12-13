@@ -1,4 +1,8 @@
-The connection object is a 1 to 1 mapping to the [postgres client/server messaging protocol](http://developer.postgresql.org/pgdocs/postgres/protocol.html). The __Connection__ is mostly used by the [[Client]] but you can do anything you want with PostgreSQL using the connection object if you need some low level access.  Let me know if you do use it directly as maybe what you're doing could be wrapped up in the [[Client]] api.  I studied the protocol for a while implementing this and the documentation is pretty solid.  If you're already familiar you should be right at home.  Have fun looking up the [oids for  the datatypes in your bound queries](http://github.com/brianc/node-postgres/blob/master/script/list-db-types.js)
+The connection object is a 1 to 1 mapping to the [postgres client/server messaging protocol]
+
+#### Not recommended to directly instantiate this object under normal scenarios
+
+(http://developer.postgresql.org/pgdocs/postgres/protocol.html). The __Connection__ is used internally by the [[Client]]. Technically, you can do anything you want with PostgreSQL using the connection object if you required special lower level access.  Let me know if you do use it directly as maybe what you're doing could be wrapped up in the [[Client]] api.  I studied the protocol for a while implementing this and the documentation is pretty solid.  If you're already familiar you should be right at home.  Have fun looking up the [oids for  the datatypes in your bound queries](http://github.com/brianc/node-postgres/blob/master/script/list-db-types.js)
 
 There are a few minor variations from the protocol:
 
