@@ -18,6 +18,9 @@ To do so you would do something like so:
 
 If you'd like to execute all the unit or integration tests at one time, you can do so with the "Makefile"
 
+## Makefile
+the make file is used as a shortcut to running all the tests.  Since many of the integration tests slam the database with load/connection-pool based testing the tests are executed sequentially file-by-file.  This ensures each file finishes before the next begins and reduces test complexity and raises test isolation.  The command line parameters passed to individual test files can be passed to the Makefile which will in turn pass them along to each test file.
+
 ### Run all unit tests
 
     make test-unit
