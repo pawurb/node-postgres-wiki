@@ -16,23 +16,23 @@ To do so you would do something like so:
 
     node test/integration/client/simple-query-tests.js -u brian -d test_db 
 
-If you'd like to execute all the unit or integration tests at one time, you can do so with the "run.js" script in the /test directory as follows:
+If you'd like to execute all the unit or integration tests at one time, you can do so with the "Makefile"
 
 ### Run all unit tests
 
-    node test/run.js -t unit
+    make test-unit
 
-or optionally, since `-t unit` is the default
+or optionally, since `unit` is the default
 
-    node test/run.js
+    make test
 
 ### Run all integration tests
 
-    node test/run.js -t integration -u brian -d test_db --password password!
+    make test-integration user=brianc password=1234 database=home host=somehost.com port=123
 
 ### Run all the tests!
 
-    node test/run.js -t all -u brian -d test_db --password password!
+    make test-all
 
 In short, I tried to make executing the tests as easy as possible. Hopefully this will encourage you to fork, hack, and do whatever you please as you've got a nice, big safety net under you.
 
@@ -49,7 +49,7 @@ Aditionally if you want to revert the test data, you'll need to "down" the datab
 
 ### Command line arguments
 
-Only used during testing, so the implementation is pretty much _crap_ but it works. (KISS?!?!)
+Only used during testing, so the implementation is pretty much _crap_ but it works.
 
     -t, --test [unit <default>, integration, all]
         only used when executing `node test/run.js`
