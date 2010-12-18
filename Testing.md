@@ -26,7 +26,8 @@ the make file is used as a shortcut to running all the tests.  Since many of the
     make test-unit
 
 or optionally, since `test-unit` is the default
-_note_ this means integration tests under `test/integration` do __not__ run with from default makefile task
+
+_note this means integration tests under `test/integration` do __not__ run with from default makefile task_
 
     make test
 
