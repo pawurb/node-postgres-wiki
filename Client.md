@@ -70,6 +70,7 @@ Creates a new, unconnected instance of a Client configured via supplied configur
 Initializes __Client's__ internal __[[Connection]]__ object & net.Stream() instance.  Starts communication with PostgreSQL server including password negotiation.
 
 _note: __Clients__ created via the __[[pg]]__#connect method are already connected and should __not__ have their #connect method called._
+_____
 
 <div id="method-end"></div>
 
@@ -78,6 +79,7 @@ _note: __Clients__ created via the __[[pg]]__#connect method are already connect
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().  
 
 _note: __Clients__ created via the __[[pg]]__#connect method will be automatically disconnected or placed back into the connection pool and should __not__ have their #end method called._
+_____
 
 <div id="method-query-simple"></div>
 
@@ -108,7 +110,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     //can also provide a callback as the second argument
     //which will buffer all rows into memory.  more info below
 ```
-
+_____
 <div id="method-query-prepared"></div>
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
 ### query(_string_ queryText, _array_ values, _optional function_ callback): _[[Query]]_
@@ -199,6 +201,7 @@ Raised when the internal [[query queue|Queryqueue]] has been emptied and all que
     //carry on doing whatever it was you wanted with the query results once they return
     users.on('row', function(row){ ...... });
 ```
+_____
 <div id="event-error"></div>
 ### error : _object_ error
 
