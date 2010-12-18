@@ -82,7 +82,7 @@ _note: __Clients__ created via the __[[pg]]__#connect method will be automatical
 _____
 
 <div id="method-query-simple"></div>
-### Simple query
+### _Simple queries_
 
 ### query(_string_ text, _optional function_ callback) : _[[Query]]_
 
@@ -94,6 +94,23 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 
  - _string_ __text__: the query text
  - _optional function_ __callback__: optionally provided function which will be passed the error object (if the query raises an error) or the entire result set buffered into memory.  _note: do not provide this function for large result sets unless you're okay with loading the entire result set into memory_
+  - _function_ callback(_object_ error, _object_ result) 
+    - Called only if provided
+    - __buffers all rows into memory before calling__
+      - rows only buffered if callback is provided
+      - can impact memory when buffering large result sets (i.e. do not provide a callback)
+    - used as a shortcut instead of subscribing to the `row` query event
+    - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
+    - #### parameters
+      - _object_ __error__:
+        - `null` if there was no error
+        - if PostgreSQL encountered an error during query execution, the message will be called here
+      - _object_ __result__:
+        - and object containing the following properties:
+          - _array_ __rows__: 
+            - an array of all rows returned from the query
+            - each row is equal to one object passed to the Query#row callback
+
 
 #### examples
 ##### simple query without callback
@@ -124,7 +141,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 
 _____
 <div id="method-query-prepared"></div>
-### Prepared statements
+### _Prepared statements_
 
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
 ### query(_string_ queryText, _array_ values, _optional function_ callback): _[[Query]]_
