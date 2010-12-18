@@ -94,22 +94,33 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
  - _string_ __text__: the query text
  - _optional function_ __callback__: optionally provided function which will be passed the error object (if the query raises an error) or the entire result set buffered into memory.  _note: do not provide this function for large result sets unless you're okay with loading the entire result set into memory_
 
-##### example
-
+##### examples
+##### simple query without callback
 ```javascript
     var client = new Client({user: 'brianc', database: 'test'});
     client.connect();
     //query is executed once connection is established and
     //PostgreSQL server is ready for a query
-    var query = client.query("select name from user")
+    var query = client.query("SELECT name FROM users")
     query.on('row', function(row) {
       console.log(row.name);
     });
-    query.on('end', client.end.bind(client));
-
-    //can also provide a callback as the second argument
-    //which will buffer all rows into memory.  more info below
+    query.on('end', client.end.bind(client)); //disconnect client manually
 ```
+
+##### simple query with optional row callback
+```javascript
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+    //query is executed once connection is established and
+    //PostgreSQL server is ready for a query
+    var query = client.query("SELECT name FROM users", function(err, result) {
+      console.log(result.rows[0].name);
+    })
+```
+
 _____
 <div id="method-query-prepared"></div>
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
@@ -148,40 +159,61 @@ If either `name` or `values` is provided within the `config` object the query wi
             - an array of all rows returned from the query
             - each row is equal to one object passed to the Query#row callback
 
-##### example
+##### examples
+##### simple prepared statement with config object
 
 ```javascript
-    var client = new ...
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
     var query = client.query({
-      text: 'select name from user where email = $1',
-      name: 'get user by email',
+      text: 'SELECT name FROM users WHERE email = $1',
       values: ['brianc@example.com']
     });
+
     query.on('row', function() {
       //do something w/ yer row data
     });
+```
 
-    var again = client.query({
-      name: 'get user by email',
-      values: ['brianc@example.net']
-    });
+##### simple prepared statement using string/array initialization
+```javascript
+ 
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+     var again = client.query("SELECT name FROM users WHERE email = $1", ['brianc@example.com']);
 
     again.on('row', function() {
       //do something else
     });
+```
 
-    again.on('end', client.end.bind(client));
+PostgreSQL server caches prepared statements on a per client basis.  If a name is supplied for the statement all following executions of the query can refer to it by name and the PostgreSQL server instance can skip the preparation step.
 
-    var another = client.query("select * from user where name = $1", ["brianc"], function(err, result) {
-      if(err != null) {
-        throw err;
-      }
-      var rows = result.rows; //an array of all rows returned from the query
-      result.rows.forEach(function(row) {
-        console.log(row.name);
-      })
+##### named prepared statement reuse 
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+    var first = client.query({
+      text: "SELECT email FROM users WHERE name = $1",
+      values: ['brianc'],
+      name: 'email from name'
+    });
+    first.on('row', function(row) {
+      assert.equal("brian@example.com", row.email);
     });
 
+    var second = client.query({
+      name: 'email from name',
+      values: ['brianc']
+    });
+    second.on('row', function(row) {
+      assert.equal("brian@example.com", row.email);
+    });
 ```
 
 ## Events
