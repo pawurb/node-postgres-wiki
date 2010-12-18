@@ -14,5 +14,5 @@
   - remove teste dependency on script/create-test-tables.js?
   - more integration testing
   - connection pooling
-  - copy data?
-  - kiss the sky
+  - __done__ copy data?
+  - testing transactions
