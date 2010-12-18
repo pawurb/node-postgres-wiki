@@ -17,7 +17,7 @@ Creates a new, unconnected client from a url based connection string `postgres:/
 
 Internally the connection string is parsed and a _config_ object is created with the same defaults as outlined below.  All parts of the connection string url are optional.  This is handy for use in managed hosting like [[Heroku|http://heroku.com]].
 
-##### example
+#### example
 ```javascript
     var client = new Client('postgres://brian:mypassword@localhost:5432/dev');
     var client = new Client('postgres://brian@localhost/dev'); //will use defaults
@@ -28,7 +28,7 @@ Internally the connection string is parsed and a _config_ object is created with
 
 Creates a new, unconnected instance of a Client configured via supplied configuration object.
 
-##### parameters
+#### parameters
 
 - _object_ __config__: can contain any of the following optional properties
   - _string_ __user__:
@@ -50,7 +50,7 @@ Creates a new, unconnected instance of a Client configured via supplied configur
     - host address of PostgreSQL server
     - used to initialize underlying net.Stream()
 
-##### example
+#### example
 
 ```javascript
     var client = new Client({
@@ -82,6 +82,7 @@ _note: __Clients__ created via the __[[pg]]__#connect method will be automatical
 _____
 
 <div id="method-query-simple"></div>
+### Simple query
 
 ### query(_string_ text, _optional function_ callback) : _[[Query]]_
 
@@ -89,12 +90,12 @@ Simply: Creates a query object, queues it for execution, and returns it.
 
 In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|QueryQueue]].  The query is executed as a simple query within PostgresSQL, takes no parameters, and it is parsed, bound, executed, and all rows are streamed backed to the __Client__ in one step within the PostgreSQL server.  For more detailed information [you can read the PostgreSQL protocol documentation](http://developer.postgresql.org/pgdocs/postgres/protocol-flow.html#AEN87085).
 
-##### parameters
+#### parameters
 
  - _string_ __text__: the query text
  - _optional function_ __callback__: optionally provided function which will be passed the error object (if the query raises an error) or the entire result set buffered into memory.  _note: do not provide this function for large result sets unless you're okay with loading the entire result set into memory_
 
-##### examples
+#### examples
 ##### simple query without callback
 ```javascript
     var client = new Client({user: 'brianc', database: 'test'});
@@ -123,6 +124,8 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 
 _____
 <div id="method-query-prepared"></div>
+### Prepared statements
+
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
 ### query(_string_ queryText, _array_ values, _optional function_ callback): _[[Query]]_
 
@@ -130,7 +133,7 @@ Creates a (optionally named) query object, queues it for execution, and returns 
 
 If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manner as a <a href="#method-query-simple">simple query</a>.
 
-##### parameters
+#### parameters
 - _object_ __config__:  can contain any of the following optional properties
   - _string_ __text__: 
     - The text of the query
@@ -149,7 +152,7 @@ If either `name` or `values` is provided within the `config` object the query wi
       - can impact memory when buffering large result sets (i.e. do not provide a callback)
     - used as a shortcut instead of subscribing to the `row` query event
     - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
-    - ##### parameters
+    - #### parameters
       - _object_ __error__:
         - `null` if there was no error
         - if PostgreSQL encountered an error during query execution, the message will be called here
@@ -159,8 +162,8 @@ If either `name` or `values` is provided within the `config` object the query wi
             - an array of all rows returned from the query
             - each row is equal to one object passed to the Query#row callback
 
-##### examples
-##### simple prepared statement with config object
+#### examples
+##### prepared statement with config object
 
 ```javascript
     var client = new Client({user: 'brianc', database: 'test'});
@@ -172,12 +175,13 @@ If either `name` or `values` is provided within the `config` object the query wi
       values: ['brianc@example.com']
     });
 
-    query.on('row', function() {
+    query.on('row', function(row) {
       //do something w/ yer row data
+      assert.equal('brianc', row.name);
     });
 ```
 
-##### simple prepared statement using string/array initialization
+##### prepared statement using string/array initialization
 ```javascript
  
     var client = new Client({user: 'brianc', database: 'test'});
@@ -186,12 +190,35 @@ If either `name` or `values` is provided within the `config` object the query wi
 
      var again = client.query("SELECT name FROM users WHERE email = $1", ['brianc@example.com']);
 
-    again.on('row', function() {
+    again.on('row', function(row) {
       //do something else
+      assert.equal('brianc', row.name);
     });
 ```
 
-PostgreSQL server caches prepared statements on a per client basis.  If a name is supplied for the statement all following executions of the query can refer to it by name and the PostgreSQL server instance can skip the preparation step.
+##### prepared statement with optional callback supplied
+```javascript
+    
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+    //object config method
+    var queryConfig = {
+      text: 'SELECT name FROM users WHERE email = $1',
+      values: ['brian@example.com']
+    };
+    client.query(queryConfig, function(err, result) {
+      assert.equal('brianc', result.rows[0]);
+    });
+
+    //text/params method
+    client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
+      assert.equal('brianc', result.rows[0].name);
+    });
+```
+
+The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server caches prepared statements by name on a per client basis.  If a name is supplied for the statement all following executions of the query can refer to it by name and the PostgreSQL server instance can skip the preparation step.
 
 ##### named prepared statement reuse 
     var client = new Client({user: 'brianc', database: 'test'});
@@ -213,6 +240,11 @@ PostgreSQL server caches prepared statements on a per client basis.  If a name i
     });
     second.on('row', function(row) {
       assert.equal("brian@example.com", row.email);
+    });
+
+    //can still supply a callback method
+    var third = client.query({name: 'email from name', values: ['brianc']}, function(err, result) {
+      assert.equal('brian@example.com', result.rows[0].email);
     });
 ```
 
