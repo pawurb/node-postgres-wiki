@@ -13,7 +13,7 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
 _note: _Client_ instances created via the constructor do __not__ participate in connection pooling (this might change in the future...open to suggestions).  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
 ### new Client(_string_ url): _Client_
 
-Creates a new client from a url based connection string `postgres://user:password@host:port/database`.
+Creates a new, unconnected client from a url based connection string `postgres://user:password@host:port/database`.
 
 Internally the connection string is parsed and a _config_ object is created with the same defaults as outlined below.  All parts of the connection string url are optional.  This is handy for use in managed hosting like [[Heroku|http://heroku.com]].
 
@@ -26,7 +26,7 @@ Internally the connection string is parsed and a _config_ object is created with
 
 ### new Client(_object_ config) : _Client_
 
-Creates a new instance of a Client configured via supplied configuration object.  In normal instantiation the client will _not_ be connected automatically (requires you to call Client#[[connect|Client#method-connect]]).
+Creates a new, unconnected instance of a Client configured via supplied configuration object.
 
 ##### parameters
 
@@ -67,13 +67,17 @@ Creates a new instance of a Client configured via supplied configuration object.
 <div id="method-connect">&nbsp;</div>
 ### connect() : _null_
 
-Initializes underlying net.Stream() and startup communication with PostgreSQL server including password negotiation.
+Initializes __Client's__ internal __[[Connection]]__ object & net.Stream() instance.  Starts communication with PostgreSQL server including password negotiation.
+
+_note: __Clients__ created via the __[[pg]]__#connect method are already connected and should __not__ have their #connect method called._
 
 <div id="method-end"></div>
 
 ### end() : _null_
 
-Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().  _note: do not call this on a client when the client is managed by a connection pool_
+Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().  
+
+_note: __Clients__ created via the __[[pg]]__#connect method will be automatically disconnected or placed back into the connection pool and should __not__ have their #end method called._
 
 <div id="method-query-simple"></div>
 
