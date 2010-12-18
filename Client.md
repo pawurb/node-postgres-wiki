@@ -133,7 +133,17 @@ If either `name` or `values` is provided within the `config` object the query wi
     - __buffers all rows into memory before calling__
       - rows only buffered if callback is provided
       - can impact memory when buffering large result sets (i.e. do not provide a callback)
-    - used as a shortcut instead of subscribing to the 'row' query event
+    - used as a shortcut instead of subscribing to the `row` query event
+    - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
+    - ##### parameters
+      - _object_ __error__:
+        - `null` if there was no error
+        - if PostgreSQL encountered an error during query execution, the message will be called here
+      - _object_ __result__:
+        - and object containing the following properties:
+          - _array_ __rows__: 
+            - an array of all rows returned from the query
+            - each row is equal to one object passed to the Query#row callback
 
 ##### example
 
