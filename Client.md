@@ -49,9 +49,6 @@ Creates a new instance of a Client configured via supplied configuration object.
     - default value: `null`
     - host address of PostgreSQL server
     - used to initialize underlying net.Stream()
-  - [_[[Connection]]_] __connection__:
-    - default value: `new Connection(config)`
-    - the __[[Connection]]__ object used by client.  Only really provided as a config option to aid in testing.
 
 ##### example
 
