@@ -25,7 +25,8 @@ the make file is used as a shortcut to running all the tests.  Since many of the
 
     make test-unit
 
-or optionally, since `unit` is the default
+or optionally, since `test-unit` is the default
+_note_ this means integration tests under `test/integration` do __not__ run with from default makefile task
 
     make test
 
@@ -33,9 +34,9 @@ or optionally, since `unit` is the default
 
     make test-integration user=brianc password=1234 database=home host=somehost.com port=123
 
-### Run all the tests!
+### Run all the tests! (unit & integration)
 
-    make test-all
+    make test-all user=brianc password=1234 database=home host=somehost.com port=123
 
 In short, I tried to make executing the tests as easy as possible. Hopefully this will encourage you to fork, hack, and do whatever you please as you've got a nice, big safety net under you.
 
