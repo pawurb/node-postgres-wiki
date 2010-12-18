@@ -238,6 +238,7 @@ If either `name` or `values` is provided within the `config` object the query wi
 The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server caches prepared statements by name on a per client basis.  If a name is supplied for the statement all following executions of the query can refer to it by name and the PostgreSQL server instance can skip the preparation step.
 
 ##### named prepared statement reuse 
+```javascript
     var client = new Client({user: 'brianc', database: 'test'});
     client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
     client.connect();
