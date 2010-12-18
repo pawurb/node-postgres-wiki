@@ -1,5 +1,3 @@
-__incomplete documentation__
-
 Not to be created directly from its constructor, the __Query__ is returned from [[Client#query|Client#method-query-simple]]. It functions primarily as an EventEmitter allowing you to handle returned rows.
 
 - events
@@ -27,14 +25,31 @@ Emitted by the query whenever a row is received from the PostgreSQL server upon 
 
 Emitted by the query when an error is encountered within the context of query execution, the event listeners are passed the error event from the PostgreSQL server.
 
-_note: if this event is not handled it will propagate to the global event loop.  This can potentially crash your node process._
+If the __Query__ object was created with an optional callback function, the error event will __not__ fire.  This prevents you from having to handle the error both in the callback function and on the event listener.
 
-#### example
+_note: If this event (or any event with the name 'error') is not handled it will propagate to the global event loop.  This can potentially crash your node process.  This is standard node.js behavior.._
+
+#### examples
+
+##### no callback function
+
 ```javascript
     var query = client.query('SELECT asdfasdfasdf');
     query.on('error', function(error) {
       //handle the error
     });
+```
+
+##### callback function
+```javascript
+    var query = client.query('SELECT LAKJDLSKJF', function(err, result) {
+      //err is the error returned from the PostgreSQL server
+      //handle the error here
+    });
+    query.on('error', function() {
+      //this code will never execute
+      assert.ok(false, "This will never be called because you supplied the optional query callback function");
+    })
 ```
 
 <div id="event-end"></div>
@@ -46,21 +61,4 @@ Emitted by the query when all rows have been returned __or__ when an error has b
 
 ## Prepared statements
 
-I'm still working on the API for prepared statements.  Check out the tests for more up to date examples, but what I'm working towards is something like this:
-
-
-     var client = new Client({
-       user: 'brian',
-       database: 'test'
-     });
-    
-     var query = client.query({
-       text: 'select * from person where age < $1',
-       values: [21]
-     });
-
-     query.on('row', function(row) {
-       console.log(row);
-     });
-
-     query.on('end', function() { client.end() });
+I'm still working on the API for prepared statements.  Check out the tests for more up to date examples.
