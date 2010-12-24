@@ -8,6 +8,7 @@
     (supported in protocol and handled in __Connection__ but not sure
     where on the __Client__ api to add this functionality)
       - how about ```query.on('end', function (numUpdated) { ... });``` ?
+      - or as a third parameter to the callback ```client.query(query, function (err, result, numUpdated) { ...```?
   - Error handling
     - disconnection, removal of listeners on errors
     - passing errors to callbacks?
