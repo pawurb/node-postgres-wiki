@@ -10,10 +10,10 @@
       - how about ```query.on('end', function (numUpdated) { ... });``` ?
       - or as a third parameter to the callback ```client.query(query, function (err, result, numUpdated) { ...```?
   - Error handling
-    - disconnection, removal of listeners on errors
-    - passing errors to callbacks?
-  - remove teste dependency on script/create-test-tables.js?
+    - __done__ removal of listeners on errors
+    - __done__ passing errors to callbacks?
+  - remove test dependency on script/create-test-tables.js?
   - more integration testing
-  - connection pooling
+  - __done__ connection pooling
   - __done__ copy data?
   - testing transactions
