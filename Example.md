@@ -32,6 +32,9 @@ var server = http.createServer(?(req, res) {
                     "<p>I have been viewed ", result.rows[0].count, " times</p>",
                     "<p>Most recently I was viewed at ", dateResult.rows[0].date, "</p>",
                     'you can view the source <a href="http://github.com/brianc/node-postgres">on github</a>',
+                    '<p>this page took ~',
+                    end-start,
+                    ' milliseconds to render</p>',
                     "</body></html>"].join('')
         res.writeHead(200, {"Content-Type": "text/html"})
         res.end(text);
