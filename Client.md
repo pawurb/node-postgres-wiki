@@ -10,7 +10,7 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
   - [[error|Client#event-error]]
   
 ## Constructors
-_note: _Client_ instances created via the constructor do __not__ participate in connection pooling (this might change in the future...open to suggestions).  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
+_note: _Client_ instances created via the constructor do __not__ participate in connection pooling.  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
 ### new Client(_string_ url): _Client_
 
 Creates a new, unconnected client from a url based connection string `postgres://user:password@host:port/database`.
