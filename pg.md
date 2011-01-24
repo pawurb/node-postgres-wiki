@@ -1,7 +1,5 @@
 # pg
-__pg__ is an small _object_ which provides transparent __[[Client]]__ life-cycle management and client pooling.  
-
-_You're absolutely free to bypass the pg class completely in favor of your own client pool implementation; however, it is very, very not recommended to create an individual, new __[[Client]]__ instance for each request to a web server.  It will work fine in development but once your web server receives more simultaneous requests than your PostgreSQL server can support, your new __[[Client]]__ instances will all emit the `error` event when they attempt to connect and you will be in...how you say...a world of hurt._
+__pg__ is an _object_ which provides __[[Client]]__ life-cycle management and client pooling.  It exports a 'helper function' to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor; however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance.  If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create clients.
 
 * Methods
   * [[connect|pg#method-connect]]
@@ -27,7 +25,7 @@ _You're absolutely free to bypass the pg class completely in favor of your own c
 
 ### Connect(_object_ config, _function_ callback)
 
-The connect method retrieves a __[[Client]]__ from the client pool.  If all clients are busy and the pool has available slots, it will create a new client passing the first argument to _connect_ directly to the __[[Client]]__ constructor.  In either case, the callback will only fire when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will fire once and only once for each invocation of _connect_.  The first parameter passed to _connect_ currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.  _this might change in the future if it causes problems.  I'm considering creating pools based on a host/database combo from the connection information instead of the entire string or config object_
+The connect method retrieves a __[[Client]]__ from the client pool, or if all pooled clients are busy and the pool is not full, the _connect_ method will create a new client passing its first argument directly to the __[[Client]]__ constructor.  In either case, your supplied callback will only be called when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will be called once and only once for each invocation of _connect_.  The first parameter passed to _connect_ currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.
 
 #### parameters
 
@@ -46,4 +44,4 @@ The connect method retrieves a __[[Client]]__ from the client pool.  If all clie
 
 ### end(_optional string_ poolKey)
 
-Disconnects all clients within a pool if _poolKey_ is provided, or disconnects all clients in all pools.  Not very clean and can potentially interrupt query executions.  Primarily used during testing to allow the node process to shutdown after all the tests are executed.  I'm currently evaluating routes for cleaning up and shutting down client pools as gracefully as possible.  
+Disconnects all clients within a pool if _poolKey_ is provided, or disconnects all clients in all pools.  Not very clean and can potentially interrupt query executions.  Primarily used during testing to allow the node process to shutdown after all the tests are executed.  I'm currently evaluating routes for cleaning up and shutting down client pools as gracefully as possible.
