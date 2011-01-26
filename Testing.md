@@ -1,6 +1,35 @@
+
+# Testing your own apps built using node-postgres
+
+When you do integration testing within your own apps you'll eventually need to close your node-postgres clients otherwise the test process will never exit.  There are various strategies I've employed throughout the node-postgres test code to accomplish this.  While they all work they are not all very pretty due to having to bootstrap the testing & disconnecting of node-postgres while testing it. (chicken v. egg)  So here's what I recommend.
+
+If you're using the __pg__ object to manage a pool of clients you can call `pg.end()` whenever you're finished testing.  This is currently a brute-force way to shut down your clients and may potentially kill any queries which have not finished running during your tests (_note: I plan on looking at better ways to terminate the client pool in the future_).  Internally it loops through all the clients and basically forces their sockets to disconnect.  Your mileage may vary with this approach.  
+
+Another option is to set the client pool size to 1.  This ensures the __pg__ object will always return the same __client__ object whenever `pg.connect()` is called.  This way you can do the following in your 'cleanup' or 'teardown' area:
+
+```javascript
+    tearDown: function() {
+      var connectionString = /*whatever connection you use for testing*/
+      pg.connect(connectionString, function(err, client) { client.end() });
+    }
+```
+
+If you're manually managing your own __Client__ instances without using __pg__ then you are free to end them whenever you want.  Generally I do the following:
+
+```javascript
+    var client = new Client(/*connectionInfo*/);
+    client.query('bla bla');
+    client.on('drain', client.end.bind(client)); //auto disconnect client after last query ends
+```
+
+_Note: as mentioned other places...do not create a new client instance for each http request you receive. You __will__ exhaust available connections to your PostgreSQL server and you __will__ be sorry._ 
+
+# Internal Testing of node-postgres
+In case you want to contribute....
+
 ## Unit tests
 
-Unit tests do not depend on having access to a running PostgreSQL server.  They run in memory by stubbing out the layer below the object under test.  If the [[Client]] object is being tests, the lower level [[Connection]] object is stubbed out and controlled within the test.  This allows to simulate specifically timed error events and more complex interactions between the [[Client]] and the [[Connection]] such as when executing a [[Prepared Statement|Prepared-Statements]].  All unit test files exist under `test/unit/` and by convention end with "-tests.js."  
+Unit tests do not depend on having access to a running PostgreSQL server.  They run in memory by stubbing out the layer below the object under test.  If the [[Client]] object is being tests, the lower level [[Connection]] object is stubbed out and controlled within the test.  This allows to simulate specifically timed error events and more complex interactions between the [[Client]] and the [[Connection]] such as when executing a [[Prepared Statement|Prepared-Statements]].  All unit test files exist under `test/unit/` and by convention end with "-tests.js."  They can be executed either by `make test`, `make test-unit`, or `npm test pg`
 
 ## Integration tests
 
