@@ -10,13 +10,13 @@ var http = require('http');
 var pg = require('pg')
 var connectionString = "postgres://postgres:abcd@localhost:5432/postgres";
 
-var server = http.createServer(?(req, res) {
+var server = http.createServer(function(req, res) {
   if(req.url != "/") {
     res.writeHead(404);
     return res.end("404'd")
   }
-  var after = ?(callback) {
-    return ?(err, queryResult) {
+  var after = function(callback) {
+    return function(err, queryResult) {
       if(err) {
         res.writeHead(500, {"Content-Type" : "text/plain"});
         return res.end("Error! " + sys.inspect(err))
@@ -25,9 +25,9 @@ var server = http.createServer(?(req, res) {
     }
   }
   
-  pg.connect(connectionString, after(?(client) {
-    client.query("SELECT COUNT(date) as count FROM visit", after(?(result) {
-      client.query("SELECT date FROM visit ORDER BY date DESC LIMIT 1", after(?(dateResult) {
+  pg.connect(connectionString, after(function(client) {
+    client.query("SELECT COUNT(date) as count FROM visit", after(function(result) {
+      client.query("SELECT date FROM visit ORDER BY date DESC LIMIT 1", after(function(dateResult) {
         var text = ["<html><head><title>Postgres Node Hello</title><body>",
                     "<p>I have been viewed ", result.rows[0].count, " times</p>",
                     "<p>Most recently I was viewed at ", dateResult.rows[0].date, "</p>",
