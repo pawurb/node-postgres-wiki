@@ -50,11 +50,11 @@ Disconnects all clients within a pool if _poolKey_ is provided, or disconnects a
 
 The __pg__ object has a set of defaults.
 
-### pg.defaults.user
+#### pg.defaults.user
 
 The default user to use when connecting via tcp sockets (md5 or plaintext) if a user is not provided to the individual __Client__ instance.  Default value is `process.env.USER`
 
-### pg.defaults.password
+#### pg.defaults.password
 
 The default password to use when connecting via tcp sockets (md5 or plaintext) if a password is not provided to the individual __Client__ instance and PostgreSQL server requires a password. Default value is `null`
 
@@ -62,14 +62,14 @@ The default password to use when connecting via tcp sockets (md5 or plaintext) i
 
 The default host if a host is not provided to the individual __Client__ instance.  Can be a domain name, ip address, or path to unix socket folder.  Default value is `null`
 
-### pg.defaults.port
+#### pg.defaults.port
 
 The default port if a port is not provided to the individual __Client__ instance.  In the case of a unix socket, the port becomes the extension to the socket file.  Default value is `5432`
 
-### pg.defaults.database
+#### pg.defaults.database
 
 The default database to use if a database is not provided to the individual __Client__ instance.  Default value is `process.env.USER`
 
-### pg.defaults.poolSize
+#### pg.defaults.poolSize
 
 Number of unique __Client__ objects to maintain in the pool.  If this value is set to 0, pooling will be disabled and pg#connect will always return a new client.
