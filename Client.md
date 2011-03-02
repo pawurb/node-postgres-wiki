@@ -12,8 +12,9 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
 ## Constructors
 _note: _Client_ instances created via the constructor do __not__ participate in connection pooling.  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
 ### new Client(_string_ url): _Client_
+### new Client(_string_ domainSocketFolder): _Client_
 
-Creates a new, unconnected client from a url based connection string `postgres://user:password@host:port/database`.
+Creates a new, unconnected client from a url based connection string `postgres://user:password@host:port/database` or from the location of a domain socket folder `/tmp` or `/var/run/postgres`.
 
 Internally the connection string is parsed and a _config_ object is created with the same defaults as outlined below.  All parts of the connection string url are optional.  This is handy for use in managed hosting like [[Heroku|http://heroku.com]].
 
@@ -22,6 +23,7 @@ Internally the connection string is parsed and a _config_ object is created with
     var client = new Client('postgres://brian:mypassword@localhost:5432/dev');
     var client = new Client('postgres://brian@localhost/dev'); //will use defaults
     var client = new Client(process.env.DATABASE_URL); //something like this should get you running with heroku
+    var client = new Client('/tmp');  //looks for the socket file /tmp/.s.PGSQL.5432
 ```
 
 ### new Client(_object_ config) : _Client_
