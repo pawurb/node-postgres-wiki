@@ -7,10 +7,11 @@ You'll need to first "create table visits (date date)" in your postgres database
 ```javascript
 var sys = require('sys');
 var http = require('http');
-var pg = require('pg')
+var pg = require('pg').native;
 var connectionString = "postgres://postgres:abcd@localhost:5432/postgres";
 
 var server = http.createServer(function(req, res) {
+  var start = new Date();
   if(req.url != "/") {
     res.writeHead(404);
     return res.end("404'd")
@@ -33,7 +34,7 @@ var server = http.createServer(function(req, res) {
                     "<p>Most recently I was viewed at ", dateResult.rows[0].date, "</p>",
                     'you can view the source <a href="http://github.com/brianc/node-postgres">on github</a>',
                     '<p>this page took ~',
-                    end-start,
+                    (new Date())-start,
                     ' milliseconds to render</p>',
                     "</body></html>"].join('')
         res.writeHead(200, {"Content-Type": "text/html"})
