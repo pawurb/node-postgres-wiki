@@ -2,7 +2,7 @@
 
 This app is running live [[right here|http://explodemy.com]]
 
-You'll need to first "create table visits (date date)" in your postgres database
+You'll need to first "create table visit (date date)" in your postgres database
 
 ```javascript
 var sys = require('sys');
