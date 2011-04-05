@@ -57,8 +57,18 @@ _note: If this event (or any event with the name 'error') is not handled it will
 
 Emitted by the query when all rows have been returned __or__ when an error has been encountered.  In either circumstance, the query's execution is finished and it is no longer interacting with the connection.
 
-### todo: have this return the postgresql server status on insert/update/delete etc commands
+### examples
+
+'''javascript
+    var query = client.query('select name from person');
+    query.on('row', function(row) {
+      //fired once for each row returned
+    });
+    query.on('end', function() {
+      //fired once and only once, after the last row has been returned and after all 'row' events are emitted
+    })
+```
 
 ## Prepared statements
 
-I'm still working on the API for prepared statements.  Check out the tests for more up to date examples.
+Need to document...
