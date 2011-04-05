@@ -59,7 +59,7 @@ Emitted by the query when all rows have been returned __or__ when an error has b
 
 ### examples
 
-'''javascript
+```javascript
     var query = client.query('select name from person');
     query.on('row', function(row) {
       //fired once for each row returned
