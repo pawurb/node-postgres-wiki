@@ -61,11 +61,14 @@ Emitted by the query when all rows have been returned __or__ when an error has b
 
 ```javascript
     var query = client.query('select name from person');
+    var rows = [];
     query.on('row', function(row) {
       //fired once for each row returned
+      rows.push(row);
     });
     query.on('end', function() {
       //fired once and only once, after the last row has been returned and after all 'row' events are emitted
+      //in this example, the 'rows' array now contains an ordered set of all the rows which we received from postgres
     })
 ```
 
