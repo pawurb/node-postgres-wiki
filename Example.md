@@ -1,6 +1,4 @@
-### live example
-
-This app is running live [[right here|http://explodemy.com]]
+### This code should be able to be copy/pasted to give you a sample app running on your machine
 
 You'll need to first "create table visit (date date)" in your postgres database
 
