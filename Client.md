@@ -270,7 +270,7 @@ The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server 
 
 ## Events
 
-<div name="event-drain"></div>
+<div id="event-drain"></div>
 ### drain :
 
 Raised when the internal [[query queue|Queryqueue]] has been emptied and all queued queries have been executed.  Useful for disconnecting the client after running an undetermined number of queries.  
@@ -286,7 +286,7 @@ Raised when the internal [[query queue|Queryqueue]] has been emptied and all que
     users.on('row', function(row){ ...... });
 ```
 _____
-<div id="event-error"></div>
+<div id="event-error">
 ### error : _object_ error
 
 Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
@@ -299,3 +299,4 @@ Raised when the client recieves an error message from PostgreSQL _or_ when the u
       console.log(error);
     });                    
 ```
+</div>
