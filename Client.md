@@ -310,13 +310,13 @@ Used for "LISTEN/NOTIFY" interactions.  You can do some fun pub-sub style stuff 
    client2.connect();
    client1.on('notification', function(msg) {
      console.log(msg.channel);  //outputs 'boom'
+     client1.end();
    });
    client1.query("LISTEN boom");
    //need to let the first query actually complete
    //client1 will remain listening to channel 'boom' until it's 'end' is called
    setTimeout(function() {
       client2.query("NOTIFY boom", function() {
-        client1.end();
         client2.end();
       });
    }, 1000);
