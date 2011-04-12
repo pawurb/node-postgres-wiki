@@ -270,7 +270,7 @@ The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server 
 
 ## Events
 
-<div id="event-drain"></div>
+<div name="event-drain"></div>
 ### drain :
 
 Raised when the internal [[query queue|Queryqueue]] has been emptied and all queued queries have been executed.  Useful for disconnecting the client after running an undetermined number of queries.  
