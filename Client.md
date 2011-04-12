@@ -286,7 +286,7 @@ Raised when the internal [[query queue|Queryqueue]] has been emptied and all que
     users.on('row', function(row){ ...... });
 ```
 _____
-<div id="event-error">
+<div id="event-error" name="event-error">
 ### error : _object_ error
 
 Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
