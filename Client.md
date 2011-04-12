@@ -68,15 +68,12 @@ Creates a new, unconnected instance of a Client configured via supplied configur
 
 ## Methods
 
-<div id="method-connect">&nbsp;</div>
 ### connect() : _null_
 
 Initializes __Client's__ internal __[[Connection]]__ object & net.Stream() instance.  Starts communication with PostgreSQL server including password negotiation.
 
 _note: __Clients__ created via the __[[pg]]__#connect method are already connected and should __not__ have their #connect method called._
 _____
-
-<div id="method-end"></div>
 
 ### end() : _null_
 
@@ -85,7 +82,6 @@ Immediately sends a termination message to the PostgreSQL server and closes the 
 _note: __Clients__ created via the __[[pg]]__#connect method will be automatically disconnected or placed back into the connection pool and should __not__ have their #end method called._
 _____
 
-<div id="method-query-simple"></div>
 ### _Simple queries_
 
 ### query(_string_ text, _optional function_ callback) : _[[Query]]_
@@ -144,7 +140,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 ```
 
 _____
-<div id="method-query-prepared"></div>
+
 ### _Prepared statements_
 
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
@@ -272,7 +268,6 @@ The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server 
 
 ## Events
 
-<div id="event-drain"></div>
 ### drain :
 
 Raised when the internal [[query queue|Queryqueue]] has been emptied and all queued queries have been executed.  Useful for disconnecting the client after running an undetermined number of queries.  
@@ -288,7 +283,7 @@ Raised when the internal [[query queue|Queryqueue]] has been emptied and all que
     users.on('row', function(row){ ...... });
 ```
 _____
-<div id="event-error" name="event-error">
+
 ### error : _object_ error
 
 Raised when the client recieves an error message from PostgreSQL _or_ when the underlying stream raises an error.  The single parameter passed to the listener will be the error message or error object.
@@ -301,7 +296,7 @@ Raised when the client recieves an error message from PostgreSQL _or_ when the u
       console.log(error);
     });                    
 ```
-</div>
+
 
 ### notification : _object_ message
 
