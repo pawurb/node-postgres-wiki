@@ -302,6 +302,7 @@ Raised when the client recieves an error message from PostgreSQL _or_ when the u
 
 Used for "LISTEN/NOTIFY" interactions.  You can do some fun pub-sub style stuff with this.
 
+##### example
 ```javascript
    var client1 = new Client(...)
    var client2 = new Client(...)
@@ -323,6 +324,7 @@ Used for "LISTEN/NOTIFY" interactions.  You can do some fun pub-sub style stuff 
 
 Emitted from PostgreSQL server when non-critical events happen.  Libpq `printf`'s these out to stdout if the behavior is not overridden.  Yucky.  Thankfully node-postgres overrides the default behavior and emits an event (instead of printing to stdout) on the client which received the notice event.
 
+##### example
 ```javascript
     var client = new Client(...)
     client.on('notice', function(msg) {
