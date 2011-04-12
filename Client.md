@@ -1,4 +1,4 @@
-Your main interface point with the PostgreSQL server, the __Client__ is basically a facade on top of the [[Connection]] to provide a _much_ more user friendly, "node style" interface for doing all the lovely things you like with PostgreSQL.
+Your main interface point with the PostgreSQL server.  Client is used to create & dispatch queries to Postgres.  Client also emits events from Postgres for 'LISTEN/NOTIFY' processing and non-critical error and notice messages from the server.
 
 - methods
   - [[connect|Client#method-connect]]
@@ -6,8 +6,10 @@ Your main interface point with the PostgreSQL server, the __Client__ is basicall
   - [[query (simple)|Client#method-query-simple]]
   - [[query (prepared statement)|Client#method-query-prepared]]
 - events
-  - [[drain|Client#event-drain]]
-  - [[error|Client#event-error]]
+  - drain
+  - error
+  - notification
+  - notice
   
 ## Constructors
 _note: _Client_ instances created via the constructor do __not__ participate in connection pooling.  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
@@ -300,3 +302,38 @@ Raised when the client recieves an error message from PostgreSQL _or_ when the u
     });                    
 ```
 </div>
+
+### notification : _object_ message
+
+Used for "LISTEN/NOTIFY" interactions.  You can do some fun pub-sub style stuff with this.
+
+```javascript
+   var client1 = new Client(...)
+   var client2 = new Client(...)
+   client1.connect();
+   client2.connect();
+   client1.on('notification', function(msg) {
+     console.log(msg.channel);  //outputs 'boom'
+   });
+   client1.query("LISTEN boom", function() {
+      client2.query("NOTIFY boom", function() {
+        client1.end();
+        client2.end();
+      });
+   });
+```
+
+
+### notice : _object_ notice
+
+Emitted from PostgreSQL server when non-critical events happen.  Libpq `printf`'s these out to stdout if the behavior is not overridden.  Yucky.  Thankfully node-postgres overrides the default behavior and emits an event (instead of printing to stdout) on the client which received the notice event.
+
+```javascript
+    var client = new Client(...)
+    client.on('notice', function(msg) {
+      console.log("notice: %j", msg);
+    });
+    //create a table with an id will cause a notice about creating an implicit seq or something like that...
+    client.query('create temp table boom(id serial, size integer)');
+    client.on('drain', client.end.bind(client));
+```
