@@ -25,3 +25,5 @@ client.query(..., function(err, result) {
   }
 });
 ```
+
+Thank you Brian. pg is excellent.
