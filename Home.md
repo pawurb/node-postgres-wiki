@@ -3,6 +3,7 @@
     * [[Client]]
     * [[Query]]
     * [[Connection]]
+[[FAQ]]
 * [[Example App|Example]]
 * [[Error Handling]]
 * Internals
