@@ -28,7 +28,13 @@ client.query(..., function(err, result) {
 
 ### 3. Assuming a recordset is enumerated using the array accessor style used in 1, can we get the column names in the same fashion, i.e. is there a result.rows[i].columnName property? ###
 
-### 4. (Alert! Possibly an idiot question) How do you get the count of columns in the result set ? ###
+Not currently.  It would be helpful to access the column values by column name or index position, but it's not part of the node-postgres api for now.
+
+### 4. How do you get the count of columns in the result set ? ###
+```js
+pg.query(..., function(err, result) {
+  var columnCount = Object.keys(result.rows[0]).length;
+});
 
 ### 5. If pg returns query data in JSON format, for web serivce applications, it would make sense to return that directly to the client. If this assumption is correct what is the most efficient method? ###
 ```js
