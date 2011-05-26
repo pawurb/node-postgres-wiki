@@ -30,7 +30,17 @@ client.query(..., function(err, result) {
 
 ### 4. (Alert! Possibly an idiot question) How do you get the count of columns in the result set ? ###
 
-### 5. (Alert! Possibly an idiot question) If pg returns query data in JSON format, for web serivce applications, it would make sense to return that directly to the client. If this assumption is correct what is the most efficient method? ###
-
+### 5. If pg returns query data in JSON format, for web serivce applications, it would make sense to return that directly to the client. If this assumption is correct what is the most efficient method? ###
+```js
+http.CreateServer(function(req, res) {
+  //NOTE: pg connection boilerplate not present
+  pg.query(..., function(err, result) {
+    //NOTE: error handling not present
+    var json = JSON.stringify(result.rows);
+    res.writeHead(200, {'content-type':'application/json', 'content-length':json.length}); 
+    res.end(json);
+  });
+})
+```
 
 Thank you Brian. pg is excellent.
