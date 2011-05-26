@@ -32,7 +32,7 @@ client.query(..., function(err, result) {
 
 ### 5. If pg returns query data in JSON format, for web serivce applications, it would make sense to return that directly to the client. If this assumption is correct what is the most efficient method? ###
 ```js
-http.CreateServer(function(req, res) {
+http.createServer(function(req, res) {
   //NOTE: pg connection boilerplate not present
   pg.query(..., function(err, result) {
     //NOTE: error handling not present
