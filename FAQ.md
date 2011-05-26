@@ -35,6 +35,7 @@ Not currently.  It would be helpful to access the column values by column name o
 pg.query(..., function(err, result) {
   var columnCount = Object.keys(result.rows[0]).length;
 });
+```
 
 ### 5. If pg returns query data in JSON format, for web serivce applications, it would make sense to return that directly to the client. If this assumption is correct what is the most efficient method? ###
 ```js
