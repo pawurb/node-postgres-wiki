@@ -49,5 +49,21 @@ http.createServer(function(req, res) {
   });
 })
 ```
+### 6. How do I use the Client instance directly? ###
+
+Example code:
+
+        var client = new Client(connectionString);
+        client.connect();
+        // now enumerate ...
+        enumerate(client, path, callback);
+        //
+        client.end();
+
+This fails with:
+
+var client = new Client(connectionString);
+        ^
+ReferenceError: Client is not defined
 
 Thank you Brian. pg is excellent.
