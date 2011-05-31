@@ -62,8 +62,10 @@ Example code:
 
 This fails with:
 
-var client = new Client(connectionString);
-        ^
-ReferenceError: Client is not defined
+   var client = new Client(connectionString);
+           ^
+   ReferenceError: Client is not defined
+
+
 
 Thank you Brian. pg is excellent.
