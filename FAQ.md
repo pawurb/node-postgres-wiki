@@ -66,6 +66,12 @@ This fails with:
            ^
    ReferenceError: Client is not defined
 
+When you import the postgres library you commonly do `require('pg')`.  This works and requires the 'root' of the library with various properties hanging off of it.  To directly instantiate a specific client instance instead of using the pool you can access the client constructor off the the imported pg object.
 
+1.  `var Client = require('pg').Client;`
+
+or for the native client
+
+2.  `var Client = require('pg').native.Client;`
 
 Thank you Brian. pg is excellent.
