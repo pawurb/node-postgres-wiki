@@ -75,3 +75,17 @@ or for the native client
 2.  `var Client = require('pg').native.Client;`
 
 Thank you Brian. pg is excellent.
+
+
+### 7. I just have a question and maybe a feature request that i am not able to think about how to implement or do it: i need to retrieve the inserted row or someway to reach it after the insert is done.
+
+Yeah, you can do this as so: 
+```js
+//let's pretend we have a user table with the 'id' as the auto-incrementing primary key
+client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id', function(err, result) {
+  if(err) //handle error
+  else {
+    var newlyCreatedUserId = result.rows[0].id;
+  }
+});
+```
