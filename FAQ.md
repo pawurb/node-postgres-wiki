@@ -7,7 +7,7 @@ The row object has properties which align to the column names returned from the 
 Given a table users with columns 'name' and 'age' doing `select * from users` would return you a result object with an array of row objects.  Each row object would have the properties `name` and `age`.  Example:
 
 ```js
-client.query('SELECT * FROM users`, function(err, result) {
+client.query('SELECT * FROM users', function(err, result) {
   console.log('name: %s and age: %d', result.rows[0].name, result.rows[0].age);
   //since the row object is just a hash, it can be accessed also as follows
   console.log('name: %s and age: %d', result.rows[0]['name'], result.rows[0]['age']);
