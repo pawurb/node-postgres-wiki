@@ -29,7 +29,7 @@ var server = http.createServer(function(req, res) {
       client.query("SELECT date FROM visit ORDER BY date DESC LIMIT 1", after(function(dateResult) {
         var text = ["<html><head><title>Postgres Node Hello</title><body>",
                     "<p>I have been viewed ", result.rows[0].count, " times</p>",
-                    "<p>Most recently I was viewed at ", dateResult.rows[0].date, "</p>",
+                    "<p>Most recently I was viewed at ", (dateResult.rows.length !== 0 ? dateResult.rows[0].date : ""), "</p>",
                     'you can view the source <a href="http://github.com/brianc/node-postgres">on github</a>',
                     '<p>this page took ~',
                     (new Date())-start,
