@@ -17,6 +17,7 @@ client.query('SELECT * FROM users', function(err, result) {
 ### 2. can I iterate across the columns in the recordset to dynamically display column names ? ###
 
 Why, yes.  Yes you can.
+
 ```js
 client.query(..., function(err, result) { 
   var firstRow = result.rows[0];
@@ -31,6 +32,7 @@ client.query(..., function(err, result) {
 Not currently.  It would be helpful to access the column values by column name or index position, but it's not part of the node-postgres api for now.
 
 ### 4. How do you get the count of columns in the result set ? ###
+
 ```js
 pg.query(..., function(err, result) {
   var columnCount = Object.keys(result.rows[0]).length;
@@ -38,6 +40,7 @@ pg.query(..., function(err, result) {
 ```
 
 ### 5. If pg returns query data in JSON format, for web service applications, it would make sense to return that directly to the client. If this assumption is correct what is the most efficient method? ###
+
 ```js
 http.createServer(function(req, res) {
   //NOTE: pg connection boilerplate not present
@@ -53,19 +56,21 @@ http.createServer(function(req, res) {
 
 Example code:
 
+```js
         var client = new Client(connectionString);
         client.connect();
         // now enumerate ...
         enumerate(client, path, callback);
         //
         client.end();
-
+```
 This fails with:
 
+```js
    var client = new Client(connectionString);
            ^
    ReferenceError: Client is not defined
-
+```
 When you import the postgres library you commonly do `require('pg')`.  This works and requires the 'root' of the library with various properties hanging off of it.  To directly instantiate a specific client instance instead of using the pool you can access the client constructor off the the imported pg object.
 
 1.  `var Client = require('pg').Client;`
@@ -80,6 +85,7 @@ Thank you Brian. pg is excellent.
 ### 7. I just have a question and maybe a feature request that i am not able to think about how to implement or do it: i need to retrieve the inserted row or someway to reach it after the insert is done.
 
 Yeah, you can do this as so: 
+
 ```js
 //let's pretend we have a user table with the 'id' as the auto-incrementing primary key
 client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id', function(err, result) {
