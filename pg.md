@@ -1,11 +1,13 @@
 # pg
-__pg__ is an _object_ which provides __[[Client]]__ life-cycle management and client pooling.  It exports a 'helper function' to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor; however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance.  If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create clients.
+__pg__ is an _instance_ of __EventEmitter__ which provides __[[Client]]__ pooling.  It exports a 'helper function' to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor; however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance.  If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create clients.
 
 * Methods
   * [[connect|pg#method-connect]]
   * [[end|pg#method-end]]
 * Properties
   * [[defaults|pg#properties-defaults]]
+* Events
+  * error
 
 #### example
 ```javascript
@@ -49,7 +51,7 @@ Disconnects all clients within a pool if _poolKey_ is provided, or disconnects a
 ## pg.defaults
 
 The __pg__ object has a set of defaults.
-
+ 
 #### pg.defaults.user
 
 The default user to use when connecting via tcp sockets (md5 or plaintext) if a user is not provided to the individual __Client__ instance.  Default value is `process.env.USER`
@@ -73,3 +75,9 @@ The default database to use if a database is not provided to the individual __Cl
 #### pg.defaults.poolSize
 
 Number of unique __Client__ objects to maintain in the pool.  If this value is set to 0, pooling will be disabled and pg#connect will always return a new client.
+
+## Events
+
+### 'error' : _object_ error, _object_ client
+
+Emitted whenever a pooled client emits an error.  An idle client will likely only emit an error when it loses connection to the PostgreSQL server instance, for example when your database crashes (oh no!).  The pooled client which emitted the error is automatically removed from the pool and supplied to the callback.
