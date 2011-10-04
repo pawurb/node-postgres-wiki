@@ -68,9 +68,9 @@ Creates a new, unconnected instance of a Client configured via supplied configur
 
 ## Methods
 
-### connect() : _null_
+### connect(_optional function_ callback) : _null_
 
-Initializes __Client's__ internal __[[Connection]]__ object & net.Stream() instance.  Starts communication with PostgreSQL server including password negotiation.
+Initializes __Client's__ internal __[[Connection]]__ object & net.Stream() instance.  Starts communication with PostgreSQL server including password negotiation.  If a callback is supplied it will be called with an instance of `Error` if an error was encountered during the connection procedure, otherwise it will be called with `null` for a single parameter after a connection to PostgreSQL server is established and the client is ready to dispatch queries.
 
 _note: __Clients__ created via the __[[pg]]__#connect method are already connected and should __not__ have their #connect method called._
 _____
