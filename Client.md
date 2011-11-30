@@ -14,7 +14,7 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - notice
   
 ## Constructors
-_note: _Client_ instances created via the constructor do __not__ participate in connection pooling.  To take advantage of connection pooling (recommended) please use the [[pg|Index]] object._
+_note: _Client_ instances created via the constructor do __not__ participate in connection pooling.  To take advantage of connection pooling (recommended) please use the [[pg]] object._
 ### new Client(_string_ url): _Client_
 ### new Client(_string_ domainSocketFolder): _Client_
 
