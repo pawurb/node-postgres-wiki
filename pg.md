@@ -11,7 +11,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides __[[Client]]__ poolin
 
 #### example
 ```javascript
-    require('pg');
+    var pg = require('pg');
     
     var connectionString = "pg://brian:1234@localhost/postgres"
     pg.connect(connectionString, function(err, client) {
