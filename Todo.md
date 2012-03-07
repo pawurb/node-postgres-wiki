@@ -1,3 +1,7 @@
 - insert/update/select row count in query result callback
 - SSL support
 - investigate canceling queries
+- refactor tests
+ - use mocha
+ - make it easier to get up and running
+ - integration with travis-ci
