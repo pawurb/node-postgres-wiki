@@ -27,12 +27,18 @@ __pg__ is an _instance_ of __EventEmitter__ which provides __[[Client]]__ poolin
 
 ### Connect(_object_ config, _function_ callback)
 
+### Connect(_function_ callback)
+
 The connect method retrieves a __[[Client]]__ from the client pool, or if all pooled clients are busy and the pool is not full, the _connect_ method will create a new client passing its first argument directly to the __[[Client]]__ constructor.  In either case, your supplied callback will only be called when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will be called once and only once for each invocation of _connect_.  The first parameter passed to _connect_ currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.
+
+If called with only one _function_ argument, uses [[defaults|pg#properties-defaults]] for connection configuration.
 
 #### parameters
 
 * _string_ __connectionString__
   * a connection string in the format _anything://user:password@host:port/database_
+* _object_ __config__
+  * an object with user, database, password, port, and host properties as described in [[Client|Client#constructor]].
 * _function_ __callback__
   * called exactly once for one of the following reasons
     * new client is created _and_ connected to PostgreSQL
