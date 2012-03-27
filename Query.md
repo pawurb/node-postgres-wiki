@@ -8,15 +8,27 @@ Not to be created directly from its constructor, the __Query__ is returned from 
 ## Events
 
 <div id="event-row"></div>
-### Row : (__object__ row)
+### Row : (__object__ row, __object__ result)
 
-Emitted by the query whenever a row is received from the PostgreSQL server upon query execution, the event listeners are passed the parsed, type-coerced row .
+Emitted by the query whenever a row is received from the PostgreSQL server upon query execution.
 
-#### example
+The event listeners get two arguments:
+
+- row: The parsed, type-coerced row. It is a simple key/value Object.
+- result: A special [[Result|Query#result-object]] object that can be used to accumulate rows.
+
+#### examples
 ```javascript
     var query = client.query('SELECT name, age as user_age FROM users');
     query.on('row', function(row) {
       console.log('user "%s" is %d years old', row.name, row.user_age);
+    });
+```
+
+```javascript
+    var query = client.query('SELECT name, age as user_age FROM users');
+    query.on('row', function(row, result) {
+      result.addRow(row);
     });
 ```
 
@@ -57,6 +69,8 @@ _note: If this event (or any event with the name 'error') is not handled it will
 
 Emitted by the query when all rows have been returned __or__ when an error has been encountered.  In either circumstance, the query's execution is finished and it is no longer interacting with the connection.
 
+The __end__ event listeners get one argument, which is the [[Result|Query#result-object]] object.
+
 ### examples
 
 ```javascript
@@ -66,10 +80,37 @@ Emitted by the query when all rows have been returned __or__ when an error has b
       //fired once for each row returned
       rows.push(row);
     });
-    query.on('end', function() {
+    query.on('end', function(result) {
       //fired once and only once, after the last row has been returned and after all 'row' events are emitted
       //in this example, the 'rows' array now contains an ordered set of all the rows which we received from postgres
+      console.log(result.rowCount + ' rows were received');
     })
+```
+
+<div id="result-object"></div>
+### Result object
+
+Available to the __row__ and __end__ events, shows the result of the query. It has the following properties:
+
+- `command`: The sql command that was executed (e.g. "SELECT", "UPDATE", etc.)
+- `rowCount`: The number of rows returned
+- `oid`: The oid returned
+- `rows`: An array of rows (if the `addRow` command is used)
+
+It also has the following method:
+
+- `addRow(row)`: Appends the `row` object to the `Result.rows` array. Normally this is the `row` object returned by the __row__ event, but it can be anything you want.
+
+### example
+
+```javascript
+    var query = client.query('select name from person');
+    query.on('row', function(row, result) {
+      result.addRow(row);
+    });
+    query.on('end', function(result) {
+      console.log(result.rows.length + ' rows were received');
+    });
 ```
 
 ## Prepared statements
