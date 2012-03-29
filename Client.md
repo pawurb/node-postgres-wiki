@@ -5,8 +5,8 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[end|Client#method-end]]
   - [[query (simple)|Client#method-query-simple]]
   - [[query (prepared statement)|Client#method-query-prepared]]
-  - pauseDrain
-  - resumeDrain
+  - [[pauseDrain|Client#wiki-pauseDrain]]
+  - [[resumeDrain|Client#wiki-pauseDrain]]
 - events
   - drain
   - error
@@ -268,7 +268,7 @@ The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server 
     });
 ```
 
-### pauseDrain / resumeDrain
+### pauseDrain / resumeDrain <a name="pauseDrain"></a>
 
 Pair of methods used to pause and resume __Client__ from raising it's `drain` event when it's query queue is emptied.  The `drain` event signifies the __Client__ has no more pending queries and can safely be returned back to a client pool.  Normally, `drain` will be emitted   These methods come in handy for doing async work between queries or within a transaction and disabling the __Client__ from alerting anyone it has gone idle.
 
