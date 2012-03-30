@@ -96,6 +96,15 @@ client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING i
 });
 ```
 
+Or using the evented approach:
+
+```js
+client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id')
+  .on('row', function (row) {
+    var newlyCreatedUserId = row.id;
+  });
+```
+
 ### 8. Does node-postgres handle SQL injection?
 
 Absolutely! The parameterized query support in node-postgres is first class. All escaping is done by the postgresql server ensuring proper behavior across dialects, encodings, etc...  For example, this will not inject sql:
