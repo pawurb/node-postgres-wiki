@@ -114,3 +114,6 @@ client.query("INSERT INTO user(name) VALUES($1)", ["'; DROP TABLE user;"], funct
   // ...
 });
 ```
+
+
+### 9. Can I create a named prepared statement for use later on without performing a query? If not, does passing the same text again to a named statement get ignored and the cached version used? I don't want to have two codepaths in a function, one for first-use and one for every other. 
