@@ -121,7 +121,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     client.connect();
     //query is executed once connection is established and
     //PostgreSQL server is ready for a query
-    var query = client.query("SELECT name FROM users")
+    var query = client.query("SELECT name FROM users");
     query.on('row', function(row) {
       console.log(row.name);
     });
