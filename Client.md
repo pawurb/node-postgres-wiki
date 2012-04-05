@@ -296,7 +296,7 @@ client.query("SELECT NOW() AS when", function(err, result) {
 ```
 ## Events
 
-### drain :
+### drain : <a name="drainEvent"></a>
 
 Raised when the internal [[query queue|Queryqueue]] has been emptied and all queued queries have been executed.  Useful for disconnecting the client after running an undetermined number of queries.  
 
