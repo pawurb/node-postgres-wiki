@@ -33,6 +33,8 @@ The connect method retrieves a __[[Client]]__ from the client pool, or if all po
 
 If called with only one _function_ argument, uses [[defaults|pg#properties-defaults]] for connection configuration.
 
+When the client raises its [[__drain__ event|Client#drainEvent]], the client is automatically returned to the pool for reuse.
+
 #### parameters
 
 * _string_ __connectionString__
