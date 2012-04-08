@@ -119,28 +119,3 @@ client.query("INSERT INTO user(name) VALUES($1)", ["'; DROP TABLE user;"], funct
 ### 9. Can I create a named prepared statement for use later on without performing a query? If not, does passing the same text again to a named statement get ignored and the cached version used? I don't want to have two codepaths in a function, one for first-use and one for every other. 
 
 If a prepared statement has a `name`, it is only parsed once.  After that, `name` will re-use the prepared statement regardless of what `text` is.
-
-Example:
-
-You could use the same prepared statement to find a top-level parent in a hierarchy:
-
-```js
-var preparedStatement = {
-  text: 'SELECT parent FROM foo WHERE id=$1',
-  name: 'my prepared statement'
-};
-function getAncestor(id) {
-  client.query(preparedStatement, [id], function (err, result) {
-    if (result.rows[0].parent != null) {
-      getAncestor(result.rows[0].parent);
-    } else {
-      console.log('The ancestor is ' + id);
-    }
-  });
-}
-getAncestor(childId);
-```
-
-This will find the parent, and then the parent-of-the-parent, and so on until parent is null.  Since the same `name` is passed each time, the prepared statement is only parsed once.
-
-(Note that this could have been done in SQL more efficiently.  This example is to illustrate only.)
