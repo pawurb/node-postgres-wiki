@@ -119,3 +119,7 @@ client.query("INSERT INTO user(name) VALUES($1)", ["'; DROP TABLE user;"], funct
 ### 9. Can I create a named prepared statement for use later on without performing a query? If not, does passing the same text again to a named statement get ignored and the cached version used? I don't want to have two codepaths in a function, one for first-use and one for every other. 
 
 If a prepared statement has a `name`, it is only parsed once.  After that, `name` will re-use the prepared statement regardless of what `text` is.
+
+### 10. Can we override the built in data converters between javascript and postgres data types? 
+
+Yes, [here is a test that shows how it can be done.](https://github.com/brianc/node-postgres/blob/master/test/integration/client/huge-numeric-tests.js#L6) And for some examples of already registered converters, [look at this file.](https://github.com/brianc/node-postgres/blob/master/lib/textParsers.js)
