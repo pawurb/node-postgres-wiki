@@ -64,6 +64,10 @@ The __pg__ object has a set of defaults.
 
 The default user to use when connecting via tcp sockets (md5 or plaintext) if a user is not provided to the individual __Client__ instance.  Default value is `process.env.USER`
 
+#### pg.defaults.database
+
+The default database to use if a database is not provided to the individual __Client__ instance.  Default value is `process.env.USER`
+
 #### pg.defaults.password
 
 The default password to use when connecting via tcp sockets (md5 or plaintext) if a password is not provided to the individual __Client__ instance and PostgreSQL server requires a password. Default value is `null`
@@ -76,13 +80,25 @@ The default host if a host is not provided to the individual __Client__ instance
 
 The default port if a port is not provided to the individual __Client__ instance.  In the case of a unix socket, the port becomes the extension to the socket file.  Default value is `5432`
 
-#### pg.defaults.database
+#### pg.defaults.rows
 
-The default database to use if a database is not provided to the individual __Client__ instance.  Default value is `process.env.USER`
+Number of rows ro return at a time from a prepared statement's portal. 0 will return all rows at once.
 
 #### pg.defaults.poolSize
 
 Number of unique __Client__ objects to maintain in the pool.  If this value is set to 0, pooling will be disabled and pg#connect will always return a new client.
+
+#### pg.defaults.poolIdleTimeout
+
+Max milliseconds a client can go unused before it is removed from the pool and destroyed. Default value is `30000`
+
+#### pg.defaults.reapIntervalMillis
+
+Frequency to check for idle clients within the client pool
+
+#### pg.defaults.binary
+
+Binary result mode, defaults to `false`
 
 ## Events
 
