@@ -1,4 +1,3 @@
-
 # Testing your own apps built using node-postgres
 
 When you do integration testing within your own apps you'll eventually need to close your node-postgres clients otherwise the test process will never exit.  There are various strategies I've employed throughout the node-postgres test code to accomplish this.  While they all work they are not all very pretty due to having to bootstrap the testing & disconnecting of node-postgres while testing it. (chicken v. egg)  So here's what I recommend.
@@ -43,7 +42,7 @@ However, you can specify command line arguments after the file and they will be 
 
 To do so you would do something like so:
 
-    node test/integration/client/simple-query-tests.js -u brian -d test_db 
+    node test/integration/client/simple-query-tests.js pg://user:password@host:port/databaseName
 
 If you'd like to execute all the unit or integration tests at one time, you can do so with the "Makefile"
 
@@ -62,11 +61,11 @@ _note this means integration tests under `test/integration` do __not__ run with 
 
 ### Run all integration tests
 
-    make test-integration user=brianc password=1234 database=home host=somehost.com port=123
+    make test-integration connectionString=pg://user:password@host:port/databaseName
 
-### Run all the tests! (unit & integration)
+### Run all the tests! (unit, integration, native, and binary)
 
-    make test-all user=brianc password=1234 database=home host=somehost.com port=123
+    make test-all connectionString=pg://user:password@host:port/databaseName
 
 In short, I tried to make executing the tests as easy as possible. Hopefully this will encourage you to fork, hack, and do whatever you please as you've got a nice, big safety net under you.
 
@@ -74,44 +73,4 @@ In short, I tried to make executing the tests as easy as possible. Hopefully thi
 
 In order for the integration tests to not take ages to run, I've pulled out the script used to generate test data.  This way you can generate a "test" database once and don't have to up/down the tables every time an integration test runs.  To run the generation script, execute the script with the same command ine arguments passed to any other test script.
 
-    node script/create-test-tables.js -u user -d database
-
-Aditionally if you want to revert the test data, you'll need to "down" the database first and then re-create the data as follows:
-
-    node script/create-test-tables.js -u user -d database --down
-    node script/create-test-tables.js -u user -d database
-
-### Command line arguments
-
-Only used during testing, so the implementation is pretty much _crap_ but it works.
-
-    -t, --test [unit <default>, integration, all]
-        only used when executing `node test/run.js`
-        the type of tests to run. 
-        "unit" is the default and runs all unit tests. 
-        "integration" runs integration tests
-        "all" runs both unit and integration tests
-
-    -u, --user 
-        default is 'postgres'
-        database user name used to connect to server in integration tests
-
-    --password
-        default is ''
-        password for the user
-
-    -d, --database
-        default is 'postgres'
-        database to use during testing
-
-    -p, --port
-        default is 5432
-        database port
-
-    -h, --host
-        default is 'localhost'
-        host of database
-
-    --down 
-        only applies when running the script to create test data.  
-        Will run the 'down' migration, bringing the database back to before script ran
+    node script/create-test-tables.js pg://user:password@host:port/databaseName
