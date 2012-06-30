@@ -123,3 +123,17 @@ If a prepared statement has a `name`, it is only parsed once.  After that, `name
 ### 10. Can we override the built in data converters between javascript and postgres data types? 
 
 Yes, [here is a test that shows how it can be done.](https://github.com/brianc/node-postgres/blob/master/test/integration/client/huge-numeric-tests.js#L6) And for some examples of already registered converters, [look at this file.](https://github.com/brianc/node-postgres/blob/master/lib/textParsers.js)
+
+
+### 11. How do I build a `WHERE foo IN (...)` query to find rows matching an array of values?
+
+You need to flatten your array of values and build the numbered placeholder string for yourself. 
+
+```javascript
+// passing an array as a value __won't work__:
+client.query("SELECT * FROM stooges WHERE name IN ($1)", [ ['larry', 'curly', 'moe'] ], ...);
+// passing a flat array of values will work:
+client.query("SELECT * FROM stooges WHERE name IN ($1, $2, $3)", ['larry', 'curly', 'moe'], ...);
+```
+
+See [#129](https://github.com/brianc/node-postgres/issues/129) and [#82](https://github.com/brianc/node-postgres/issues/82) for more details.
