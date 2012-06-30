@@ -136,4 +136,15 @@ client.query("SELECT * FROM stooges WHERE name IN ($1)", [ ['larry', 'curly', 'm
 client.query("SELECT * FROM stooges WHERE name IN ($1, $2, $3)", ['larry', 'curly', 'moe'], ...);
 ```
 
-See [#129](https://github.com/brianc/node-postgres/issues/129) and [#82](https://github.com/brianc/node-postgres/issues/82) for more details.
+To do this in a general purpose way, try:
+
+```javascript
+var stooge_names = ['larry', 'curly', 'moe'];
+var offset = 1;
+var placeholders = stooge_names.map(function(name,i) { 
+    return '$'+(i+offset); 
+}).join(',');
+client.query("SELECT * FROM stooges WHERE name IN ("+placeholders+")", stooge_names, ...);
+```
+
+If you have other values and placeholders in your query you'll need to use a different `offset` value for the array placeholders. See [#129](https://github.com/brianc/node-postgres/issues/129) and [#82](https://github.com/brianc/node-postgres/issues/82) for extra discussion.
