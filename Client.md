@@ -4,6 +4,7 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[connect|Client#method-connect]]
   - [[end|Client#method-end]]
   - [[query (simple)|Client#method-query-simple]]
+  - [[query (parameterized)|Client#method-query-paramaterized]]
   - [[query (prepared statement)|Client#method-query-prepared]]
   - [[pauseDrain|Client#wiki-pauseDrain]]
   - [[resumeDrain|Client#wiki-pauseDrain]]
@@ -142,15 +143,114 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
 ```
 
 _____
-
-### _Prepared statements_
+### _Parameterized Queries_
 
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
 ### query(_string_ queryText, _array_ values, _optional function_ callback): _[[Query]]_
 
-Creates a (optionally named) query object, queues it for execution, and returns it.
+Creates an unnamed query object, queues it for execution, and returns it.
 
-If either `name` or `values` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, it will behave in the same manner as a <a href="#method-query-simple">simple query</a>.
+If `name` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, if `values` is provided within the `config` object the query will be executed as a <a href="Query#parameterized-query">parameterized query</a>. If Otherwise, it will behave in the same manner as a <a href="#method-query-simple">simple query</a>.
+
+#### examples
+##### paramatarized query with config object
+
+```javascript
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+    var query = client.query({
+      text: 'SELECT name FROM users WHERE email = $1',
+      values: ['brianc@example.com']
+    });
+
+    query.on('row', function(row) {
+      //do something w/ yer row data
+      assert.equal('brianc', row.name);
+    });
+```
+
+##### paramaterized query using string/array initialization
+```javascript
+ 
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+     var again = client.query("SELECT name FROM users WHERE email = $1", ['brianc@example.com']);
+
+    again.on('row', function(row) {
+      //do something else
+      assert.equal('brianc', row.name);
+    });
+```
+
+##### paramaterized query with optional callback supplied
+```javascript
+    
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+    //object config method
+    var queryConfig = {
+      text: 'SELECT name FROM users WHERE email = $1',
+      values: ['brian@example.com']
+    };
+    client.query(queryConfig, function(err, result) {
+      assert.equal('brianc', result.rows[0]);
+    });
+
+    //text/params method
+    client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
+      assert.equal('brianc', result.rows[0].name);
+    });
+```
+
+### _Prepared statements_
+
+### query(_object_ config, _optional function_ callback) : _[[Query]]_
+
+Creates a named query object, queues it for execution, and returns it.
+
+If and only if `name` is provided within the `config` object does query result in a prepared statement.
+
+If `text` and `name` are provided within the `config`, the query will result in the creation of a <a href="Query#prepared-statement">prepared statement</a>.
+
+If `value` and `name` provided within the `config`, the prepared statement will be executed.  (Note: if the prepared statement takes no parameters, use `value:[]`.)
+
+PostgreSQL server caches prepared statements by name on a per (postgres) session basis.  Subsequent queries may refer to the prepared statement by name, and the PostgresQL server instance can skip the preparation step.
+
+#### examples
+##### prepared statement reuse
+```javascript
+    var client = new Client({user: 'brianc', database: 'test'});
+    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
+    client.connect();
+
+    var first = client.query({
+      text: "SELECT email FROM users WHERE name = $1",
+      values: ['brianc'],
+      name: 'email from name'
+    });
+    first.on('row', function(row) {
+      assert.equal("brian@example.com", row.email);
+    });
+
+    var second = client.query({
+      name: 'email from name',
+      values: ['brianc']
+    });
+    second.on('row', function(row) {
+      assert.equal("brian@example.com", row.email);
+    });
+
+    //can still supply a callback method
+    var third = client.query({name: 'email from name', values: ['brianc']}, function(err, result) {
+      assert.equal('brian@example.com', result.rows[0].email);
+    });
+```
 
 #### parameters
 - _object_ __config__:  can contain any of the following optional properties
@@ -180,93 +280,6 @@ If either `name` or `values` is provided within the `config` object the query wi
           - _array_ __rows__: 
             - an array of all rows returned from the query
             - each row is equal to one object passed to the Query#row callback
-
-#### examples
-##### prepared statement with config object
-
-```javascript
-    var client = new Client({user: 'brianc', database: 'test'});
-    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
-    client.connect();
-
-    var query = client.query({
-      text: 'SELECT name FROM users WHERE email = $1',
-      values: ['brianc@example.com']
-    });
-
-    query.on('row', function(row) {
-      //do something w/ yer row data
-      assert.equal('brianc', row.name);
-    });
-```
-
-##### prepared statement using string/array initialization
-```javascript
- 
-    var client = new Client({user: 'brianc', database: 'test'});
-    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
-    client.connect();
-
-     var again = client.query("SELECT name FROM users WHERE email = $1", ['brianc@example.com']);
-
-    again.on('row', function(row) {
-      //do something else
-      assert.equal('brianc', row.name);
-    });
-```
-
-##### prepared statement with optional callback supplied
-```javascript
-    
-    var client = new Client({user: 'brianc', database: 'test'});
-    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
-    client.connect();
-
-    //object config method
-    var queryConfig = {
-      text: 'SELECT name FROM users WHERE email = $1',
-      values: ['brian@example.com']
-    };
-    client.query(queryConfig, function(err, result) {
-      assert.equal('brianc', result.rows[0]);
-    });
-
-    //text/params method
-    client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
-      assert.equal('brianc', result.rows[0].name);
-    });
-```
-
-The proceeding examples used an 'unamed' prepared statement.  PostgreSQL server caches prepared statements by name on a per client basis.  If a name is supplied for the statement all following executions of the query can refer to it by name and the PostgreSQL server instance can skip the preparation step.
-
-##### named prepared statement reuse 
-```javascript
-    var client = new Client({user: 'brianc', database: 'test'});
-    client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
-    client.connect();
-
-    var first = client.query({
-      text: "SELECT email FROM users WHERE name = $1",
-      values: ['brianc'],
-      name: 'email from name'
-    });
-    first.on('row', function(row) {
-      assert.equal("brian@example.com", row.email);
-    });
-
-    var second = client.query({
-      name: 'email from name',
-      values: ['brianc']
-    });
-    second.on('row', function(row) {
-      assert.equal("brian@example.com", row.email);
-    });
-
-    //can still supply a callback method
-    var third = client.query({name: 'email from name', values: ['brianc']}, function(err, result) {
-      assert.equal('brian@example.com', result.rows[0].email);
-    });
-```
 
 ### pauseDrain / resumeDrain <a name="pauseDrain"></a>
 
