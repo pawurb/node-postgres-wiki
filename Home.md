@@ -3,6 +3,7 @@
     * [[Client]]
     * [[Query]]
     * [[Connection]]
+* [[Prepared Statements]]
 * [[FAQ]]
 * [[Example App|Example]]
 * [[Error Handling]]
