@@ -212,13 +212,13 @@ If `name` is provided within the `config` object the query will be executed as a
 
 ### query(_object_ config, _optional function_ callback) : _[[Query]]_
 
-Creates a named query object, queues it for execution, and returns it.
+(See [[Prepared Statements]] for a more detailed discussion of Prepared Statements in `node-postgres`.)
 
-If and only if `name` is provided within the `config` object does query result in a prepared statement.
+Creates a named query object, queues it for execution, and returns it.:
 
-If `text` and `name` are provided within the `config`, the query will result in the creation of a <a href="Query#prepared-statement">prepared statement</a>.
-
-If `value` and `name` provided within the `config`, the prepared statement will be executed.  (Note: if the prepared statement takes no parameters, use `value:[]`.)
+ * If and only if `name` is provided within the `config` object does query result in a prepared statement.
+ * If `text` and `name` are provided within the `config`, the query will result in the creation of a <a href="Query#prepared-statement">prepared statement</a>.
+ * If `value` and `name` provided within the `config`, the prepared statement will be executed.  (Note: if the prepared statement takes no parameters, use `value:[]`.)
 
 PostgreSQL server caches prepared statements by name on a per (postgres) session basis.  Subsequent queries may refer to the prepared statement by name, and the PostgresQL server instance can skip the preparation step.
 
