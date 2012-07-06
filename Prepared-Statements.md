@@ -37,7 +37,7 @@ existent prepared statement, the existent prepared statement will be replaced an
 The following will help track:
 
 - `select pg_backend_pid() as pid` - the postgres session
-- `select * as prep_ct from pg_prepared_statements` - prepared statements in the session
+- `select name from pg_prepared_statements` - names of prepared statements in the session
 - `deallocate 'emp_name'` - removes a specific prepared statement from the session
 - `deallocate all` - removes all prepared statements from the session
 
