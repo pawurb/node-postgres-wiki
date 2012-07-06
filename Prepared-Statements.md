@@ -18,7 +18,7 @@ Parameters may not be DDL:
 - select name from emp where emp_id=$1 - legal
 - select $1 from emp where emp_id=$2 - illegal - column cannot be parameter
 - select name from $1 where emp_id=$2 - illegal - table cannot be parameter
-- select name from $1.emp where emp_id=$2 - illegal - table cannot be parameter
+- select name from $1.emp where emp_id=$2 - illegal - schema cannot be parameter
 
 Parameterized queries in postgres are planned for before each execution, so they provide safety
 but not speed.
