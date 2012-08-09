@@ -1,6 +1,6 @@
 Thanks to [g40](https://github.com/g40)
 
-### 1. how do I know what values are on the row object ? ###
+### 1. How do I know what values are on the row object? ###
 
 The row object has properties which align to the column names returned from the query.
 
@@ -14,7 +14,7 @@ client.query('SELECT * FROM users', function(err, result) {
 });
 ```
 
-### 2. can I iterate across the columns in the recordset to dynamically display column names ? ###
+### 2. Can I iterate across the columns in the recordset to dynamically display column names? ###
 
 Why, yes.  Yes you can.
 
