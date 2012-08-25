@@ -114,5 +114,4 @@ It also has the following method:
 ```
 
 ## Prepared statements
-
-Need to document...
+Learn about [[Prepared Statements|Prepared-Statements]]. 
