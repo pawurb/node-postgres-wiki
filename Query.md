@@ -114,4 +114,4 @@ It also has the following method:
 ```
 
 ## Prepared statements
-Learn about [[Prepared Statements|Prepared-Statements]]. 
+Using [[Prepared Statements|Prepared-Statements]] is a very convenient way of running repeated queries with different parameters.
