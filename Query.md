@@ -93,7 +93,7 @@ The __end__ event listeners get one argument, which is the [[Result|Query#result
 Available to the __row__ and __end__ events, shows the result of the query. It has the following properties:
 
 - `command`: The sql command that was executed (e.g. "SELECT", "UPDATE", etc.)
-- `rowCount`: The number of rows returned
+- `rowCount`: The number of rows affected by the SQL statement [(more information)](http://www.postgresql.org/docs/8.1/static/libpq-exec.html#LIBPQ-EXEC-NONSELECT)
 - `oid`: The oid returned
 - `rows`: An array of rows (if the `addRow` command is used)
 
