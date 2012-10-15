@@ -148,3 +148,5 @@ client.query("SELECT * FROM stooges WHERE name IN ("+placeholders+")", stooge_na
 ```
 
 If you have other values and placeholders in your query you'll need to use a different `offset` value for the array placeholders. See [#129](https://github.com/brianc/node-postgres/issues/129) and [#82](https://github.com/brianc/node-postgres/issues/82) for extra discussion.
+
+### 12. Why does node-postgres come with two bindings? One in Javascript and one "native" that uses libpq? Which one is fastest and why isn't a single binding enough?
