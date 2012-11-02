@@ -62,9 +62,9 @@ Creates a new, unconnected instance of a Client configured via supplied configur
 ```javascript
     var client = new Client({
       user: 'brianc',
-      password: 'boom!'
-      database: 'test'
-      host: 'example.com'
+      password: 'boom!',
+      database: 'test',
+      host: 'example.com',
       port: 5313
     });
 ```
