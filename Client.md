@@ -56,6 +56,10 @@ Creates a new, unconnected instance of a Client configured via supplied configur
      - default value: `null`
      - host address of PostgreSQL server
      - used to initialize underlying net.Stream()
+  - _bool_ __ssl__:
+     - default value: `false`
+     - whether to try SSL/TLS to connect to server
+
 
 #### example
 
