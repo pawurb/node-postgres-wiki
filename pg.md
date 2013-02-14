@@ -12,12 +12,16 @@ __pg__ is an _instance_ of __EventEmitter__ which provides __[[Client]]__ poolin
 #### example
 ```javascript
     var pg = require('pg');
-    
+    var needToLookUpEmail = true;
+
     var connectionString = "pg://brian:1234@localhost/postgres"
     pg.connect(connectionString, function(err, client) {
-      client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
-        assert.equal('brianc', result.rows[0].name);
-      });
+      if (needToLookUpEmail)
+        client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
+          assert.equal('brianc', result.rows[0].name);
+        });
+      /* if we don't run a query, release this client from the pool anyway so we don't eat connections */
+      else client.emit('drain');
     });
 ```
 
