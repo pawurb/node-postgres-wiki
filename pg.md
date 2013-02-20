@@ -1,5 +1,10 @@
 # pg
-__pg__ is an _instance_ of __EventEmitter__ which provides __[[Client]]__ pooling.  It exports a 'helper function' to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor; however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance.  If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create clients, but avoid the two currently flawed border cases described in [issue #227](https://github.com/brianc/node-postgres/issues/227).
+
+The root __pg__ object returned by `require('pg')` serves two purposes.  First, it has a reference to the other components of node-postgres: `pg.Client`, `pg.Query`, `pg.defaults`, `pg.pools`, and 'pg.types'.
+
+The second purpose is as follows:
+
+__pg__ is an _instance_ of __EventEmitter__ which provides a naive implementation of __[[Client]]__ pooling.  It exports a 'helper function' to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor (`new pg.Client()`); however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance, and the initial connection handshake takes many times longer than a single query execution.  Also, If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create pooled clients, build your own client pool implementation, or use https://github.com/grncdr/any-db.
 
 * Methods
   * [[connect|pg#method-connect]]
@@ -12,32 +17,28 @@ __pg__ is an _instance_ of __EventEmitter__ which provides __[[Client]]__ poolin
 #### example
 ```javascript
     var pg = require('pg');
-    var needToLookUpEmail = true;
-
     var connectionString = "pg://brian:1234@localhost/postgres"
-    pg.connect(connectionString, function(err, client) {
-      if (needToLookUpEmail)
+    pg.connect(connectionString, function(err, client, done) {
         client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
           assert.equal('brianc', result.rows[0].name);
+          done();
         });
-      /* if we don't run a query, release this client from the pool anyway so we don't eat connections */
-      else client.emit('drain');
     });
 ```
 
 ## Methods
 
-### Connect(_string_ connectionString, _function_ callback)
+### Connect([_string_ connectionString], _function_ callback)
 
-### Connect(_object_ config, _function_ callback)
+### Connect([_object_ config], _function_ callback)
 
 ### Connect(_function_ callback)
 
-The connect method retrieves a __[[Client]]__ from the client pool, or if all pooled clients are busy and the pool is not full, the _connect_ method will create a new client passing its first argument directly to the __[[Client]]__ constructor.  In either case, your supplied callback will only be called when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will be called once and only once for each invocation of _connect_.  The first parameter passed to _connect_ currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.
+The _connect_ method retrieves a __[[Client]]__ from the client pool, or if all pooled clients are busy and the pool is not full, the _connect_ method will create a new client passing its first argument directly to the __[[Client]]__ constructor.  In either case, your supplied callback will only be called when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will be called once and only once for each invocation of _connect_.  
 
-If called with only one _function_ argument, uses [[defaults|pg#properties-defaults]] for connection configuration.
+Note: The first parameter passed to _connect_, either a string or config object (or nothing), currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.  The object, string, or nothing is passed to `JSON.stringify` for key uniqueness.  If nothing is passed you are relying on connection defaults (via [environment variables](http://www.postgresql.org/docs/9.1/static/plpython-envar.html) or `pg.defaults`) then `JSON.stringify({})` is used as the key.
 
-When the client raises its __drain__ [[event|Client#wiki-drainEvent]], the client is automatically returned to the pool for reuse.
+__note: if you do not call `done()` the client will never be returned to the pool and you will leak clients.  This is mega-bad so always call `done()`___
 
 #### parameters
 
@@ -51,14 +52,17 @@ When the client raises its __drain__ [[event|Client#wiki-drainEvent]], the clien
     * an existing client is returned to the internal client pool
     * an error is encountered during connection
   * callback parameters
-    * _object_ __error_: error object
+    * _object_ __error__: error object
       * if there is no error, this will be null
     * _object_ __[[Client]]__ : postgres-node client object ready for queries
       * if there is an error, this object will be null
+    * _function_ __done()__: done function
+      * if there is an error, this will be a NOOP function `function() {}`
+      * anything truthy value passed to `done()` will cause the client to be destroyed and removed from the pool
 
 ### end(_optional string_ poolKey)
 
-Disconnects all clients within a pool if _poolKey_ is provided, or disconnects all clients in all pools.  Not very clean and can potentially interrupt query executions.  Primarily used during testing to allow the node process to shutdown after all the tests are executed.  I'm currently evaluating routes for cleaning up and shutting down client pools as gracefully as possible.
+Disconnects all clients within a pool if _poolKey_ is provided, or disconnects all clients in all pools.
 
 ## pg.defaults
 
