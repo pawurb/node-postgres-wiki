@@ -2,6 +2,7 @@
 
 The root __pg__ object returned by `require('pg')` serves two purposes.  
 First, it has a reference to the other components of node-postgres: 
+
 1. `pg.Client` 
 2. `pg.Query`
 3. `pg.defaults`
