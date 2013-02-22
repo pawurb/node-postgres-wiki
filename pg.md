@@ -35,9 +35,11 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a naive implementatio
 
 ## Methods
 
+
 <a id="method-connect">
 ### Connect([_string_ connectionString], _function_ callback)
 </a>
+
 
 ### Connect([_object_ config], _function_ callback)
 
