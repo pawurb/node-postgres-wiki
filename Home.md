@@ -1,8 +1,9 @@
 * API
     * [[pg]]
-    * [[Client]]
-    * [[Query]]
-    * [[Connection]]
+    * pg.[[Client]]
+    * pg.[[Query]]
+    * pg.[[pools]]
+    * pg.[[Connection]]
 * [[Prepared Statements]]
 * [[FAQ]]
 * [[Example App|Example]]
