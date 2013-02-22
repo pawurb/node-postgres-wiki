@@ -7,7 +7,7 @@ First, it has a reference to the other components of node-postgres:
 2. `pg.Query`
 3. `pg.defaults`
 4. `pg.pools`
-5. `pg.types.`
+5. `pg.types`
 
 The second purpose is as follows:
 
@@ -35,6 +35,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a naive implementatio
 
 ## Methods
 
+<div id="method-connect"></div>
 ### Connect([_string_ connectionString], _function_ callback)
 
 ### Connect([_object_ config], _function_ callback)
