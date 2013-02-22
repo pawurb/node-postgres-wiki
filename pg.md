@@ -9,9 +9,9 @@ First, it has a reference to the other components of node-postgres:
 4. `pg.pools`
 5. `pg.types`
 
-The second purpose is as follows:
+The second purpose is more important:
 
-__pg__ is an _instance_ of __EventEmitter__ which provides a naive implementation of __[[Client]]__ pooling.  It exports a 'helper function' to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor (`new pg.Client()`); however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance, and the initial connection handshake takes many times longer than a single query execution.  Also, If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create pooled clients, build your own client pool implementation, or use https://github.com/grncdr/any-db.
+__pg__ is an _instance_ of __EventEmitter__ which provides a somewhat naive implementation of __[[Client]]__ pooling.  It has a function to retrieve __[[Client]]__ instances from a pool of available clients.  You can bypass the __pg__ object all together and create __[[Client]]__ objects via their constructor (`new pg.Client()`); however, each __[[Client]]__ represents an open connection to your PostgreSQL server instance, and the initial connection handshake takes many times longer than a single query execution.  Also, If you attempt to create and connect more __[[Client]]__ objects than supported connections to your PostgreSQL server you will encounter errors.  This becomes especially painful if you manually instantiate a new __[[Client]]__ object per each http request to a web server.  Once you receive more simultaneous requests to your web server than your PostgresSQL server can maintain you will be in a bad place...so it's recommended unless you have a particular case, use the __pg__ object to create pooled clients, build your own client pool implementation, or use https://github.com/grncdr/any-db.
 
 * Methods
   * [[connect|pg#wiki-method-connect]]
@@ -20,19 +20,6 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a naive implementatio
   * [[defaults|pg#properties-defaults]]
 * Events
   * error
-
-#### example
-```javascript
-    var pg = require('pg');
-    var connectionString = "pg://brian:1234@localhost/postgres"
-    pg.connect(connectionString, function(err, client, done) {
-        client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
-          assert.equal('brianc', result.rows[0].name);
-          done();
-        });
-    });
-```
-
 ## Methods
 
 
@@ -71,9 +58,36 @@ __note: if you do not call `done()` the client will never be returned to the poo
       * if there is an error, this will be a NOOP function `function() {}`
       * anything truthy value passed to `done()` will cause the client to be destroyed and removed from the pool
 
-### end(_optional string_ poolKey)
 
-Disconnects all clients within a pool if _poolKey_ is provided, or disconnects all clients in all pools.
+#### example
+```javascript
+    var pg = require('pg');
+    var connectionString = "pg://brian:1234@localhost/postgres"
+    pg.connect(connectionString, function(err, client, done) {
+        client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
+          assert.equal('brianc', result.rows[0].name);
+          done();
+        });
+    });
+```
+
+### end()
+
+Disconnects all clients within all active pools
+
+#### example
+```js
+var pg = require('pg');
+
+pg.connect(function(err, client, done) {
+  done();
+});
+
+//your process will not exit because the pool is holding open, idle connections to the server
+
+pg.end();
+//the pool will dispose of all clients and your process will terminate
+```
 
 ## pg.defaults
 
