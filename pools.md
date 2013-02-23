@@ -7,7 +7,7 @@ A hash of all existing client pools.  A pool's key is built by calling `JSON.str
 ####example
 
 ```js
-var pg = require('pg);
+var pg = require('pg');
 console.log(Object.keys(pg.pools.all)); //[]
 
 //connect using defaults or environment variables
