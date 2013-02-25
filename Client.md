@@ -6,6 +6,9 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[query (simple)|Client#method-query-simple]]
   - [[query (parameterized)|Client#method-query-paramaterized]]
   - [[query (prepared statement)|Client#method-query-prepared]]
+  - [[Bulk Data Load|Client#wiki-bulk-load]]
+      - [[copyFrom|Client#wiki-method-copy-from]]
+      - [[copyTo|Client#wiki-method-copy-to]]
   - [[pauseDrain|Client#wiki-pauseDrain]]
   - [[resumeDrain|Client#wiki-pauseDrain]]
 - events
@@ -284,6 +287,78 @@ PostgreSQL server caches prepared statements by name on a per (postgres) session
           - _array_ __rows__: 
             - an array of all rows returned from the query
             - each row is equal to one object passed to the Query#row callback
+
+### Bulk data load <a name="bulk-load"></a>
+Bulk data load to or from database server are implemented by use of COPY FROM STDIN and COPY TO STDOUT queries ([postgressql's documentation](http://www.postgresql.org/docs/9.2/static/sql-copy.html)).
+This queries works with data in different way comparing to SELECT/INSERT/UPDATE.
+ - Data from client to server is transferred through special channel, instead of being placed in query directly
+ - Data from server is returned to client through special channel.
+ - Data transferred to or from server is not structured, it's just text (formatted as CSV, or something like)
+
+All this makes inconvenient to use query method, so pair of methods exists: _copyFrom_, _copyTo_. 
+Both of them takes query text as argument and returns objects, that has interface of Stream. Stream is used as channel to transfer data to and from server, handler errors, and signal/be signaled about data ending  
+
+####copyFrom(_string_ queryText):[WritableStream](http://nodejs.org/api/all.html#all_writable_stream) <a name="method-copy-from"></a>
+
+
+Method intended for loading data to server. It sends queryText to server. Query has to be valid COPY FROM statement. Method returns instance of WritableStream. It is implemented in lib/copystream.js and behaves like normal [WritableStream](http://nodejs.org/api/all.html#all_writable_stream).
+While bulk data load all interactions with database server are made using it.
+ - To send data to server WritableStream.write method has to be used.
+ - To notify server that all data has been sent, stream has to be closed with WritabkeStream.end method.
+ - On error 'error' event is emitted on stream.
+ - On successful end 'close' event is emitted on stream.
+
+Server expects from client sequence of rows encoded in CSV-like text. Rows can be sent in any convenient way (by chunks of any size). It's not required, to match end of row and end of chunk.
+
+Example:
+```javascript
+var client = new Client({user: 'brianc', database: 'test'});
+var stream = client.copyFrom("COPY names (user_name, age) FROM STDIN WITH CSV");
+stream.on('close', function () {
+  console.log("Data inserted sucessfully");
+});
+stream.on('error', function (error) {
+  console.log("Sorry, error happens", error);
+});
+stream.write("user1,10\n");
+//it's possible to combine more than one row in one write operation
+stream.write("user2,20\nuser3,30\n");
+//it's not required to match row ending to write operation
+stream.write("user4");
+stream.write(",40\nuser5,50\n");
+//tell the sever that we've sent all data we have
+stream.end();
+```
+
+####copyTo(_string_ queryText):[ReadableStream](http://nodejs.org/api/all.html#all_readable_stream) <a name="method-copy-to"></a>
+
+Method intended to get data from database server. It's first and only argument is query text - COPY TO STDIN statement. As result, method returns ReadableStream (implemented in lib/copystream.js) with standard interface ([ReadableStream](http://nodejs.org/api/all.html#all_readable_stream)). All interactions with server are done with use of this stream.
+ - When error occurs, 'error' event is emitted.
+ - When after last row 'end' event is emitted.
+ - When chunk of data is received 'data' event is emitted.
+
+Server sends row by row, so normally one row produces one 'data' event. But, pause/resume calls may break this rule, making ReadableStream to buffer more than one row in it's internals. This also may cause program to require large chunk of memory (It's no way to ask postgres server to pause sending data, so the best thing, that can be done by stream after calling pause, is to buffer data in it's internal buffer)
+  
+Warning: It's impossible to stop data stream from server, until it ends (the only way is to cancel query, that is not atomic operation, and some more data chunks may be received after sending cancel message to sever), so if you decide, that you don't need no more data -- just ignore it until the end.
+
+Example:
+
+```javascript
+var client = new Client({user: 'brianc', database: 'test'});
+var rows = new Buffer(0);
+var stream = client.copyTo("COPY names (user_name, age) TO STDIN WITH CSV");
+stream.on('end', function () {
+  console.log("Data received sucessfully", rows.toString().split('\n'));
+});
+stream.on('error', function (error) {
+  console.log("Sorry, error happens", error);
+});
+stream.on('data', function (chunk) {
+  //collect rows in array.
+  rows = Buffer.concat([rows, chunk]);
+});
+```
+
 
 ### pauseDrain / resumeDrain <a name="pauseDrain"></a>
 
