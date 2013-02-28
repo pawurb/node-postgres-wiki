@@ -151,4 +151,10 @@ If you have other values and placeholders in your query you'll need to use a dif
 
 ### 12. Why does node-postgres come with two bindings? One in Javascript and one "native" that uses libpq? Which one is fastest and why isn't a single binding enough?
 
+node-postgres comes with two bindings because I wrote it back before the idea of "do one tiny thing in each module" was a popular idea.  I initially wrote the pure-javascript bindings.  People were complaining about adopting them because it wasn't a C binding so it wasn't fast.  To answer their critique I wrote libpq bindings.  I placed them in the same module because I could reuse 70% of the tests (all of the integration tests) so I could quickly know when the APIs diverged.
+
+Last time I checked the native bindings were faster than the pure JavaScript bindings.  There are performance spots available to both bindings.  Either binding you use is fast enough to not end up being a significant factor in your application.  A single binding is enough - either one.  Personally, I like the pure JavaScript bindings because it's JavaScript all the way down, but they both work equally and have full feature parity due to the extensive overlapping test suite.
+
 ### 13. What happens to open transactions when `pg.connect`'s `done` is called?
+
+Nothing.  You are responsible for calling either `client.query('COMMIT')` or `client.query('ROLLBACK')`  If you call neither and call the `done()` callback the client will be returned to the pool with an open transaction, and I assume _bad things will happen_ in your application.
