@@ -153,7 +153,11 @@ If you have other values and placeholders in your query you'll need to use a dif
 
 node-postgres comes with two bindings because I wrote it back before the idea of "do one tiny thing in each module" was a popular idea.  I initially wrote the pure-javascript bindings.  People were complaining about adopting them because it wasn't a C binding so it wasn't fast.  To answer their critique I wrote libpq bindings.  I placed them in the same module because I could reuse 70% of the tests (all of the integration tests) so I could quickly know when the APIs diverged.
 
-Last time I checked the native bindings were faster than the pure JavaScript bindings.  There are performance spots available to both bindings.  Either binding you use is fast enough to not end up being a significant factor in your application.  A single binding is enough - either one.  Personally, I like the pure JavaScript bindings because it's JavaScript all the way down, but they both work equally and have full feature parity due to the extensive overlapping test suite.
+_note: sometime after v1.0 I plan on splitting the javascript, native, and integration tests into their own modules.  the node-postgres module itself will be a sort of 'meta package' for the other modules_
+
+Last time I checked the native bindings were faster than the pure JavaScript bindings; however, there are performance gains still available to both through code refactors and this can/will change.  Either binding you use is fast enough to not end up being a significant factor in your application.  As for why isn't a single binding enough? A single binding is enough - __either one__ :wink:.  
+
+Personally, I like the pure JavaScript bindings because it's JavaScript all the way down, but they both work equally and have full feature parity due to the extensive overlapping test suite.
 
 ### 13. What happens to open transactions when `pg.connect`'s `done` is called?
 
