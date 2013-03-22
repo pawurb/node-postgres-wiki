@@ -122,7 +122,7 @@ If a prepared statement has a `name`, it is only parsed once.  After that, `name
 
 ### 10. Can we override the built in data converters between javascript and postgres data types? 
 
-Yes, [here is a test that shows how it can be done.](https://github.com/brianc/node-postgres/blob/master/test/integration/client/huge-numeric-tests.js#L6) And for some examples of already registered converters, [look at this file.](https://github.com/brianc/node-postgres/blob/master/lib/textParsers.js)
+Yes, [here is a test that shows how it can be done.](https://github.com/brianc/node-postgres/blob/master/test/integration/client/huge-numeric-tests.js#L6) And for some examples of already registered converters, [look at this file.](https://github.com/brianc/node-postgres/blob/master/lib/types/textParsers.js)
 
 
 ### 11. How do I build a `WHERE foo IN (...)` query to find rows matching an array of values?
