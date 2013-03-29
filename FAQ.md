@@ -162,3 +162,15 @@ Personally, I like the pure JavaScript bindings because it's JavaScript all the 
 ### 13. What happens to open transactions when `pg.connect`'s `done` is called?
 
 Nothing.  You are responsible for calling either `client.query('COMMIT')` or `client.query('ROLLBACK')`  If you call neither and call the `done()` callback the client will be returned to the pool with an open transaction, and I assume _bad things will happen_ in your application.
+
+### 14. How to install pg on Windows?
+
+Problem: `npm install pg` fails with error message `Call to 'pg_config --libdir' returned exit status 1. while trying to load binding.gyp`
+
+You need PosgreSQL installed on your system. Path to PostgreSQL bin directory must be included in environment PATH variable. `pg_config` is stored in that bin directory.
+
+Quick fix for PowerShell:
+
+`$env:PATH+=";C:\Program Files\PostgreSQL\9.2\bin"`
+
+`npm install pg`
