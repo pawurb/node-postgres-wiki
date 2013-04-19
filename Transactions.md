@@ -1,5 +1,7 @@
 node-postgres does not have any special apis for dealing with transactions; just use sql.  
 
+Below are two examples of how to run transactions.  Generally you'll probably use some kind of flow control library or abstract this behind a function or something.  I use nothing but node & pg to keep the examples as clear as possible.
+
 Here is how you would do a transaction using the client pool:
 ```js
 var pg = require('pg');
