@@ -31,8 +31,8 @@ Prepared statements also provide a barrier to `sql injection` attacks.
 
 In postgres, the prepared statement is attached to the `session`.  This means that if you connect, prepare
 a statement, and reconnect, the prepared statement will only be available if you are using the same
-postgres session.  (In node-postgres, if a new prepared statement is issued with the same name as an
-existent prepared statement, the existent prepared statement will be replaced and no error raised.)
+postgres session.  (Currently in node-postgres, if a new prepared statement is issued with the same name as an
+existent prepared statement on the same client, the existing prepared statement will be used.  It is currently not possible to replace one named statement with another - we're going to fix this: https://github.com/brianc/node-postgres/issues/345)
 
 The following will help track:
 
