@@ -119,7 +119,7 @@ Number of rows to return at a time from a prepared statement's portal. 0 will re
 
 #### pg.defaults.poolSize
 
-Number of unique __Client__ objects to maintain in the pool.  If this value is set to 0, pooling will be disabled and pg#connect will always return a new client.
+Number of unique __Client__ objects to maintain in the pool.  If this value is set to 0, pooling will be disabled and pg#connect will always return a new client. Default value is `10`
 
 #### pg.defaults.poolIdleTimeout
 
