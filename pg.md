@@ -56,7 +56,7 @@ __note: if you do not call `done()` the client will never be returned to the poo
       * if there is an error, this object will be null
     * _function_ __done()__: done function
       * if there is an error, this will be a NOOP function `function() {}`
-      * anything truthy value passed to `done()` will cause the client to be destroyed and removed from the pool
+      * a truthy value passed to `done()` will cause the client to be destroyed and removed from the pool (in most cases you don't want this; see the examples below).
 
 
 #### example
