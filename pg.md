@@ -123,11 +123,11 @@ Number of unique __Client__ objects to maintain in the pool.  If this value is s
 
 #### pg.defaults.poolIdleTimeout
 
-Max milliseconds a client can go unused before it is removed from the pool and destroyed. Default value is `30000`
+Max milliseconds a client can go unused before it is removed from the pool and destroyed. Default value is `30000` (30 seconds)
 
 #### pg.defaults.reapIntervalMillis
 
-Frequency to check for idle clients within the client pool
+Frequency to check for idle clients within the client pool. Default value is `1000` (1 second).
 
 #### pg.defaults.binary
 
