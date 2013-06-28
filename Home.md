@@ -5,6 +5,7 @@
     * pg.[[pools]]
     * pg.[[Connection]]
 * [[Prepared Statements]]
+* [[Transactions]]
 * [[FAQ]]
 * [[Example App|Example]]
 * [[Error Handling]]
