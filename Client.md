@@ -332,12 +332,12 @@ stream.end();
 
 ####copyTo(_string_ queryText):[ReadableStream](http://nodejs.org/api/all.html#all_readable_stream) <a name="method-copy-to"></a>
 
-Method intended to get data from database server. It's first and only argument is query text - COPY TO STDIN statement. As result, method returns ReadableStream (implemented in lib/copystream.js) with standard interface ([ReadableStream](http://nodejs.org/api/all.html#all_readable_stream)). All interactions with server are done with use of this stream.
+Method intended to get data from database server. Its first and only argument is query text - COPY TO STDIN statement. As result, method returns ReadableStream (implemented in lib/copystream.js) with standard interface ([ReadableStream](http://nodejs.org/api/all.html#all_readable_stream)). All interactions with server are done with use of this stream.
  - When error occurs, 'error' event is emitted.
  - When after last row 'end' event is emitted.
  - When chunk of data is received 'data' event is emitted.
 
-Server sends row by row, so normally one row produces one 'data' event. But, pause/resume calls may break this rule, making ReadableStream to buffer more than one row in it's internals. This also may cause program to require large chunk of memory (It's no way to ask postgres server to pause sending data, so the best thing, that can be done by stream after calling pause, is to buffer data in it's internal buffer)
+Server sends row by row, so normally one row produces one 'data' event. But, pause/resume calls may break this rule, making ReadableStream to buffer more than one row in its internals. This also may cause program to require large chunk of memory (there is no way to ask the postgres server to pause sending data, so the best thing, that can be done by stream after calling pause, is to buffer data in its internal buffer)
   
 Warning: It's impossible to stop data stream from server, until it ends (the only way is to cancel query, that is not atomic operation, and some more data chunks may be received after sending cancel message to sever), so if you decide, that you don't need no more data -- just ignore it until the end.
 
@@ -362,7 +362,7 @@ stream.on('data', function (chunk) {
 
 ### pauseDrain / resumeDrain <a name="pauseDrain"></a>
 
-Pair of methods used to pause and resume __Client__ from raising it's `drain` event when it's query queue is emptied.  The `drain` event signifies the __Client__ has no more pending queries and can safely be returned back to a client pool.  Normally, `drain` will be emitted   These methods come in handy for doing async work between queries or within a transaction and disabling the __Client__ from alerting anyone it has gone idle.
+Pair of methods used to pause and resume __Client__ from raising its `drain` event when its query queue is emptied.  The `drain` event signifies the __Client__ has no more pending queries and can safely be returned back to a client pool.  Normally, `drain` will be emitted   These methods come in handy for doing async work between queries or within a transaction and disabling the __Client__ from alerting anyone it has gone idle.
 
 #### example
 ```javascript
@@ -434,7 +434,7 @@ Used for "LISTEN/NOTIFY" interactions.  You can do some fun pub-sub style stuff 
    });
    client1.query("LISTEN boom");
    //need to let the first query actually complete
-   //client1 will remain listening to channel 'boom' until it's 'end' is called
+   //client1 will remain listening to channel 'boom' until its 'end' is called
    setTimeout(function() {
       client2.query("NOTIFY boom", function() {
         client2.end();
