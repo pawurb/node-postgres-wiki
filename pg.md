@@ -133,6 +133,10 @@ Frequency to check for idle clients within the client pool. Default value is `10
 
 Binary result mode, defaults to `false`
 
+#### pg.defaults.parseInt8
+
+By default fields with type int8 are returned as strings because JavaScript cannot represent 64-bit numbers. In practice this causes a problem generally because the result of a `COUNT` operation is an int8. Since in reality most of us aren't going to be dealing with giant numbers and it sucks having all your `COUNT(*)` results come out as strings, you can opt-in to parsing int8 as integers.  Just be wary: you will lose data if you are dealing with actual 64bit numbers where more than 32bits are used.  You can always specify your own type parsers, but this is a handy shortcut.
+
 ## Events
 
 ### 'error' : _object_ error, _object_ client
