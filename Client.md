@@ -156,7 +156,7 @@ _____
 <a name="method-query-parameterized"></a>
 ### _Parameterized Queries_
 
-### query <em>object</em> config, <em>optional function</em> callback) : _[[Query]]_
+### query( <em>object</em> config, <em>optional function</em> callback) : _[[Query]]_
 ### query(<em>string</em> queryText, <em>array</em> values, <em>optional function</em> callback): _[[Query]]_
 
 Creates an unnamed query object, queues it for execution, and returns it.
