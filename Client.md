@@ -325,6 +325,7 @@ Server expects from client sequence of rows encoded in CSV-like text. Rows can b
 Example:
 ```javascript
 var client = new Client({user: 'brianc', database: 'test'});
+client.connect();
 var stream = client.copyFrom("COPY names (user_name, age) FROM STDIN WITH CSV");
 stream.on('close', function () {
   console.log("Data inserted sucessfully");
