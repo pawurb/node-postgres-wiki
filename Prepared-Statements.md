@@ -9,9 +9,9 @@
 Plain text queries, for a single query instance, are faster and the most flexible.  They are also the
 most insecure, providing no barrier to `sql injection` attacks.
 
-##Paramaterized Queries##
+##Parameterized Queries##
 
-A paramaterized query allows you "pass arguments" to a query, providing a barrier to `sql injection` attacks.
+A parameterized query allows you "pass arguments" to a query, providing a barrier to `sql injection` attacks.
 
 Parameters may not be DDL:
 
