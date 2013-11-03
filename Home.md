@@ -1,3 +1,4 @@
+* [[Installation]]
 * API
     * [[pg]]
     * pg.[[Client]]
