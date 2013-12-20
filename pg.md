@@ -43,6 +43,7 @@ __note: if you do not call `done()` the client will never be returned to the poo
 * _string_ __connectionString__
   * a connection string in the format _anything://user:password@host:port/database_
   * a socket path, like _/var/run/postgresql_
+  * a socket connection string _socket:/some path/?db=database_name&encoding=utf8_
 * _object_ __config__
   * an object with user, database, password, port, and host properties as described in [[Client|Client#constructor]].
 * _function_ __callback__
