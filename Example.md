@@ -8,8 +8,8 @@ var pg = require('pg');
 
 var conString = "postgres://postgres:1234@localhost/postgres";
 
-var server = http.createServer(conString, function(req, res, next) {
-  pg.connect(function(err, client, done) {
+var server = http.createServer(function(req, res, next) {
+  pg.connect(conString, function(err, client, done) {
     var handleError = function(err) {
       if(!err) return false;
       done(client);
