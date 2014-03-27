@@ -316,7 +316,7 @@ Both of them takes query text as argument and returns objects, that has interfac
 Method intended for loading data to server. It sends queryText to server. Query has to be valid COPY FROM statement. Method returns instance of WritableStream. It is implemented in lib/copystream.js and behaves like normal [WritableStream](http://nodejs.org/api/all.html#all_writable_stream).
 While bulk data load all interactions with database server are made using it.
  - To send data to server WritableStream.write method has to be used.
- - To notify server that all data has been sent, stream has to be closed with WritabkeStream.end method.
+ - To notify server that all data has been sent, stream has to be closed with WritableStream.end method.
  - On error 'error' event is emitted on stream.
  - On successful end 'close' event is emitted on stream.
 
