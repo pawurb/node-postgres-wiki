@@ -76,7 +76,7 @@ __note: if you do not call `done()` the client will never be returned to the poo
 
 ### end()
 
-Disconnects all clients within all active pools
+Disconnects all idle clients within all active pools, and has all client pools terminate.  Any currently _open, checked out_ clients will still need to be returned to the pool before they will be shut down and disconnected.
 
 #### example
 ```js
