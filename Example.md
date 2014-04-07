@@ -17,7 +17,11 @@ var server = http.createServer(function(req, res, next) {
       // no error occurred, continue with the request
       if(!err) return false;
 
-      // an error occurred, remove the client from the connection pool
+      // An error occurred, remove the client from the connection pool.
+      // A truthy value passed to done will remove the connection from the pool
+      // instead of simply returning it to be re-used.
+      // In this case, if we have successfully, received a client (truthy)
+      // then it will be removed from the pool.
       done(client);
       next(err);
       return true;
