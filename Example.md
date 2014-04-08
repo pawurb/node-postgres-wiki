@@ -8,7 +8,7 @@ var pg = require('pg');
 
 var conString = "postgres://postgres:1234@localhost/postgres";
 
-var server = http.createServer(function(req, res, next) {
+var server = http.createServer(function(req, res) {
 
   // get a pg client from the connection pool
   pg.connect(conString, function(err, client, done) {
@@ -23,7 +23,8 @@ var server = http.createServer(function(req, res, next) {
       // In this case, if we have successfully, received a client (truthy)
       // then it will be removed from the pool.
       done(client);
-      next(err);
+      res.writeHead(500, {'content-type': 'text/html'});
+      res.end('An error occurred');
       return true;
     };
     
