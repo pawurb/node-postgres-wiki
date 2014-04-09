@@ -67,7 +67,7 @@ _note: If this event (or any event with the name 'error') is not handled it will
 <div id="event-end"></div>
 ### End
 
-Emitted by the query when all rows have been returned __or__ when an error has been encountered.  In either circumstance, the query's execution is finished and it is no longer interacting with the connection.
+Emitted by the query when all rows have been returned successfully.  In the case of an error __this event will not be emitted__.  When the end event fires query's execution is finished and it is no longer interacting with the connection.
 
 The __end__ event listeners get one argument, which is the [[Result|Query#result-object]] object.
 
