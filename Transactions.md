@@ -25,7 +25,7 @@ pg.connect(function(err, client, done) {
     //what you are doing is returning a client back to the pool while it 
     //is in the middle of a transaction.  This is __very, very bad__.
     process.nextTick(function() {
-      var text = 'INSERT INTO account(money) VALUES($1) WHERE id = $1';
+      var text = 'INSERT INTO account(money) VALUES($1) WHERE id = $2';
       client.query(text, [100, 1], function(err) {
         if(err) return rollback(client, done);
         client.query(text, [-100, 2], function(err) {
