@@ -88,7 +88,7 @@ Yeah, you can do this as so:
 
 ```js
 //let's pretend we have a user table with the 'id' as the auto-incrementing primary key
-client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id', function(err, result) {
+client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id', ['abdddadfcadfaedesdf', 'test@te.st'], function(err, result) {
   if(err) //handle error
   else {
     var newlyCreatedUserId = result.rows[0].id;
@@ -99,7 +99,7 @@ client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING i
 Or using the evented approach:
 
 ```js
-client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id')
+client.query('INSERT INTO users(password_hash, email) VALUES($1, $2) RETURNING id', ['abdddadfcadfaedesdf', 'test@te.st'])
   .on('row', function (row) {
     var newlyCreatedUserId = row.id;
   });
