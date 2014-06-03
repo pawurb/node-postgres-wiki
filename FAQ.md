@@ -175,4 +175,6 @@ Quick fix for PowerShell:
 
 `npm install pg`
 
-### 15. (New Questio)
+### 15. (New Question) How can a quickly get a Client from Client pool?
+
+pg.connect(): It takes time to reconnect ?
