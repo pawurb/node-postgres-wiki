@@ -178,3 +178,5 @@ Quick fix for PowerShell:
 ### 15. (New Question) How can a quickly get a Client from Client pool?
 
 pg.connect(): It takes time to reconnect ?
+
+### 16. (New Question) Are queries asynchronous, or do they block? Can this behavior be overridden if desired?
