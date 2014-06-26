@@ -63,7 +63,7 @@ Creates a new, unconnected instance of a Client configured via supplied configur
      - whether to try SSL/TLS to connect to server
 
 
-#### example
+#### tcp example
 
 ```javascript
     var client = new Client({
@@ -71,6 +71,20 @@ Creates a new, unconnected instance of a Client configured via supplied configur
       password: 'boom!',
       database: 'test',
       host: 'example.com',
+      port: 5313
+    });
+```
+
+#### domain socket example
+
+Will look for the Unix Domain Socket at `/tmp/.s.PGSQL.5313` and connect with the rest of the supplied credentials:
+
+```javascript
+    var client = new Client({
+      user: 'brianc',
+      password: 'boom!',
+      database: 'test',
+      host: '/tmp',
       port: 5313
     });
 ```
