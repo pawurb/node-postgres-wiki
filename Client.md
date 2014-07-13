@@ -9,7 +9,6 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[Bulk Data Load|Client#wiki-bulk-load]]
       - [[copyFrom|Client#wiki-method-copy-from]]
       - [[copyTo|Client#wiki-method-copy-to]]
-  - [[pauseDrain / resumeDrain|Client#wiki-method-drain]]
 - events
   - [[drain|Client#wiki-event-drain]]
   - [[error|Client#wiki-event-error]]
@@ -388,33 +387,6 @@ stream.on('data', function (chunk) {
 ```
 
 
-<a name="method-drain"></a>
-### pauseDrain / resumeDrain 
-
-Pair of methods used to pause and resume __Client__ from raising its `drain` event when its query queue is emptied.  The `drain` event signifies the __Client__ has no more pending queries and can safely be returned back to a client pool.  Normally, `drain` will be emitted   These methods come in handy for doing async work between queries or within a transaction and disabling the __Client__ from alerting anyone it has gone idle.
-
-#### example
-```javascript
-var client = new Client(/*connection params*/);
-client.connect();
-client.on('drain', function() {
-  console.log('client has drained');
-});
-client.pauseDrain();
-client.query("SELECT NOW() AS when", function(err, result) {
-  console.log("first");
-  setTimeout(function() {
-    client.query("SELECT NOW() AS when", function(err, result) {
-      console.log("second");
-      client.resumeDrain(); //now client will emit drain
-    });
-  }, 1000);
-});
-//output: 
-// first
-// second
-// client has drained
-```
 ## Events
 
 <a name="event-drain"></a>
