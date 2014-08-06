@@ -43,7 +43,7 @@ Creates a new, unconnected instance of a Client configured via supplied configur
      - default value: `process.env.USER`
      - PostgreSQL user
   - _string_ __database__:
-     - default value: `process.env.USER`
+     - default value: `process.env.DATABASE`
      - database to use when connecting to PostgreSQL server
   - _string_ __password__:
      - default value: `null`
