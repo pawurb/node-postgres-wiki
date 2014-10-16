@@ -29,7 +29,12 @@ client.query(..., function(err, result) {
 
 ### 3. Assuming a recordset is enumerated using the array accessor style used in 1, can we get the column names in the same fashion, i.e. is there a result.rows[i].columnName property? ###
 
-Not currently.  It would be helpful to access the column values by column name or index position, but it's not part of the node-postgres api for now.
+This is possible using the `result.fields` array:
+```js
+client.query(..., function(err, result) {
+  console.log("Returned columns:", result.fields.map(function(f) { return f.name; }).join(', '));
+});
+```
 
 ### 4. How do you get the count of columns in the result set ? ###
 
