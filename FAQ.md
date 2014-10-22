@@ -193,4 +193,6 @@ pg.connect(): It takes time to reconnect ?
 
 ### 16. (New Question) Are queries asynchronous, or do they block? Can this behavior be overridden if desired?
 
-### 17. (New Question) What happens if I ask for a connection and the pool is already empty? will it throw an error or wait until a connection becomes available?
+### 17. What happens if I ask for a connection and the pool is already empty? will it throw an error or wait until a connection becomes available?
+
+It will wait, and call your callback with a connection after one becomes available. This package uses the [generic-pool](https://github.com/coopernurse/node-pool) package to provide this behavior.
