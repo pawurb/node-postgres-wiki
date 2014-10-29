@@ -11,7 +11,7 @@ var rollback = function(client, done) {
     //something is seriously messed up.  Return the error
     //to the done function to close & remove this client from
     //the pool.  If you leave a client in the pool with an unaborted
-    //transaction __very bad things__ will happen.
+    //transaction weird, hard to diagnose problems might happen.
     return done(err);
   });
 };
@@ -23,7 +23,9 @@ pg.connect(function(err, client, done) {
     //whatever we want...the client is ours until we call `done`
     //on the flip side, if you do call `done` before either COMMIT or ROLLBACK
     //what you are doing is returning a client back to the pool while it 
-    //is in the middle of a transaction.  This is __very, very bad__.
+    //is in the middle of a transaction.  
+    //Returning a client while its in the middle of a transaction
+    //will lead to weird & hard to diagnose errors.
     process.nextTick(function() {
       var text = 'INSERT INTO account(money) VALUES($1) WHERE id = $2';
       client.query(text, [100, 1], function(err) {
