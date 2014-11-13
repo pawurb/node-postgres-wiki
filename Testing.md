@@ -38,24 +38,24 @@ The integration tests operate on an actual PostgreSQL server instance.  You can 
 
 You can run any test file directly by doing the `node test/unit/connection/inbound-parser-tests.js` or something of the like.  
 
-However, you can specify command line arguments after the file and they will be picked up and used in the tests.  None of the arguments are used in  _unit_ tests since they have no external dependencies, so you're safe to just blast away with the command like above, but if you'd like to execute an _integration_ test, you outta specifiy your database, user to use for testing, and optionally a password.
+However, you can specify command line arguments after the file and they will be picked up and used in the tests.  None of the arguments are used in  _unit_ tests since they have no external dependencies, so you're safe to just blast away with the command like above, but if you'd like to execute an _integration_ test, you should specify the database and user to use for testing, and optionally a password.
 
 To do so you would do something like so:
 
     node test/integration/client/simple-query-tests.js pg://user:password@host:port/databaseName
 
-If you'd like to execute all the unit or integration tests at one time, you can do so with the "Makefile"
+If you'd like to execute all the unit or integration tests at one time, you can do so with the `Makefile`.
 
 ## Makefile
-the make file is used as a shortcut to running all the tests.  Since many of the integration tests slam the database with load/connection-pool based testing the tests are executed sequentially file-by-file.  This ensures each file finishes before the next begins and reduces test complexity and raises test isolation.  The command line parameters passed to individual test files can be passed to the Makefile which will in turn pass them along to each test file.
+The make file is used as a shortcut to running all the tests.  Since many of the integration tests slam the database with load/connection-pool based testing, the tests are executed sequentially file-by-file.  This ensures each file finishes before the next begins, reduces test complexity, and raises test isolation.  The command line parameters passed to individual test files can be passed to the Makefile which will in turn pass them along to each test file.
 
 ### Run all unit tests
 
     make test-unit
 
-or optionally, since `test-unit` is the default
+or optionally, since `test-unit` is the default:
 
-_note this means integration tests under `test/integration` do __not__ run with from default makefile task_
+_(Note: This means integration tests under `test/integration` do **not** run with the default Makefile task)_
 
     make test
 
