@@ -21,7 +21,7 @@ If you're manually managing your own __Client__ instances without using __pg__ t
     client.on('drain', client.end.bind(client)); //auto disconnect client after last query ends
 ```
 
-_Note: as mentioned other places...do not create a new client instance for each http request you receive. You __will__ exhaust available connections to your PostgreSQL server and you __will__ be sorry._ 
+_Note: as mentioned other places...do not create a new client instance for each http request you receive. You **will** exhaust available connections to your PostgreSQL server and you **will** be sorry._ 
 
 # Internal Testing of node-postgres
 In case you want to contribute....
