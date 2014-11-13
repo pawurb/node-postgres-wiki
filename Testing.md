@@ -28,11 +28,11 @@ In case you want to contribute....
 
 ## Unit tests
 
-Unit tests do not depend on having access to a running PostgreSQL server.  They run in memory by stubbing out the layer below the object under test.  If the [[Client]] object is being tests, the lower level [[Connection]] object is stubbed out and controlled within the test.  This allows to simulate specifically timed error events and more complex interactions between the [[Client]] and the [[Connection]] such as when executing a [[Prepared Statement|Prepared-Statements]].  All unit test files exist under `test/unit/` and by convention end with "-tests.js."  They can be executed either by `make test`, `make test-unit`, or `npm test pg`
+Unit tests do not depend on having access to a running PostgreSQL server.  They run in memory by stubbing out the layer below the object under test.  If the [[Client]] object is being tests, the lower level [[Connection]] object is stubbed out and controlled within the test.  This allows to simulate specifically timed error events and more complex interactions between the [[Client]] and the [[Connection]] such as when executing a [[Prepared Statement|Prepared-Statements]].  All unit test files exist under `test/unit/` and by convention end with `-tests.js`.  They can be executed either by `make test`, `make test-unit`, or `npm test pg`
 
 ## Integration tests
 
-The integration tests operate on an actual PostgreSQL server instance.  You can supply credentials via a quick and dirty command line option parser which is executed before any test is run.  Also, the integration tests require populating your database with some test data.  The script is located at `node-postgres/script/create-test-tables.js.`  All integration tests files exist under `test/integration/` and by convention end with "-tests.js."  Further instructions below...
+The integration tests operate on an actual PostgreSQL server instance.  You can supply credentials via a quick and dirty command line option parser which is executed before any test is run.  Also, the integration tests require populating your database with some test data.  The script is located at `node-postgres/script/create-test-tables.js`.  All integration tests files exist under `test/integration/` and by convention end with `-tests.js`.  Further instructions below...
 
 ## Running tests
 
