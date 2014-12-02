@@ -1,1 +1,0 @@
-why does your code allow errors
