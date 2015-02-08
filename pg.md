@@ -116,6 +116,10 @@ The default host if a host is not provided to the individual __Client__ instance
 
 The default port if a port is not provided to the individual __Client__ instance.  In the case of a unix socket, the port becomes the extension to the socket file.  Default value is `5432`
 
+#### pg.defaults.ssl
+
+Whether to try SSL/TLS to connect to server. Default value is `false`.
+
 #### pg.defaults.rows
 
 Number of rows to return at a time from a prepared statement's portal. 0 will return all rows at once.
