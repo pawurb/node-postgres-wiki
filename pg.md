@@ -126,7 +126,29 @@ Number of rows to return at a time from a prepared statement's portal. 0 will re
 
 #### pg.defaults.poolSize
 
-Number of unique __Client__ objects to maintain in the pool.  If this value is set to 0, pooling will be disabled and pg#connect will always return a new client. Default value is `10`
+Number of unique __Client__ objects to maintain in the pool.  Default value is `10`.  If you want to change the pool size you must modify this value __before__ creating a pool.  Example:
+
+```js
+var pg = require('pg');
+pg.defaults.poolSize = 25;
+
+//pool is created on first call to pg.connect
+pg.connect(function(err, client, done) {
+  done();
+});
+
+pg.defaults.poolSize = 2;
+//pool still has a size of 25
+pg.connect(function(err, client, done) {
+  done();
+});
+
+//creating a new pool by using a different connection string
+//will create this second pool with a size of 2
+pg.connect('other-pool', function(err, client, done) {
+
+});
+```
 
 #### pg.defaults.poolIdleTimeout
 
