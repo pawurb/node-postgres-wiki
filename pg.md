@@ -16,6 +16,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a somewhat naive impl
 * Methods
   * [[connect|pg#wiki-method-connect]]
   * [[end|pg#method-end]]
+  * [[cancel|pg#method-cancel]]
 * Properties
   * [[defaults|pg#properties-defaults]]
 * Events
@@ -90,6 +91,29 @@ pg.connect(function(err, client, done) {
 
 pg.end();
 //the pool will dispose of all clients and your process will terminate
+```
+
+### cancel(config, client, query)
+
+Cancels the given query.
+
+#### example
+```js
+var pg = require('pg');
+
+pg.connect(conString, function(err, client, done) {
+  var query = client.query('SELECT pg_sleep(1)', function(err, result) {
+    if(err) {
+      // this should print "error: canceling statement due to user request"
+      console.error("%s", err);
+    }
+    done();
+  });
+
+  setImmediate(function() {
+    pg.cancel(client.connectionParameters, client, query);
+  });
+});
 ```
 
 ## pg.defaults
