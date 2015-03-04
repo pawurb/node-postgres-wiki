@@ -23,6 +23,19 @@ Parameters may not be DDL:
 Parameterized queries in postgres are planned for before each execution, so they provide safety
 but not speed.
 
+With tagged template string literals introduced in ECMAScript 6, parameterized queries can be written more easily with a simple tag function:
+
+```javascript
+function SQL(parts, ...values) {
+  return {
+    text: parts.reduce((prev, curr, i) => prev+"$"+i+curr),
+    values
+  };
+}
+
+client.query(SQL`select name from user where id=${userId} and password=${password}`, callback);
+```
+
 ##Prepared Statements##
 
 A prepared statement lets postgres plan the statement so that each execution takes advantage of the
