@@ -174,7 +174,7 @@ Creates an unnamed query object, queues it for execution, and returns it.
 If `name` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, if `values` is provided within the `config` object the query will be executed as a <a href="Query#parameterized-query">parameterized query</a>. If Otherwise, it will behave in the same manner as a <a href="#method-query-simple">simple query</a>.
 
 #### examples
-##### paramatarized query with config object
+##### parameterized query with config object
 
 ```javascript
     var client = new Client({user: 'brianc', database: 'test'});
@@ -192,7 +192,7 @@ If `name` is provided within the `config` object the query will be executed as a
     });
 ```
 
-##### paramaterized query using string/array initialization
+##### parameterized query using string/array initialization
 ```javascript
  
     var client = new Client({user: 'brianc', database: 'test'});
@@ -207,7 +207,7 @@ If `name` is provided within the `config` object the query will be executed as a
     });
 ```
 
-##### paramaterized query with optional callback supplied
+##### parameterized query with optional callback supplied
 ```javascript
     
     var client = new Client({user: 'brianc', database: 'test'});
