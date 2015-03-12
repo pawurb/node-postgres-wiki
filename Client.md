@@ -171,7 +171,7 @@ _____
 
 Creates an unnamed query object, queues it for execution, and returns it.
 
-If `name` is provided within the `config` object the query will be executed as a <a href="Query#prepared-statement">prepared statement</a>.  Otherwise, if `values` is provided within the `config` object the query will be executed as a <a href="Query#parameterized-query">parameterized query</a>. If Otherwise, it will behave in the same manner as a <a href="#method-query-simple">simple query</a>.
+If `name` is provided within the `config` object the query will be executed as a [[prepared statement|Prepared-Statements]].  Otherwise, if `values` is provided within the `config` object the query will be executed as a [[parameterized query|Prepared-Statements#parameterized-queries]]. If Otherwise, it will behave in the same manner as a <a href="#method-query-simple">simple query</a>.
 
 #### examples
 ##### parameterized query with config object
