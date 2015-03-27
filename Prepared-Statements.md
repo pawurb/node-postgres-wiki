@@ -70,6 +70,19 @@ Practical steps might be to:
 - do work
 - if the set will probably not be used again soon, `deallocate` them; otherwise, let them stay
 
+#### An Optimized approach to Prepared Statements ####
+
 Alternately, if one wishes to optimize performance, one could:
 
 - keeps prepared statements in sets, create and deallocate each of them in a set
+  - for example, all the prepared statements to update a customer record in one set
+  - add a map of these set to the `pg` object, prepared statement name and body
+  - for sanity, have each statement is a set begin with the same prefix
+- keep track of which sessions have created which sets of prepared statements
+  - in the `pg` object, keep a map of session, and for each session, which prepared statement set
+  - override the `query()` so that it checks first if the session has the prepared statement set, and creates if necessary
+
+if your app changes prepared statements on the fly (such as in development), since from one session
+you cannot change another session, you would need to mark sessions with outdated prepared statements
+as `stale`, and then deallocate them before re-creating.
+
