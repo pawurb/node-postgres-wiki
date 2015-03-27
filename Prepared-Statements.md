@@ -69,3 +69,7 @@ Practical steps might be to:
 - if not existent, create the set of prepared statements
 - do work
 - if the set will probably not be used again soon, `deallocate` them; otherwise, let them stay
+
+Alternately, if one wishes to optimize performance, one could:
+
+- keeps prepared statements in sets, create and deallocate each of them in a set
