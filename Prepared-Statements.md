@@ -72,17 +72,18 @@ Practical steps might be to:
 
 #### An Optimized approach to Prepared Statements ####
 
-Alternately, if one wishes to optimize performance, one could:
+Alternately, if one wishes to optimize performance (and sanity), one could:
 
-- keeps prepared statements in sets, create and deallocate each of them in a set
+- keep prepared statements in sets, create and deallocate each of them in a set
   - for example, all the prepared statements to update a customer record in one set
-  - add a map of these set to the `pg` object, prepared statement name and body
-  - for sanity, have each statement is a set begin with the same prefix
-- keep track of which sessions have created which sets of prepared statements
-  - in the `pg` object, keep a map of session, and for each session, which prepared statement set
-  - override the `query()` so that it checks first if the session has the prepared statement set, and creates if necessary
+  - in the `pg` object add a map of these sets, and for each statement in the set its name and body
+  - for sanity, each statement's name in one set could have the same prefix, making it easy to back reference which set a statement belongs to
+- for each session, track which sets of prepared statement sets have been created
+  - in the `pg` object, keep a map of sessions, and for each session, which prepared statement sets have been created
+  - use `pg_backend_pid()` as your session id
+- override the `query()` so that it checks first if the session has created the prepared statement - create first if necessary
 
 if your app changes prepared statements on the fly (such as in development), since from one session
 you cannot change another session, you would need to mark sessions with outdated prepared statements
-as `stale`, and then deallocate them before re-creating.
+as `stale`, and then deallocate the set before re-creating.
 
