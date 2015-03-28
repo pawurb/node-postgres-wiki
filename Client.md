@@ -13,7 +13,8 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[notice|Client#wiki-event-notice]]
   
 ## Constructors
-_note: **Client** instances created via the constructor do **not** participate in connection pooling.  To take advantage of connection pooling (recommended) please use the [[pg]] object._
+_note: **Client** instances created via the constructor do **not** participate in `node-pg`'s connection pooling.  To take advantage of connection pooling (recommended) please use either the [[pg]] object
+or a pooling utility such as `pgbouncer`._
 ### new Client(<em>string</em> url): _Client_
 ### new Client(<em>string</em> domainSocketFolder): _Client_
 
