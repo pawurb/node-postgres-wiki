@@ -20,6 +20,7 @@ Anyways...using a connection directly is a pretty verbose and cumbersom affair. 
  
 _note: this works and is taken directly from an integration test; however, it doesn't include error handling_
 
+``` javascript
     var con = new Connection({stream: new net.Stream()});
 
     con.connect('5432','localhost');
@@ -67,3 +68,5 @@ _note: this works and is taken directly from an integration test; however, it do
         });
       });
     });
+
+```
