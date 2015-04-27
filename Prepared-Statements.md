@@ -59,31 +59,7 @@ postgres to replan the statement if reissued, losing the speed benefits.
 
 ###Using Prepared Statements###
 
-In practice prepared statements are usually used in sets; for example, posting an invoice might use 
-prepared statements to reset inventory levels, customer amounts due, and salesman totals.  Adding and
-deallocating them as a set makes sense.
-
-Practical steps might be to:
-
-- query for one of the prepared statements using `pg_prepared_statements`
-- if not existent, create the set of prepared statements
-- do work
-- if the set will probably not be used again soon, `deallocate` them; otherwise, let them stay
-
-#### An Optimized approach to Prepared Statements ####
-
-Alternately, if one wishes to optimize performance (and sanity), one could:
-
-- keep prepared statements in sets, create and deallocate each of them in a set
-  - for example, all the prepared statements to update a customer record in one set
-  - in the `pg` object add a map of these sets, and for each statement in the set its name and body
-  - for sanity, each statement's name in one set could have the same prefix, making it easy to back reference which set a statement belongs to
-- for each session, track which sets of prepared statement sets have been created
-  - in the `pg` object, keep a map of sessions, and for each session, which prepared statement sets have been created
-  - use `pg_backend_pid()` as your session id
-- override the `query()` so that it checks first if the session has created the prepared statement - create first if necessary
-
-if your app changes prepared statements on the fly (such as in development), since from one session
-you cannot change another session, you would need to mark sessions with outdated prepared statements
-as `stale`, and then deallocate the set before re-creating.
+pg tracks which statements have been prepared for a session - you do not need one query to prepare
+and a second one to execute: the same query, if passed name, text and values, can be used each time
+you wish to execute the query - pg will prepare the query first only if it needs to.
 
