@@ -373,7 +373,9 @@ _____
 <a name="event-notice"></a>
 ### notice : _object_ notice
 
-Emitted from PostgreSQL server when non-critical events happen.  Libpq `printf`'s these out to stdout if the behavior is not overridden.  Yucky.  Thankfully node-postgres overrides the default behavior and emits an event (instead of printing to stdout) on the client which received the notice event.
+Emitted from PostgreSQL server when non-critical events happen, for example a `RAISE NOTICE` statement in a plpgsql function. When using connection pooling, be sure to attach the handler only once per client.
+
+Libpq `printf`'s these out to stdout if the behavior is not overridden.  Yucky.  Thankfully node-postgres overrides the default behavior and emits an event (instead of printing to stdout) on the client which received the notice event.
 
 ##### example
 ```javascript
