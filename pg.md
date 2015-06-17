@@ -18,7 +18,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a somewhat naive impl
   * [[end|pg#method-end]]
   * [[cancel|pg#method-cancel]]
 * Properties
-  * [[defaults|pg#properties-defaults]]
+  * [[defaults|pg#pgdefaults]]
 * Events
   * error
 ## Methods
