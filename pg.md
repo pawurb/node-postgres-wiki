@@ -37,7 +37,7 @@ The _connect_ method retrieves a __[[Client]]__ from the client pool, or if all 
 
 Note: The first parameter passed to _connect_, either a string or config object (or nothing), currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.  The object, string, or nothing is passed to `JSON.stringify` for key uniqueness.  If nothing is passed you are relying on connection defaults (via [environment variables](http://www.postgresql.org/docs/9.3/static/libpq-envars.html) or `pg.defaults`) then `JSON.stringify({})` is used as the key.
 
-__note: if you do not call `done()` the client will never be returned to the pool and you will leak clients.  This is mega-bad so always call `done()`__
+__note: calling `done()` on a pooled client will cause it to close after idling for 30 seconds. If you do not call `done()` the client will never be returned to the pool and you will leak clients.  This is mega-bad so always call `done()`__
 
 #### parameters
 
@@ -70,7 +70,7 @@ __note: if you do not call `done()` the client will never be returned to the poo
     pg.connect(connectionString, function(err, client, done) {
         client.query('SELECT name FROM users WHERE email = $1', ['brian@example.com'], function(err, result) {
           assert.equal('brianc', result.rows[0].name);
-          done();
+          done();  // client idles for 30 seconds before closing
         });
     });
 ```
@@ -87,7 +87,7 @@ pg.connect(function(err, client, done) {
   done();
 });
 
-//your process will not exit because the pool is holding open, idle connections to the server
+//your process will not exit immediately because the pool is holding open, idle connections to the server
 
 pg.end();
 //the pool will dispose of all clients and your process will terminate
