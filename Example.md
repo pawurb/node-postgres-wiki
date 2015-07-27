@@ -22,11 +22,16 @@ var server = http.createServer(function(req, res) {
       // instead of simply returning it to be reused.
       // In this case, if we have successfully received a client (truthy)
       // then it will be removed from the pool.
-      done(client);
+      if( client ){
+        done(client);
+      }
       res.writeHead(500, {'content-type': 'text/plain'});
       res.end('An error occurred');
       return true;
     };
+
+    // handle an error from the connection
+    if(handleError(err)) return;
     
     // record the visit
     client.query('INSERT INTO visit (date) VALUES ($1)', [new Date()], function(err, result) {
