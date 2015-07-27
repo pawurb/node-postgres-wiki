@@ -22,7 +22,7 @@ var server = http.createServer(function(req, res) {
       // instead of simply returning it to be reused.
       // In this case, if we have successfully received a client (truthy)
       // then it will be removed from the pool.
-      if( client ){
+      if(client){
         done(client);
       }
       res.writeHead(500, {'content-type': 'text/plain'});
