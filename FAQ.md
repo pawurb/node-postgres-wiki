@@ -131,16 +131,24 @@ Yes, [here is a test that shows how it can be done.](https://github.com/brianc/n
 
 ### 11. How do I build a `WHERE foo IN (...)` query to find rows matching an array of values?
 
-You need to flatten your array of values and build the numbered placeholder string for yourself. 
+node-postgres supports mapping simple JavaScript arrays to PostgreSQL arrays, so in most cases you can just pass it like any other parameter.
 
 ```javascript
-// passing an array as a value __won't work__:
-client.query("SELECT * FROM stooges WHERE name IN ($1)", [ ['larry', 'curly', 'moe'] ], ...);
+client.query("SELECT * FROM stooges WHERE name = ANY ($1)", [ ['larry', 'curly', 'moe'] ], ...);
+```
+
+Note that `= ANY` is another way to write `IN (...)`, but unlike `IN (...)` it will work how you'd expect when you pass an array as a query parameter.
+
+If you know the length of the array in advance you can flatten it to an `IN` list:
+
+```
 // passing a flat array of values will work:
 client.query("SELECT * FROM stooges WHERE name IN ($1, $2, $3)", ['larry', 'curly', 'moe'], ...);
 ```
 
-To do this in a general purpose way, try:
+... but there's little benefit when `= ANY` works with a JavaScript array.
+
+If you're on an old version of node-postgres or you need to create more complex PostgreSQL arrays (arrays of composite types, etc) that node-postgres isn't coping with, you can generate an array literal with dynamic SQL, but *be extremely careful of [SQL injection](https://en.wikipedia.org/wiki/SQL_injection) when doing this*. The following approach is safe because it generates a query string with query parameters and a flattened parameter list, so you're still using the driver's support for parameterised queries ("prepared statements") to protect against SQL injection:
 
 ```javascript
 var stooge_names = ['larry', 'curly', 'moe'];
