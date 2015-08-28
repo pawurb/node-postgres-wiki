@@ -48,11 +48,11 @@ Creates a new, unconnected instance of a Client configured via supplied configur
   - _number_ __port__:
      - default value: `5432`
      - port to use when connecting to PostgreSQL server
-     - will support unix domain sockets in future
      - used to initialize underlying net.Stream()
   - _string_ __host__:
-     - default value: `null`
-     - host address of PostgreSQL server
+     - default value: `localhost`
+     - host address of PostgreSQL server (or a path such as `/var/run/postgresql` for Unix sockets)
+     - note: `localhost` still uses TCP (instead of Unix) sockets for the non-native connector
      - used to initialize underlying net.Stream()
   - _bool_ __ssl__:
      - default value: `false`
