@@ -134,7 +134,7 @@ The default password to use when connecting via tcp sockets (md5 or plaintext) i
 
 #### pg.defaults.host
 
-The default host if a host is not provided to the individual __Client__ instance.  Can be a domain name, ip address, or path to unix socket folder.  Default value is `null`
+The default host if a host is not provided to the individual __Client__ instance.  Can be a domain name, ip address, or path to unix socket folder.  Default value is `localhost`
 
 #### pg.defaults.port
 
