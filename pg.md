@@ -136,6 +136,8 @@ The default password to use when connecting via tcp sockets (md5 or plaintext) i
 
 The default host if a host is not provided to the individual __Client__ instance.  Can be a domain name, ip address, or path to unix socket folder.  Default value is `localhost`
 
+Implementation note: currently (v4.4.1, August 2015) the host `localhost` will connect to a TCP socket instead of Unix sockets for the non-native connector. Explicitly specify a value such as `/var/run/postgresql` or `/tmp` to force use of Unix domain sockets.
+
 #### pg.defaults.port
 
 The default port if a port is not provided to the individual __Client__ instance.  In the case of a unix socket, the port becomes the extension to the socket file.  Default value is `5432`
