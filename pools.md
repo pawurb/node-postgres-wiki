@@ -34,7 +34,6 @@ var showPoolInfo = function(pool){
 };
 
 pg.connect(function(err, client, done) {
-
   var pool = pg.pools.getOrCreate();
   
   // poolSize: 1, availableObjects: 0
@@ -46,9 +45,7 @@ pg.connect(function(err, client, done) {
   showPoolInfo(pool);
 
   setTimeout(function(){
-
     // when this function executes the client in the pool has been destroyed and removed from the pool
-
     // poolSize: 0, availableObjects: 0
     showPoolInfo(pool);
   }, 2000);
