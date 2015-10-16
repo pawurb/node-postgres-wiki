@@ -27,6 +27,7 @@ Gets a pool by the given `key` or creates it if it does not yet exist.  In eithe
 ```js
 var pg = require('pg');
 
+pg.defaults.poolIdleTimeout = 1000;
 pg.connect(function(err, client, done) {
   var pool = pg.pools.getOrCreate();
   console.log(pool.getPoolSize()); //1
