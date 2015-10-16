@@ -28,12 +28,30 @@ Gets a pool by the given `key` or creates it if it does not yet exist.  In eithe
 var pg = require('pg');
 
 pg.defaults.poolIdleTimeout = 1000;
+
+var showPoolInfo = function(pool){
+  console.log('poolSize: %d, availableObjects: %d', pool.getPoolSize(), pool.availableObjectsCount()); 
+};
+
 pg.connect(function(err, client, done) {
+
   var pool = pg.pools.getOrCreate();
-  console.log(pool.getPoolSize()); //1
-  console.log(pool.availableObjectsCount()); //0
+  
+  // poolSize: 1, availableObjects: 0
+  showPoolInfo(pool);
+
   done();
-  console.log(pool.getPoolSize()); //1
-  console.log(pool.availableObjectsCount()); //1
+
+  // poolSize: 1, availableObjects: 1
+  showPoolInfo(pool);
+
+  setTimeout(function(){
+
+    // when this function executes the client in the pool has been destroyed and removed from the pool
+
+    // poolSize: 0, availableObjects: 0
+    showPoolInfo(pool);
+  }, 2000);
+
 });
 ```
