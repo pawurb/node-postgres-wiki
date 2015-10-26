@@ -57,6 +57,12 @@ Creates a new, unconnected instance of a Client configured via supplied configur
   - _bool_ __ssl__:
      - default value: `false`
      - whether to try SSL/TLS to connect to server
+  - _string_ __application_name__:
+    - default value: `process.env.PGAPPNAME`
+    - name displayed in the `pg_stat_activity` view and included in CSV log entries
+  - _string_ __fallback_application_name__:
+    - default value: `false`
+    - fallback value for the `application_name` configuration parameter
 
 
 #### tcp example
