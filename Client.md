@@ -54,9 +54,10 @@ Creates a new, unconnected instance of a Client configured via supplied configur
      - host address of PostgreSQL server (or a path such as `/var/run/postgresql` for Unix sockets)
      - note: `localhost` still uses TCP (instead of Unix) sockets for the non-native connector
      - used to initialize underlying net.Stream()
-  - _bool_ __ssl__:
+  - _bool_/_object_ __ssl__:
      - default value: `false`
      - whether to try SSL/TLS to connect to server
+     - if you wish to alter any SSL connection parameters, while using the the postgres javascript client implementation, pass the same options as [tls.connect()](https://nodejs.org/api/tls.html#tls_tls_connect_port_host_options_callback). Default values for tls.connect() options are overridden by this module, pass them explicitly. Eg: to use SSL certificate verification, pass values to the `ca` parameter and set the `rejectUnauthorized` paramether to `true` 
   - _string_ __application_name__:
     - default value: `process.env.PGAPPNAME`
     - name displayed in the `pg_stat_activity` view and included in CSV log entries
