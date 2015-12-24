@@ -21,6 +21,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a somewhat naive impl
   * [[defaults|pg#pgdefaults]]
 * Events
   * error
+
 ## Methods
 
 
