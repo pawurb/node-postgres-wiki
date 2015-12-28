@@ -63,3 +63,20 @@ pg tracks which statements have been prepared for a session - you do not need on
 and a second one to execute: the same query, if passed name, text and values, can be used each time
 you wish to execute the query - pg will prepare the query first only if it needs to.
 
+####`values` are required
+It is not possible to simply create a prepared statement without executing it. e.g. the following will throw an error:
+```javascript
+client.query( {
+    text :  "INSERT INTO my_table(field1,field2) VALUES ($1, $2)", 
+    name : "insert-my-data"
+});
+```
+The error is
+> error: bind message supplies 0 parameters, but prepared statement "insert-my-data" requires 2
+
+Of course, `values` are not required if there are no parameters in the query. But even in those instances, the query is executed when `client.query()` is invoked.
+
+####Re-using prepared statements
+Since caching is per-session, sometimes it is not possible to be sure that a given prepared statement exists in the cache. If all calls are made within the same `pg.connect` block, the statement will be cached because all calls use the same pg session.
+
+However, in practical use (e.g. with Express), you could have a pool of pg connections being used by middleware serving hundreds of HTTP requests. The fail-safe way to use prepared statements is to always supply both the `text` and the `name`. When a statement named `name` is found to be cached, `text` is ignored and the cached statement is used. If `name` is not found in the cache, a new prepared statement is created using the `text` supplied.
