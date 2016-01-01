@@ -14,3 +14,7 @@ To install the dependencies in Ubuntu:
 `sudo apt-get install libpq-dev build-essential`
 
 The above also appears to be sufficient.  Specifically, a working installation of PostgreSQL is not required on the same machine running Node.
+
+
+***
+[[◄ Back (Home)|Home]] `      ` [[Next (API - pg) ►|pg]]
