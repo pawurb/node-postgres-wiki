@@ -58,4 +58,4 @@ server.listen(3001)
 ```
 
 ***
-[[◄ Back (FAQ)|FAQ]] `      ` [[Next (Internals - Query Queue) ►|Queryqeue]]
+[[◄ Back (FAQ)|FAQ]] `      ` [[Next (Internals - Query Queue) ►|Queryqueue]]
