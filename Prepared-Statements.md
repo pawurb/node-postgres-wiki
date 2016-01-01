@@ -80,3 +80,6 @@ Of course, `values` are not required if there are no parameters in the query. Bu
 Since caching is per-session, sometimes it is not possible to be sure that a given prepared statement exists in the cache. If all calls are made within the same `pg.connect` block, the statement will be cached because all calls use the same pg session.
 
 However, in practical use (e.g. with Express), you could have a pool of pg connections being used by middleware serving hundreds of HTTP requests. The fail-safe way to use prepared statements is to always supply both the `text` and the `name`. When a statement named `name` is found to be cached, `text` is ignored and the cached statement is used. If `name` is not found in the cache, a new prepared statement is created using the `text` supplied. (as discussed in [this issue](https://github.com/brianc/node-postgres/issues/903))
+
+***
+[[◄ Back (API - pg.Connection)|Connection]] `      ` [[Next (Transactions) ►|Transactions]]
