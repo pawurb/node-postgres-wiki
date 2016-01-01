@@ -52,3 +52,6 @@ pg.connect(function(err, client, done) {
 
 });
 ```
+
+***
+[[◄ Back (API - pg.Query)|Query]] `      ` [[Next (API - pg.Connection) ►|Connection]]
