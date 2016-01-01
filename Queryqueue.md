@@ -21,3 +21,6 @@ __[[Clients|Client]]__ are responsible for creating __[[Queries|Query]]__ via th
     //query 2 completed
     //drained
 ```
+
+***
+[[◄ Back (Example App)|Example]] `      ` [[Next (Testing) ►|Testing]]
