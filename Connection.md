@@ -70,3 +70,6 @@ _note: this works and is taken directly from an integration test; however, it do
     });
 
 ```
+
+***
+[[◄ Back (API - pg.pools)|pools]] `      ` [[Next (Prepared Statements) ►|Prepared-Statements]]
