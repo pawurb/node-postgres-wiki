@@ -394,3 +394,6 @@ Libpq `printf`'s these out to stdout if the behavior is not overridden.  Yucky. 
     client.query('create temp table boom(id serial, size integer)');
     client.on('drain', client.end.bind(client));
 ```
+
+***
+[[◄ Back (API - pg)|pg]] `      ` [[Next (API - pg.Query) ►|Query]]
