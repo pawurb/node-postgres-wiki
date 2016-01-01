@@ -3,10 +3,10 @@
 The root __pg__ object returned by `require('pg')` serves two purposes.  
 First, it has a reference to the other components of node-postgres: 
 
-1. `pg.Client` 
-2. `pg.Query`
+1. [`pg.Client`](https://github.com/brianc/node-postgres/wiki/Client)
+2. [`pg.Query`](https://github.com/brianc/node-postgres/wiki/Query)
 3. `pg.defaults`
-4. `pg.pools`
+4. [`pg.pools`](https://github.com/brianc/node-postgres/wiki/Pools)
 5. `pg.types`
 
 The second purpose is more important:
@@ -198,3 +198,6 @@ By default fields with type int8 are returned as strings because JavaScript cann
 ### 'error' : _object_ error, _object_ client
 
 Emitted whenever a pooled client emits an error.  An idle client will likely only emit an error when it loses connection to the PostgreSQL server instance, for example when your database crashes (oh no!).  The pooled client which emitted the error is automatically removed from the pool and supplied to the callback.
+
+***
+[[◄ Back (Installation)|Installation]] `      ` [[Next (API - pg.Client) ►|Client]]
