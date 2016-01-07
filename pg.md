@@ -26,13 +26,13 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a somewhat naive impl
 
 
 <a id="method-connect">
-### Connect([<em>string</em> connectionString], _function_ callback)
+### connect([<em>string</em> connectionString], _function_ callback)
 </a>
 
 
-### Connect([<em>object</em> config], _function_ callback)
+### connect([<em>object</em> config], _function_ callback)
 
-### Connect(<em>function</em> callback)
+### connect(<em>function</em> callback)
 
 The _connect_ method retrieves a __[[Client]]__ from the client pool, or if all pooled clients are busy and the pool is not full, the _connect_ method will create a new client passing its first argument directly to the __[[Client]]__ constructor.  In either case, your supplied callback will only be called when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will be called once and only once for each invocation of _connect_.  
 
