@@ -36,6 +36,8 @@ function SQL(parts, ...values) {
 client.query(SQL`select name from user where id=${userId} and password=${password}`, callback);
 ```
 
+If you want it as a module, take a look at [sql-template-strings](https://www.npmjs.com/package/sql-template-strings).
+
 ##Prepared Statements##
 
 A prepared statement lets postgres plan the statement so that each execution takes advantage of the
