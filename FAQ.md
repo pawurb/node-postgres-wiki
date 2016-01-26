@@ -197,5 +197,7 @@ pg.connect(): It takes time to reconnect ?
 
 It will wait, and call your callback with a connection after one becomes available. This package uses the [generic-pool](https://github.com/coopernurse/node-pool) package to provide this behavior.
 
+### 18. (New Question) Is there a way to check if I have an active connection?
+
 ***
 [[◄ Back (Transactions)|Transactions]] `      ` [[Next (Example App) ►|Example]]
