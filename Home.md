@@ -12,5 +12,6 @@
 * [[Error Handling]]
 * Internals
   * [[Query Queue|Queryqueue]]
+* [[Extras]] – List of some handy modules
 * [[Testing]]
 * [[Todo]]
