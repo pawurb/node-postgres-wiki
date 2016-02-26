@@ -38,6 +38,25 @@ client.query(SQL`select name from user where id=${userId} and password=${passwor
 
 If you want it as a module, take a look at [sql-template-strings](https://www.npmjs.com/package/sql-template-strings).
 
+#### Multi-statement parameterized queries ####
+
+Multi-statement parameterized queries are currently not supported by postgres.
+
+For example, the following statements will throw an error : 
+
+```javascript
+client.query('SELECT $1; SELECT $1;', [123], callback);
+```
+```javascript
+client.query({ text: 'SELECT $1; SELECT $1;' }, [123], callback);
+```
+```javascript
+error: cannot insert multiple commands into a prepared statement
+...
+```
+
+A workaround is to do 2 separate queries and using whatever type of async flow control to dispatch them.
+
 ##Prepared Statements##
 
 A prepared statement lets postgres plan the statement so that each execution takes advantage of the
