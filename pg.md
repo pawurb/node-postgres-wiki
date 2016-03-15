@@ -16,7 +16,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a somewhat native imp
 * Methods
   * [[connect|pg#connectstring-connectionstring-function-callback]]
   * [[end|pg#end]]
-  * [[cancel|pg#cancel]]
+  * [[cancel|pg#cancelconfig-client-query]]
 * Properties
   * [[defaults|pg#pgdefaults]]
 * Events
