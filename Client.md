@@ -249,7 +249,7 @@ Creates a named query object, queues it for execution, and returns it.:
 
  * If and only if `name` is provided within the `config` object does query result in a prepared statement.
  * If `text` and `name` are provided within the `config`, the query will result in the creation of a <a href="Query#prepared-statement">prepared statement</a>.
- * If `value` and `name` provided within the `config`, the prepared statement will be executed.  (Note: if the prepared statement takes no parameters, use `value:[]`.)
+ * If `values` and `name` provided within the `config`, the prepared statement will be executed.  (Note: if the prepared statement takes no parameters, use `values: []`.)
 
 PostgreSQL server caches prepared statements by name on a per (postgres) session basis.  Subsequent queries may refer to the prepared statement by name, and the PostgresQL server instance can skip the preparation step.
 
