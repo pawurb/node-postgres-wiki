@@ -24,3 +24,4 @@
 - [recursivefunk/pg-gen](https://github.com/recursivefunk/pg-gen) - Use ES6 Generators to paginate through large Postgres result sets
 - [vitaly-t/pg-minify](https://github.com/vitaly-t/pg-minify) - Minifies PostgreSQL scripts.
 - [MassiveJS](https://github.com/robconery/massive-js) - A simple relational data access tool that has full JSONB document support for Postgres.
+- [pg-ka-fix](https://github.com/numminorihsf/pg-ka-fix) - TCP keep-alive extension for node-postgres.
