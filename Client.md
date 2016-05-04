@@ -64,7 +64,9 @@ Creates a new, unconnected instance of a Client configured via supplied configur
   - _string_ __fallback_application_name__:
     - default value: `false`
     - fallback value for the `application_name` configuration parameter
-
+  - _string_ __poolSize__:
+    - default value: `pg.defaults.poolSize`
+    - How many connections to use as part of this pool.
 
 #### tcp example
 
