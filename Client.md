@@ -11,6 +11,7 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[error|Client#wiki-event-error]]
   - [[notification|Client#wiki-event-notification]]
   - [[notice|Client#wiki-event-notice]]
+  - [[end|Client#wiki-event-end]]
   
 ## Constructors
 _note: **Client** instances created via the constructor do **not** participate in [[pg]]'s connection pooling.  To take advantage of connection pooling (recommended) please use either the [[pg]] object or a pooling utility such as [pgbouncer](https://wiki.postgresql.org/wiki/PgBouncer)._
@@ -396,6 +397,17 @@ Libpq `printf`'s these out to stdout if the behavior is not overridden.  Yucky. 
     client.query('create temp table boom(id serial, size integer)');
     client.on('drain', client.end.bind(client));
 ```
+
+_____
+<a name="event-end"></a>
+### end : 
+
+Emitted when the connection is finished. It is useful when the pooling mechanism is external to pg.
+##### example
+```
+    client.on('end', function(){console.log("Client was disconnected.");
+```
+
 
 ***
 [[◄ Back (API - pg)|pg]] `      ` [[Next (API - pg.Query) ►|Query]]
