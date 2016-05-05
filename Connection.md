@@ -11,12 +11,12 @@ There are a few minor variations from the protocol:
 - The connection only supports 'text' mode right now.
 - Renamed 'passwordMessage' to 'password'
 - Renamed 'startupMessage' to 'startup'
-- Renamed 'errorResposne' to 'error'
-- Renamed 'noticeResponce' to 'notice'
+- Renamed 'errorResponse' to 'error'
+- Renamed 'noticeResponse' to 'notice'
 
 The reason for the renamings is 90% of the message names in the protocol do no contain "message" "request" "response" or anything similar, and I feel  it's a bit redundant to send a "passwordMessage message."  But then again...[I do say ATM machine](http://en.wikipedia.org/wiki/RAS_syndrome).
 
-Anyways...using a connection directly is a pretty verbose and cumbersom affair.  Here's an example of executing a PostgreSQL-compliant prepared query using the __Connection__ api directly.
+Anyways...using a connection directly is a pretty verbose and cumbersome affair.  Here's an example of executing a PostgreSQL-compliant prepared query using the __Connection__ api directly.
  
 _note: this works and is taken directly from an integration test; however, it doesn't include error handling_
 
