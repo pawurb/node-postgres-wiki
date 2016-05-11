@@ -36,7 +36,7 @@ __pg__ is an _instance_ of __EventEmitter__ which provides a somewhat native imp
 
 The _connect_ method retrieves a __[[Client]]__ from the client pool, or if all pooled clients are busy and the pool is not full, the _connect_ method will create a new client passing its first argument directly to the __[[Client]]__ constructor.  In either case, your supplied callback will only be called when the __[[Client]]__ is ready to issue queries or an error is encountered.  The callback will be called once and only once for each invocation of _connect_.  
 
-Calling pg.connect only creates a new pool on the first call and does not create new pools on subsequent calls, it pulls a connection from the existing pool. 
+Calling pg.connect only creates a new pool on the first call and on subsequent calls, it does not create new pools but pulls a connection from the existing pool. 
 
 Note: The first parameter passed to _connect_, either a string or config object (or nothing), currently functions as the key used in pooling clients; therefore, using two different connection strings will result in two separate pools being created.  The object, string, or nothing is passed to `JSON.stringify` for key uniqueness.  If nothing is passed you are relying on connection defaults (via [environment variables](http://www.postgresql.org/docs/9.3/static/libpq-envars.html) or `pg.defaults`) then `JSON.stringify({})` is used as the key.
 
