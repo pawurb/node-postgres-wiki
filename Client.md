@@ -133,16 +133,12 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
       - can impact memory when buffering large result sets (i.e. do not provide a callback)
     - used as a shortcut instead of subscribing to the `row` query event
     - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
-    - #### parameters
+    - parameters
       - _object_ __error__:
         - `null` if there was no error
         - if PostgreSQL encountered an error during query execution, the message will be called here
       - _object_ __result__:
-        - and object containing the following properties:
-          - _array_ __rows__: 
-            - an array of all rows returned from the query
-            - each row is equal to one object passed to the Query#row callback
-
+        - the result of the query, containing the same properties as [Result object](../Query#result-object) in the `Client.query` callback.
 
 #### examples
 ##### simple query without callback
@@ -305,15 +301,12 @@ PostgreSQL server caches prepared statements by name on a per (postgres) session
       - can impact memory when buffering large result sets (i.e. do not provide a callback)
     - used as a shortcut instead of subscribing to the `row` query event
     - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
-    - #### parameters
+    - parameters
       - _object_ __error__:
         - `null` if there was no error
         - if PostgreSQL encountered an error during query execution, the message will be called here
       - _object_ __result__:
-        - and object containing the following properties:
-          - _array_ __rows__: 
-            - an array of all rows returned from the query
-            - each row is equal to one object passed to the Query#row callback
+        - the result of the query, containing the same properties as [Result object](../Query#result-object) in the `Client.query` callback.
 
 _____
 
