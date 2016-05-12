@@ -138,7 +138,7 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
         - `null` if there was no error
         - if PostgreSQL encountered an error during query execution, the message will be called here
       - _object_ __result__:
-        - the result of the query, containing the same properties as [Result object](../Query#result-object) in the `Client.query` callback.
+        - the result of the query, containing the same properties as the [Result object](../Query#result-object) in `end` event of `Query`.
 
 #### examples
 ##### simple query without callback
@@ -306,7 +306,7 @@ PostgreSQL server caches prepared statements by name on a per (postgres) session
         - `null` if there was no error
         - if PostgreSQL encountered an error during query execution, the message will be called here
       - _object_ __result__:
-        - the result of the query, containing the same properties as [Result object](../Query#result-object) in the `Client.query` callback.
+        - the result of the query, containing the same properties as the [Result object](../Query#result-object) in `end` event of `Query`.
 
 _____
 
