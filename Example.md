@@ -6,7 +6,7 @@ You'll need to first "create table visit (date date)" in your postgres database
 var http = require('http');
 var pg = require('pg');
 
-var conString = "postgres://postgres:1234@localhost/postgres";
+var conString = "postgres://postgres@localhost:5432/postgres";
 
 var server = http.createServer(function(req, res) {
 
