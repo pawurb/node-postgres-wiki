@@ -6,7 +6,6 @@ First, it has a reference to the other components of node-postgres:
 1. [`pg.Client`](https://github.com/brianc/node-postgres/wiki/Client)
 2. [`pg.Query`](https://github.com/brianc/node-postgres/wiki/Query)
 3. `pg.defaults`
-4. [`pg.pools`](https://github.com/brianc/node-postgres/wiki/Pools)
 5. `pg.types`
 
 The second purpose is more important:
