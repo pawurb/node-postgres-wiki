@@ -130,10 +130,6 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
  - _optional function_ __callback__: optionally provided function which will be passed the error object (if the query raises an error) or the entire result set buffered into memory.  _note: do not provide this function for large result sets unless you're okay with loading the entire result set into memory_
   - _function_ callback(_object_ error, _object_ result) 
     - Called only if provided
-    - __buffers all rows into memory before calling__
-      - rows only buffered if callback is provided
-      - can impact memory when buffering large result sets (i.e. do not provide a callback)
-    - used as a shortcut instead of subscribing to the `row` query event
     - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
     - parameters
       - _object_ __error__:
@@ -143,20 +139,8 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
         - the result of the query, containing the same properties as the [[Result object|Query#result-object]] in `end` event of `Query`.
 
 #### examples
-##### simple query without callback
-```javascript
-    var client = new Client({user: 'brianc', database: 'test'});
-    client.connect();
-    //query is executed once connection is established and
-    //PostgreSQL server is ready for a query
-    var query = client.query("SELECT name FROM users");
-    query.on('row', function(row) {
-      console.log(row.name);
-    });
-    query.on('end', client.end.bind(client)); //disconnect client manually
-```
 
-##### simple query with optional row callback
+##### simple query with row callback
 ```javascript
     var client = new Client({user: 'brianc', database: 'test'});
     client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
@@ -167,6 +151,14 @@ In more detail: Adds a __[[Query]]__ to the __Client__'s internal [[query queue|
     var query = client.query("SELECT name FROM users", function(err, result) {
       console.log(result.rows[0].name);
     })
+```
+
+##### simple query with promise
+```js
+  var client = new Client();
+  client.query('SELECT NOW() as right_now')
+    .then(res => console.log(res.rows[0].right_now))
+    .then(() => client.end())
 ```
 
 _____
@@ -192,11 +184,8 @@ If `name` is provided within the `config` object the query will be executed as a
     var query = client.query({
       text: 'SELECT name FROM users WHERE email = $1',
       values: ['brianc@example.com']
-    });
-
-    query.on('row', function(row) {
-      //do something w/ yer row data
-      assert.equal('brianc', row.name);
+    }, function(err, result) {
+      console.log(result.rows[0].name) // output: brianc
     });
 ```
 
@@ -207,11 +196,8 @@ If `name` is provided within the `config` object the query will be executed as a
     client.on('drain', client.end.bind(client)); //disconnect client when all queries are finished
     client.connect();
 
-     var again = client.query("SELECT name FROM users WHERE email = $1", ['brianc@example.com']);
-
-    again.on('row', function(row) {
-      //do something else
-      assert.equal('brianc', row.name);
+    client.query("SELECT name FROM users WHERE email = $1", ['brianc@example.com'], function(err, result) {
+      console.log(result.rows[0].name) // output: brianc
     });
 ```
 
@@ -298,9 +284,6 @@ PostgreSQL server caches prepared statements by name on a per (postgres) session
 - _optional function_ __callback__: callback function
   - _function_ callback(_object_ error, _object_ result) 
     - Called only if provided
-    - __buffers all rows into memory before calling__
-      - rows only buffered if callback is provided
-      - can impact memory when buffering large result sets (i.e. do not provide a callback)
     - used as a shortcut instead of subscribing to the `row` query event
     - if passed, query will still raise the `row` and `end` events but will _no longer raise_ the `error` event
     - parameters
