@@ -22,7 +22,7 @@ I've written many apps with node-postgres in production.  This is pretty much th
 ```js
 
 var http = require('http')
-var Pool = require('pg')
+var Pool = require('pg').Pool
 var pool = new Pool()
 
 http.createServer(function(req, res) {
