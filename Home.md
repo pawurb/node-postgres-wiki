@@ -21,6 +21,7 @@ I've written many apps with node-postgres in production.  This is pretty much th
 
 ```js
 
+var http = require('http')
 var Pool = require('pg')
 var pool = new Pool()
 
