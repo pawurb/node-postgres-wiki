@@ -14,7 +14,11 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
   - [[end|Client#wiki-event-end]]
   
 ## Constructors
-_note: **Client** instances created via the constructor do **not** participate in [[pg]]'s connection pooling.  To take advantage of connection pooling (recommended) please use either the [[pg]] object or a pooling utility such as [pgbouncer](https://wiki.postgresql.org/wiki/PgBouncer)._
+_note: **Client** instances created via the constructor do **not** participate in [[pg]]'s connection pooling.  To take advantage of connection pooling (recommended) please use either [pg-pool](https://github.com/brianc/node-pg-pool) or a pooling utility such as [pgbouncer](https://wiki.postgresql.org/wiki/PgBouncer)._
+### new Client(): _Client_
+
+This is the __preferred__ way to create a client - let the client read its connection parameters out of environment variables: the client will read host, database, user, password, etc from the same environment variables [used by postgres utilities](https://www.postgresql.org/docs/9.5/static/libpq-envars.html)
+
 ### new Client(<em>string</em> url): _Client_
 ### new Client(<em>string</em> domainSocketFolder): _Client_
 
@@ -65,9 +69,7 @@ Creates a new, unconnected instance of a Client configured via supplied configur
   - _string_ __fallback_application_name__:
     - default value: `false`
     - fallback value for the `application_name` configuration parameter
-  - _string_ __poolSize__:
-    - default value: `pg.defaults.poolSize`
-    - How many connections to use as part of this pool.
+
 
 #### tcp example
 
