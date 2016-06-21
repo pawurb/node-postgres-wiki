@@ -3,7 +3,6 @@
     * [[pg]]
     * pg.[[Client]]
     * pg.[[Query]]
-    * pg.[[pools]]
     * pg.[[Connection]]
 * [[Prepared Statements]]
 * [[Transactions]]
