@@ -28,7 +28,7 @@ pool.on('error', function(e, client) {
   // the pool will catch the error & let you handle it here
 });
 
-// you can run queries directly agains the pool
+// you can run queries directly against the pool
 pool.query('SELECT $1::text as name', ['foo'], function(err, result) {
   console.log(result.rows[0].name); // output: foo
 });
