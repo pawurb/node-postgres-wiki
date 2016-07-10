@@ -9,6 +9,7 @@
 * [[FAQ]]
 * [[Example App|Example]]
 * [[Error Handling]]
+* [[SSL-support]]
 * Internals
   * [[Query Queue|Queryqueue]]
 * [[Extras]] – List of some handy modules
