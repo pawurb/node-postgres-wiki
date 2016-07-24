@@ -59,19 +59,13 @@ A workaround is to do 2 separate queries and using whatever type of async flow c
 
 ##Prepared Statements##
 
-A prepared statement lets postgres plan the statement so that each execution takes advantage of the
-plan.
+A prepared statement lets postgres parse, analyze, and rewrite a statement just once instead of every time it is used.  Postgres may also plan the query just once, if it estimates that there is little benefit from constructing parameter-specific plans.
 
 Prepared statements also provide a barrier to SQL injection attacks(as parameterized queries also do).
 
 ### Performance of prepared statements ###
 
-If you have statements that are executed repeatedly, theorically prepared statements are the fastest.
-
-In real word, the only need to use prepared statements is if the query clause is very complex & the parse, analyze and rewrite phases take a while.
-Keep in mind that Prepared Statements were designed to optimize certain type of complex query structures, ones that are particularly heavy when reconstructing the execution plan. In all the other cases, not only they do not help, but they  drop the performance.
-
-When the where & join clauses are sufficiently complex in a high throughput part of your app you'll see a minor difference. For the most part, you probably have bigger performance without them.
+Some users have found that prepared statements rarely improve performance by very much and often actually hurt it.  A rule of thumb is to start by using no prepared statements and only consider using a prepared statement, or alternatively a function, if you have a bottleneck with a particular query that is a very large number of times.  You may see a benefit particularly when a query contains very complex WHERE and JOIN clauses.
 
 ### Prepared statements and session ###
 
