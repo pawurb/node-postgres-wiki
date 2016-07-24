@@ -20,8 +20,7 @@ Parameters may not be DDL:
 - `select name from $1 where emp_id=$2` – illegal – table cannot be parameter
 - `select name from $1.emp where emp_id=$2` – illegal – schema cannot be parameter
 
-Parameterized queries in postgres are planned for before each execution, so they provide safety
-but not speed.
+Parameterized queries in postgres are parsed, analyzed, rewritten, and planned before each execution, so they provide safety but not speed.
 
 With tagged template string literals introduced in ECMAScript 6, parameterized queries can be written more easily with a simple tag function:
 
@@ -59,13 +58,13 @@ A workaround is to do 2 separate queries and using whatever type of async flow c
 
 ##Prepared Statements##
 
-A prepared statement lets postgres parse, analyze, and rewrite a statement just once instead of every time it is used.  Postgres may also plan the query just once, if it estimates that there is little benefit from constructing parameter-specific plans.
+A prepared statement lets postgres parse, analyze, and rewrite a statement just once instead of every time it is used.  Postgres may also plan the query just once, if it estimates that there would be little benefit from constructing parameter-specific plans.
 
-Prepared statements also provide a barrier to SQL injection attacks(as parameterized queries also do).
+Prepared statements also provide a barrier to SQL injection attacks (as parameterized queries also do).
 
 ### Performance of prepared statements ###
 
-Some users have found that prepared statements rarely improve performance by very much and often actually hurt it.  A rule of thumb is to start by using no prepared statements and only consider using a prepared statement, or alternatively a function, if you have a bottleneck with a particular query that is a very large number of times.  You may see a benefit particularly when a query contains very complex WHERE and JOIN clauses.
+Some users have found that prepared statements rarely improve performance by very much and often actually hurt it.  A rule of thumb is to start by using no prepared statements and only consider using a prepared statement, or alternatively a function, if you have a bottleneck with a particular query that is executed a very large number of times.  You may see a benefit particularly when a query contains very complex WHERE and JOIN clauses.
 
 ### Prepared statements and session ###
 
