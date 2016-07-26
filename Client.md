@@ -36,7 +36,7 @@ Internally the connection string is parsed and a _config_ object is created with
 
 #### Caution : 
 Url strings don't allow to pass special characters like `#`
-If you have some of them in your passord, don't use a connection string, use a config object and pass
+If you have some in your password, don't use a connection string, use a config object and pass
 it as { host: 'foo', password: 'blah#blah' }
 
 ### new Client(<em>object</em> config) : _Client_
