@@ -34,6 +34,11 @@ Internally the connection string is parsed and a _config_ object is created with
     var client = new Client('/tmp');  //looks for the socket file /tmp/.s.PGSQL.5432
 ```
 
+Caution : 
+Url strings don't allow to pass special characters like `#`
+If you have some of them in your passord, don't use a connection string, use a config object and pass
+it as { host: 'foo', password: 'blah#blah' }
+
 ### new Client(<em>object</em> config) : _Client_
 
 Creates a new, unconnected instance of a Client configured via supplied configuration object.
