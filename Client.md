@@ -109,7 +109,7 @@ Will look for the Unix Domain Socket at `/tmp/.s.PGSQL.5313` and connect with th
 
 Initializes __Client's__ internal __[[Connection]]__ object & net.Stream() instance.  Starts communication with PostgreSQL server including password negotiation.  If a callback is supplied it will be called with an instance of `Error` if an error was encountered during the connection procedure, otherwise it will be called with `null` for a single parameter after a connection to PostgreSQL server is established and the client is ready to dispatch queries.
 
-_note: **Clients** created via the **[[pg#connect]]** method are already connected and should **not** have their #connect method called._
+_note: **Clients** created via a [pool](https://github.com/brianc/node-pg-pool) are already connected and should **not** have their #connect method called._
 _____
 
 <a name="method-end"></a>
@@ -117,7 +117,7 @@ _____
 
 Immediately sends a termination message to the PostgreSQL server and closes the underlying net.Stream().  
 
-_note: **Clients** created via the **[[pg#connect]]** method will be automatically disconnected or placed back into the connection pool and should **not** have their #end method called._
+_note: **Clients** created via a [pool](https://github.com/brianc/node-pg-pool) will be automatically disconnected or placed back into the connection pool and should **not** have their #end method called directly._
 _____
 
 <a name="method-query-simple"></a>
