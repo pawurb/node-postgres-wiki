@@ -29,7 +29,7 @@ var pool = new Pool(config)
 var server = http.createServer(function(req, res) {
 
   var onError = function(err) {
-    console.log(e.message, e.stack)
+    console.log(err.message, err.stack)
     res.writeHead(500, {'content-type': 'text/plain'});
     res.end('An error occurred');
   };
