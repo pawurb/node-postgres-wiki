@@ -4,7 +4,7 @@
     * pg.[[Client]]
     * pg.[[Query]]
     * pg.[[Connection]]
-* [[Prepared Statements]]
+* [[Parameterized queries and Prepared Statements]]
 * [[Transactions]]
 * [[FAQ]]
 * [[Example App|Example]]
