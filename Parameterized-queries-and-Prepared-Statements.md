@@ -22,6 +22,38 @@ Parameters may not be DDL:
 
 Parameterized queries in postgres are parsed, analyzed, rewritten, and planned before each execution, so they provide safety but not speed.
 
+#### Parameters for clause WHERE ... IN () ####
+
+If you want to securize a query like this : 
+```sql
+SELECT * FROM table WHERE id IN (1,2,3)
+```
+you CAN'T pass an array of values as an unique parameter : 
+```js
+client.query('SELECT * FROM table WHERE id = $1', [id1, id2, id3])
+```
+or you will get this error : 
+`"invalid input syntax for integer"`
+
+You have to generate a list of parameters, in aim to get the following parameterized query : 
+```
+client.query('SELECT * FROM table WHERE id IN ($1, $2, $3)', [id1, id2, id3])
+````
+You can do this with : 
+```js
+arr.map(function(item, idx) {return '$' + (idx+1);});
+```
+or you can use the ANY command and cast the id as wanted :
+`SELECT * FROM table WHERE id = ANY($1::int[])` 
+
+With the ANY clause, you can pass an array : 
+```javascript
+client.query('SELECT * FROM table WHERE id = ANY($1::int[]'), [id1, id2, id3])
+```
+You can cast the IDs to match the type of the column, for example, you'd write $1::uuid[] to coerce the argument to an array of UUIDs.
+
+#### Parameters and ES6 Template strings ####
+
 With tagged template string literals introduced in ECMAScript 6, parameterized queries can be written more easily with a simple tag function:
 
 ```javascript
