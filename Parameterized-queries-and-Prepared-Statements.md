@@ -48,7 +48,7 @@ or you can use the ANY command and cast the id as wanted :
 
 With the ANY clause, you can pass an array : 
 ```javascript
-client.query('SELECT * FROM table WHERE id = ANY($1::int[]'), [id1, id2, id3])
+client.query('SELECT * FROM table WHERE id = ANY($1::int[])', [id1, id2, id3])
 ```
 You can cast the IDs to match the type of the column, for example, you'd write $1::uuid[] to coerce the argument to an array of UUIDs.
 
