@@ -114,7 +114,7 @@ It also has the following method:
 ```
 
 ## Prepared statements
-Using [[Prepared Statements|Prepared-Statements]] is a very convenient way of running repeated queries with different parameters.
+Using [[Prepared Statements|Parameterized-queries-and-Prepared-Statements#prepared-statements]] is a very convenient way of running repeated queries with different parameters.
 
 ***
 [[◄ Back (API - pg.Client)|Client]] `      ` [[Next (API - pg.pools) ►|pools]]
