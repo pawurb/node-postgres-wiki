@@ -1,7 +1,7 @@
 `node-postgres` provides three means of submitting a query:
 
 - text, e.g. `query( "select name from emp where emp_id=123" )`
-- paramaterized, e.g. `query( "select name from emp where emp_id=$1", [123] )`
+- parameterized, e.g. `query( "select name from emp where emp_id=$1", [123] )`
 - prepared, e.g. `query( {name:"emp_name", text:"select name from emp where emp_id=$1", values:[123]} )`
 
 ##Text Queries##
