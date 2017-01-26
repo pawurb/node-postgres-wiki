@@ -199,5 +199,7 @@ It will wait, and call your callback with a connection after one becomes availab
 
 ### 18. (New Question) Is there a way to check if I have an active connection?
 
+### 19. (New Question) Do I correctly assume that calling done() or done(err) more than once (multiple times) has no side-effects?
+
 ***
 [[◄ Back (Transactions)|Transactions]] `      ` [[Next (Example App) ►|Example]]
