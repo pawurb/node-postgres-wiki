@@ -25,7 +25,7 @@
 - [XeCycle/pg-template-tag](https://github.com/XeCycle/pg-template-tag) - Write queries with ES6 tagged template literals, a "poor man's query builder".
 - [recursivefunk/pg-gen](https://github.com/recursivefunk/pg-gen) - Use ES6 Generators to paginate through large Postgres result sets
 - [vitaly-t/pg-minify](https://github.com/vitaly-t/pg-minify) - Minifies PostgreSQL scripts.
-- [MassiveJS](https://github.com/robconery/massive-js) - A simple relational data access tool that has full JSONB document support for Postgres.
+- [MassiveJS](https://github.com/dmfay/massive-js) - A simple relational data access tool that has full JSONB document support for Postgres.
 - [pg-ka-fix](https://github.com/numminorihsf/pg-ka-fix) - TCP keep-alive extension for node-postgres.
 - [archfirst/joinjs](https://github.com/archfirst/joinjs) - A simple library to map the results of complex joins to nested JavaScript objects (alternative to full-blown ORMs).
 - [typed-typings/typed-pg](https://github.com/typed-typings/typed-pg) - pg type definition for [TypeScript](http://www.typescriptlang.org).
