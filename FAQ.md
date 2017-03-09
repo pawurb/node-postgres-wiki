@@ -201,5 +201,19 @@ It will wait, and call your callback with a connection after one becomes availab
 
 ### 19. (New Question) Do I correctly assume that calling done() or done(err) more than once (multiple times) has no side-effects?
 
+### I obtain `Promise { <pending> }` from a query
+ 
+See https://github.com/brianc/node-postgres/issues/1130. The query returns a promise because of its asynchronous design. You should use a callback, the `then` method or await. Callback example:
+ 
+ ```{js}
+ pool.query('SELECT $1::int AS number', ['2'], function(err, res) {
+   if(err) {
+     return console.error('error running query', err);
+   }
+   
+   console.log('number:', res.rows[0].number);
+ });
+ ```
+
 ***
 [[◄ Back (Transactions)|Transactions]] `      ` [[Next (Example App) ►|Example]]
