@@ -61,7 +61,7 @@ pool
 
 How to run a pool query using promises
 
-```
+```javascript
 pool.query('SELECT $1::int AS number', ['3'])
   .then((res) => {
     console.log('number:', res.rows[0].number);
@@ -73,7 +73,7 @@ pool.query('SELECT $1::int AS number', ['3'])
 
 This is how you get a client from a pool using promises
 
-```
+```javascript
 pool.connect()
   .then((client) => {
     client.query('SELECT $1::int AS number', ['4'])
@@ -94,7 +94,7 @@ pool.connect()
 
 The `query()` and `connect()` methods return promises and therefore can be awaited. Here is how you run a pool query.
 
-```
+```javascript
 async function queryExample() {
   try {
     var res = await pool.query('SELECT $1::int AS number', ['5']);
@@ -109,7 +109,7 @@ queryExample();
 
 Finally this is how you would obtain a client from the pool using await.
 
-```
+```javascript
 async function clientExample() {
   try {
     var client = await pool.connect();
