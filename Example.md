@@ -57,5 +57,76 @@ pool
 
 ```
 
+### Using promises
+
+How to run a pool query using promises
+
+```
+pool.query('SELECT $1::int AS number', ['3'])
+  .then((res) => {
+    console.log('number:', res.rows[0].number);
+  })
+  .catch((err) => {
+    console.error('error running query', err);
+  });
+```
+
+This is how you get a client from a pool using promises
+
+```
+pool.connect()
+  .then((client) => {
+    client.query('SELECT $1::int AS number', ['4'])
+      .then((res) => {
+        client.release();
+        console.log('number:', res.rows[0].number);
+      })
+      .catch((err) => {
+        console.error('error running query', err);
+      });
+  })
+  .catch((err) => {
+    console.error('error fetching client from pool', err);
+  });
+```
+
+### Using async/await
+
+The `query()` and `connect()` methods return promises and therefore can be awaited. Here is how you run a pool query.
+
+```
+async function queryExample() {
+  try {
+    var res = await pool.query('SELECT $1::int AS number', ['5']);
+    console.log('number:', res.rows[0].number);
+  } catch (err) {
+    console.error('error running query', err);
+  }
+}
+
+queryExample();
+```
+
+Finally this is how you would obtain a client from the pool using await.
+
+```
+async function clientExample() {
+  try {
+    var client = await pool.connect();
+    try {
+      var res = await client.query('SELECT $1::int AS number', ['6']);
+      console.log('number:', res.rows[0].number);
+    } catch (err) {
+      console.error('error running query', err);
+    }
+    client.release();
+  } catch (err) {
+    console.error('error fetching client from pool', err);
+  }
+}
+
+clientExample();
+```
+
 ***
 [[◄ Back (FAQ)|FAQ]] `      ` [[Next (Internals - Query Queue) ►|Queryqueue]]
