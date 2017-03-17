@@ -31,3 +31,5 @@
 - [typed-typings/typed-pg](https://github.com/typed-typings/typed-pg) - pg type definition for [TypeScript](http://www.typescriptlang.org).
 - [pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
 - [emilbayes/pg-ipc](https://github.com/emilbayes/pg-ipc) - IPC over PostgreSQL `LISTEN`/`NOTIFY`/`UNLISTEN` exposed as an `EventEmitter`
+- [pg-structure](http://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object. 
+- [pg-generator](http://www.pg-generator.com) - Command line utility which generates files for each table and schema of a PostgreSQL database.
