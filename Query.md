@@ -1,14 +1,14 @@
 Not to be created directly from its constructor, the __Query__ is returned from [[Client#query|Client#method-query-simple]]. It functions primarily as an EventEmitter allowing you to handle returned rows.
 
 - events
-  - [[row|Query#row--object-row-object-result]]
-  - [[error|Query#error--object-error]]
-  - [[end|Query#end]]
+  - [row](#row--object-row-object-result)
+  - [error](#error--object-error)
+  - [end](#end)
 
 ## Events
 
-<div id="event-row"></div>
 ### Row : (__object__ row, __object__ result)
+<div id="event-row"></div>
 
 Emitted by the query whenever a row is received from the PostgreSQL server upon query execution.
 
@@ -32,8 +32,9 @@ The event listeners get two arguments:
     });
 ```
 
-<div id="event-error"></div>
+
 ### Error : (__object__ error)
+<div id="event-error"></div>
 
 Emitted by the query when an error is encountered within the context of query execution, the event listeners are passed the error event from the PostgreSQL server.
 
@@ -64,8 +65,8 @@ _note: If this event (or any event with the name 'error') is not handled it will
     })
 ```
 
-<div id="event-end"></div>
 ### End
+<div id="event-end"></div>
 
 Emitted by the query when all rows have been returned successfully.  In the case of an error __this event will not be emitted__.  When the end event fires query's execution is finished and it is no longer interacting with the connection.
 
