@@ -88,8 +88,9 @@ The __end__ event listeners get one argument, which is the [[Result|Query#result
     })
 ```
 
-<div id="result-object"></div>
+
 ### Result object
+<div id="result-object"></div>
 
 Available to the __row__ and __end__ events, shows the result of the query. It has the following properties:
 
