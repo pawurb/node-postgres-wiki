@@ -4,12 +4,12 @@
 - parameterized, e.g. `query( "select name from emp where emp_id=$1", [123] )`
 - prepared, e.g. `query( {name:"emp_name", text:"select name from emp where emp_id=$1", values:[123]} )`
 
-##Text Queries##
+## Text Queries ##
 
 Plain text queries, for a single query instance, are faster and the most flexible.  They are also the
 most insecure, providing no barrier to SQL injection attacks.
 
-##Parameterized Queries##
+## Parameterized Queries ##
 
 A parameterized query allows you "pass arguments" to a query, providing a barrier to SQL injection attacks.
 
@@ -88,7 +88,7 @@ error: cannot insert multiple commands into a prepared statement
 
 A workaround is to do 2 separate queries and using whatever type of async flow control to dispatch them.
 
-##Prepared Statements##
+## Prepared Statements ##
 
 A prepared statement lets postgres parse, analyze, and rewrite a statement just once instead of every time it is used.  Postgres may also plan the query just once, if it estimates that there would be little benefit from constructing parameter-specific plans.
 
@@ -115,13 +115,13 @@ The following will help track:
 Accumulated prepared statements can build cruft if not deallocated, but premature deallocation forces
 postgres to replan the statement if reissued, losing the speed benefits.
 
-###Using Prepared Statements###
+### Using Prepared Statements ###
 
 pg tracks which statements have been prepared for a session - you do not need one query to prepare
 and a second one to execute: the same query, if passed name, text and values, can be used each time
 you wish to execute the query - pg will prepare the query first only if it needs to.
 
-####`values` are required
+#### `values` are required
 It is not possible to simply create a prepared statement without executing it. e.g. the following will throw an error:
 ```javascript
 client.query( {
@@ -134,7 +134,7 @@ The error is
 
 Of course, `values` are not required if there are no parameters in the query. But even in those instances, the query is executed when `client.query()` is invoked.
 
-####Re-using prepared statements
+#### Re-using prepared statements
 Since caching is per-session, sometimes it is not possible to be sure that a given prepared statement exists in the cache. If all calls are made within the same `pg.connect` block, the statement will be cached because all calls use the same pg session.
 
 However, in practical use (e.g. with Express), you could have a pool of pg connections being used by middleware serving hundreds of HTTP requests. The fail-safe way to use prepared statements is to always supply both the `text` and the `name`. When a statement named `name` is found to be cached, `text` is ignored and the cached statement is used. If `name` is not found in the cache, a new prepared statement is created using the `text` supplied. (as discussed in [this issue](https://github.com/brianc/node-postgres/issues/903))
