@@ -33,3 +33,4 @@
 - [emilbayes/pg-ipc](https://github.com/emilbayes/pg-ipc) - IPC over PostgreSQL `LISTEN`/`NOTIFY`/`UNLISTEN` exposed as an `EventEmitter`
 - [pg-structure](http://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object. 
 - [pg-generator](http://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
+- [pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL Location Replication client - logical WAL replication streaming
