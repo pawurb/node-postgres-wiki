@@ -27,7 +27,7 @@ var pool = new Pool()
 
 http.createServer(function(req, res) {
   pool.query('SELECT $1::text as name', ['brianc'], function(err, result) {
-    res.writeHead({'content-type': 'text/html'})
+    res.writeHead(200, {'content-type': 'text/html'})
     res.end('Hello from: ' + result.rows[0].name)
   })
 })
