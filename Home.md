@@ -3,7 +3,6 @@
     * [[pg]]
     * pg.[[Client]]
     * pg.[[Query]]
-    * pg.[[Connection]]
 * [[Parameterized queries and Prepared Statements]]
 * [[Transactions]]
 * [[FAQ]]
