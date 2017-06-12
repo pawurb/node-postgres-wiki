@@ -3,9 +3,6 @@ Your main interface point with the PostgreSQL server.  Client is used to create 
 - methods
   - [[connect|Client#wiki-method-connect]]
   - [[end|Client#wiki-method-end]]
-  - [[query (simple)|Client#wiki-method-query-simple]]
-  - [[query (parameterized)|Client#wiki-method-query-parameterized]]
-  - [[query (prepared statement)|Client#wiki-method-query-prepared]]
 - events
   - [[drain|Client#wiki-event-drain]]
   - [[error|Client#wiki-event-error]]
