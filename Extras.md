@@ -34,3 +34,4 @@
 - [pg-structure](http://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object. 
 - [pg-generator](http://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
 - [pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL Location Replication client - logical WAL replication streaming
+- [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive) - a lightweight [RxJS 5](https://github.com/ReactiveX/rxjs) wrapper for `node-postgres`
