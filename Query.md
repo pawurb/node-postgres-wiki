@@ -1,1 +1,0 @@
-[Please see the new documentation](https://node-postgres.com/features/queries)
