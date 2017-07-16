@@ -1,35 +1,3 @@
-* [[Installation]]
-* API
-    * [[pg]]
-    * pg.[[Client]]
-    * pg.[[Query]]
-* [[Parameterized queries and Prepared Statements]]
-* [[Transactions]]
+The documentation has moved to [https://node-postgres.com](https://node-postgres.com).
 * [[FAQ]]
-* [[Example App|Example]]
-* [[Error Handling]]
-* [[SSL-support]]
 * [[Extras]] – List of some handy modules
-* [[Testing]]
-
-## tl; dr -
-
-I've written many apps with node-postgres in production.  This is pretty much the smallest example I can come up with:
-
-```js
-
-var http = require('http')
-var Pool = require('pg').Pool
-var pool = new Pool()
-
-http.createServer(function(req, res) {
-  pool.query('SELECT $1::text as name', ['brianc'], function(err, result) {
-    res.writeHead(200, {'content-type': 'text/html'})
-    res.end('Hello from: ' + result.rows[0].name)
-  })
-})
-```
-
-The API of node-postgres supports a __lot__ of additional stuff if you dive in, but if you're just getting started I recommend just doing that above & only introducing more advanced stuff as needed.  node-postgres is designed to be very low level and has a lot of knobs to fiddle with, but 99% of the time I just wanna run some queries!  
-
-There's also a really large ecosystem of [additional modules](https://github.com/brianc/node-postgres/wiki/Extras) - highly recommend checking some of those out for more advanced things or when building larger applications.
