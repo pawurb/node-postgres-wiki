@@ -36,15 +36,8 @@ client.query(..., function(err, result) {
 });
 ```
 
-### 4. How do you get the count of columns in the result set ? ###
+### 4. How do you get the count of columns in the result set? ###
 
-```js
-client.query(..., function(err, result) {
-  var columnCount = Object.keys(result.rows[0]).length;
-});
-```
-
-This may also be accomplished using the `result.fields` array:
 ```js
 client.query(..., function(err, result) {
   var columnCount = result.fields.length;
