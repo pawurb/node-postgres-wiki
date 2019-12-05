@@ -24,7 +24,6 @@ Standalone PostgreSQL packages.
 ### API wrappers
 
 - [coderhaoxin/pg-then](https://github.com/coderhaoxin/pg-then) A tiny wrapper of `pg` for promise api.
-- [grncdr/node-any-db](https://github.com/grncdr/node-any-db) - Thin and less-opinionated database abstraction layer for node.
 - [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive) - a lightweight [RxJS 5](https://github.com/ReactiveX/rxjs) wrapper for `node-postgres`
 - [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
 - [iceddev/pg-transact](https://github.com/iceddev/pg-transact) - A nicer API on node-postgres transactions
@@ -38,6 +37,7 @@ Standalone PostgreSQL packages.
 
 ### Database interfaces
 
+- [grncdr/node-any-db](https://github.com/grncdr/node-any-db) - Thin and less-opinionated database abstraction layer for node.
 - [MassiveJS](https://github.com/dmfay/massive-js) - A simple relational data access tool that has full JSONB document support for Postgres.
 
 
