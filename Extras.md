@@ -7,7 +7,7 @@ Standalone PostgreSQL packages.
 
 - [brianc/node-pg-native](https://github.com/brianc/node-pg-native) - Simple interface abstraction on top of [libpq](https://github.com/brianc/node-libpq)
 - [brianc/node-pg-types](https://github.com/brianc/node-pg-types) - Type parsing for node-postgres
-- [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](http://www.postgresql.org/docs/9.3/static/functions-string.html#FUNCTIONS-STRING-FORMAT).
+- [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](https://www.postgresql.org/docs/current/functions-string.html#FUNCTIONS-STRING-FORMAT).
 - [LinusU/pg-error-constants](https://github.com/LinusU/pg-error-constants) - error constants for more robust query error handling.
 
 
@@ -26,7 +26,7 @@ Standalone PostgreSQL packages.
 - [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive) - a lightweight [RxJS 5](https://github.com/ReactiveX/rxjs) wrapper for `node-postgres`
 - [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
 - [iceddev/pg-transact](https://github.com/iceddev/pg-transact) - A nicer API on node-postgres transactions
-- [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs) - An [RxJS](https://github.com/Reactive-Extensions/RxJS) based on [coderhaoxin/pg-then](https://github.com/coderhaoxin/pg-then)
+- [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs) - An [RxJS](https://github.com/Reactive-Extensions/RxJS) based on [haoxins/pg-then](https://github.com/haoxins/pg-then)
 - [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async)
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
 - [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher level wrapper around node-postgres to handle connection settings, sql generation, transactions and ease data access.
@@ -36,7 +36,7 @@ Standalone PostgreSQL packages.
 ### Database interfaces
 
 - [grncdr/node-any-db](https://github.com/grncdr/node-any-db) - Thin and less-opinionated database abstraction layer for node.
-- [MassiveJS](https://github.com/dmfay/massive-js) - A simple relational data access tool that has full JSONB document support for Postgres.
+- [MassiveJS](https://massivejs.org/) - A simple relational data access tool that has full JSONB document support for Postgres.
 
 
 ### SQL template tags
@@ -59,5 +59,5 @@ Standalone PostgreSQL packages.
 - [archfirst/joinjs](https://github.com/archfirst/joinjs) - A simple library to map the results of complex joins to nested JavaScript objects (alternative to full-blown ORMs).
 - [nuodata/nuodata-db-api](https://github.com/nuodata/nuodata-db-api) - REST API for a PostgreSQL database.
 - [vitaly-t/pg-minify](https://github.com/vitaly-t/pg-minify) - Minifies PostgreSQL scripts.
-- [pg-generator](http://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
-- [pg-structure](http://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object.
+- [pg-generator](https://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
+- [pg-structure](https://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object.
