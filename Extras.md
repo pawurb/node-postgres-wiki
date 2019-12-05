@@ -35,4 +35,4 @@
 - [pg-generator](http://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
 - [pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL Location Replication client - logical WAL replication streaming
 - [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive) - a lightweight [RxJS 5](https://github.com/ReactiveX/rxjs) wrapper for `node-postgres`
-- [LinusU](https://github.com/LinusU/pg-error-constants) - error constants for more robust query error handling.
+- [LinusU/pg-error-constants](https://github.com/LinusU/pg-error-constants) - error constants for more robust query error handling.
