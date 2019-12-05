@@ -60,7 +60,6 @@ Standalone PostgreSQL packages.
 - [acarl/pg-restify](https://github.com/acarl/pg-restify) - Creates a generic REST API for a postgres database using restify.
 - [archfirst/joinjs](https://github.com/archfirst/joinjs) - A simple library to map the results of complex joins to nested JavaScript objects (alternative to full-blown ORMs).
 - [nuodata/nuodata-db-api](https://github.com/nuodata/nuodata-db-api) - REST API for a PostgreSQL database.
-- [typed-typings/typed-pg](https://github.com/typed-typings/typed-pg) - pg type definition for [TypeScript](http://www.typescriptlang.org).
 - [vitaly-t/pg-minify](https://github.com/vitaly-t/pg-minify) - Minifies PostgreSQL scripts.
 - [pg-generator](http://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
 - [pg-structure](http://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object.
