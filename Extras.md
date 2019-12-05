@@ -12,6 +12,7 @@
 - [CSNW/sql-bricks](https://github.com/CSNW/sql-bricks) - Transparent, Schemaless SQL Generation
 - [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](http://www.postgresql.org/docs/9.3/static/functions-string.html#FUNCTIONS-STRING-FORMAT).
 - [131/sql-template](https://github.com/131/sql-template) - pg compliant query builder (using ES6 template string)
+- [sequencework/sql](https://github.com/sequencework/sql) - SQL template tag with convenient querying functions
 - [iceddev/pg-transact](https://github.com/iceddev/pg-transact) - A nicer API on node-postgres transactions
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
 - [vitaly-t/pg-promise](https://github.com/vitaly-t/pg-promise) - Use node-postgres via [Promises/A+](https://promisesaplus.com/).
