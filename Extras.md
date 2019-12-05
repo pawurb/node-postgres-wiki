@@ -9,6 +9,7 @@ Standalone PostgreSQL packages.
 - [brianc/node-pg-types](https://github.com/brianc/node-pg-types) - Parsing for PostgreSQL serialized formats.
 - [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](https://www.postgresql.org/docs/current/functions-string.html#FUNCTIONS-STRING-FORMAT).
 - [LinusU/pg-error-constants](https://github.com/LinusU/pg-error-constants) - Error constants for more robust query error handling.
+- [vitaly-t/connection-string](https://github.com/vitaly-t/connection-string) - Alternative connection string parser implementing superset of MongoDB connection string spec.
 
 
 ### Extensions
