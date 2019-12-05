@@ -25,6 +25,7 @@ Standalone PostgreSQL packages.
 ### API wrappers
 
 - [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi)
+- [joeandaverde/tinypg](https://github.com/joeandaverde/tinypg) - Simpler interface, named parameter support, queries from files, transaction management, events and hooks.
 - [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async)
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
 - [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher-level wrapper around node-postgres to handle connection settings, SQL generation, transactions and ease data access.
