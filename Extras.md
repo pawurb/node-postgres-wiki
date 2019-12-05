@@ -1,4 +1,4 @@
-node-postgres is by design pretty light on abstractions.  These are some handy modules we've been using over the years to complete the picture:
+node-postgres is by design pretty light on abstractions.  These are some handy modules the community’s been using over the years to complete the picture:
 
 
 ### Components
