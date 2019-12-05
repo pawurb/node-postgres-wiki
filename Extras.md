@@ -7,6 +7,7 @@ Standalone PostgreSQL packages.
 
 - [brianc/node-pg-native](https://github.com/brianc/node-pg-native) - Simple interface abstraction on top of [libpq](https://github.com/brianc/node-libpq)
 - [brianc/node-pg-types](https://github.com/brianc/node-pg-types) - Type parsing for node-postgres
+- [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](http://www.postgresql.org/docs/9.3/static/functions-string.html#FUNCTIONS-STRING-FORMAT).
 - [LinusU/pg-error-constants](https://github.com/LinusU/pg-error-constants) - error constants for more robust query error handling.
 
 
@@ -49,7 +50,6 @@ Standalone PostgreSQL packages.
 
 - [brianc/node-sql](https://github.com/brianc/node-sql)
 - [CSNW/sql-bricks](https://github.com/CSNW/sql-bricks)
-- [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](http://www.postgresql.org/docs/9.3/static/functions-string.html#FUNCTIONS-STRING-FORMAT).
 - [hiddentao/squel](https://hiddentao.github.io/squel/)
 
 
