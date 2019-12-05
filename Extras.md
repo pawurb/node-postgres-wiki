@@ -17,7 +17,6 @@ Standalone PostgreSQL packages.
 - [brianc/node-pg-query-stream](https://github.com/brianc/node-pg-query-stream) - Query results from node-postgres as a readable (object) stream
 - [emilbayes/pg-ipc](https://github.com/emilbayes/pg-ipc) - IPC over PostgreSQL `LISTEN`/`NOTIFY`/`UNLISTEN` exposed as an `EventEmitter`
 - [kibae/pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL Location Replication client - logical WAL replication streaming
-- [numminorihsf/pg-ka-fix](https://github.com/numminorihsf/pg-ka-fix) - TCP keep-alive extension for node-postgres.
 - [recursivefunk/pg-gen](https://github.com/recursivefunk/pg-gen) - Use ES6 Generators to paginate through large Postgres result sets
 
 
