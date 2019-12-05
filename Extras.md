@@ -63,6 +63,7 @@ Transactions:
 
 - [acarl/pg-restify](https://github.com/acarl/pg-restify) - Creates a generic REST API for a PostgreSQL database using restify.
 - [archfirst/joinjs](https://github.com/archfirst/joinjs) - A simple library to map the results of complex joins to nested JavaScript objects (alternative to full-blown ORMs).
+- [brandon-d-mckay/krauter](https://github.com/brandon-d-mckay/krauter) - An Express router that lets queries act as request handlers.
 - [nuodata/nuodata-db-api](https://github.com/nuodata/nuodata-db-api) - REST API for a PostgreSQL database.
 - [ozum/pg-generator](https://www.pg-generator.com/) - Template-based scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
 - [ozum/pg-structure](https://www.pg-structure.com/) - Node library to get structure of a PostgreSQL database automatically as a detailed object.
