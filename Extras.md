@@ -5,28 +5,28 @@ node-postgres is by design pretty light on abstractions.  These are some handy m
 
 Standalone PostgreSQL packages.
 
-- [brianc/node-pg-native](https://github.com/brianc/node-pg-native) - Simple interface abstraction on top of [libpq](https://github.com/brianc/node-libpq)
-- [brianc/node-pg-types](https://github.com/brianc/node-pg-types) - Type parsing for node-postgres
+- [brianc/node-pg-native](https://github.com/brianc/node-pg-native) - Simple interface abstraction on top of [libpq](https://github.com/brianc/node-libpq).
+- [brianc/node-pg-types](https://github.com/brianc/node-pg-types) - Parsing for PostgreSQL serialized formats.
 - [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](https://www.postgresql.org/docs/current/functions-string.html#FUNCTIONS-STRING-FORMAT).
-- [LinusU/pg-error-constants](https://github.com/LinusU/pg-error-constants) - error constants for more robust query error handling.
+- [LinusU/pg-error-constants](https://github.com/LinusU/pg-error-constants) - Error constants for more robust query error handling.
 
 
 ### Extensions
 
-- [brianc/node-pg-cursor](https://github.com/brianc/node-pg-cursor) - Query cursor extension for node-postgres
-- [brianc/node-pg-copy-streams](https://github.com/brianc/node-pg-copy-streams) - COPY FROM / COPY TO for node-postgres. Stream from one database to another, and stuff.
-- [brianc/node-pg-query-stream](https://github.com/brianc/node-pg-query-stream) - Query results from node-postgres as a readable (object) stream
-- [emilbayes/pg-ipc](https://github.com/emilbayes/pg-ipc) - IPC over PostgreSQL `LISTEN`/`NOTIFY`/`UNLISTEN` exposed as an `EventEmitter`
-- [kibae/pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL Location Replication client - logical WAL replication streaming
-- [recursivefunk/pg-gen](https://github.com/recursivefunk/pg-gen) - Use ES6 Generators to paginate through large Postgres result sets
+- [brianc/node-pg-cursor](https://github.com/brianc/node-pg-cursor) - Query cursor extension for node-postgres.
+- [brianc/node-pg-copy-streams](https://github.com/brianc/node-pg-copy-streams) - `COPY FROM`/`COPY TO` for node-postgres. Stream from one database to another, and stuff.
+- [brianc/node-pg-query-stream](https://github.com/brianc/node-pg-query-stream) - Query results from node-postgres as a readable (object) stream.
+- [emilbayes/pg-ipc](https://github.com/emilbayes/pg-ipc) - IPC over PostgreSQL `LISTEN`/`NOTIFY`/`UNLISTEN` exposed as an `EventEmitter`.
+- [kibae/pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL logical replication client.
+- [recursivefunk/pg-gen](https://github.com/recursivefunk/pg-gen) - Use ES6 generators to paginate through large result sets.
 
 
 ### API wrappers
 
-- [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
+- [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi)
 - [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async)
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
-- [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher level wrapper around node-postgres to handle connection settings, sql generation, transactions and ease data access.
+- [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher-level wrapper around node-postgres to handle connection settings, SQL generation, transactions and ease data access.
 - [vitaly-t/pg-promise](https://github.com/vitaly-t/pg-promise)
 
 [RxJS](https://github.com/ReactiveX/rxjs):
@@ -41,14 +41,14 @@ Transactions:
 
 ### Database interfaces
 
-- [grncdr/node-any-db](https://github.com/grncdr/node-any-db) - Thin and less-opinionated database abstraction layer for node.
-- [MassiveJS](https://massivejs.org/) - A simple relational data access tool that has full JSONB document support for Postgres.
+- [grncdr/node-any-db](https://github.com/grncdr/node-any-db) - Thin and less-opinionated database abstraction layer for Node.
+- [MassiveJS](https://massivejs.org/) - A simple relational data access tool that has full JSONB document support for PostgreSQL.
 
 
 ### SQL template tags
 
 - [131/sql-template](https://github.com/131/sql-template)
-- [sequencework/sql](https://github.com/sequencework/sql) - tag with convenient querying functions
+- [sequencework/sql](https://github.com/sequencework/sql) - Tag with convenient querying functions.
 - [XeCycle/pg-template-tag](https://github.com/XeCycle/pg-template-tag)
 
 
@@ -61,9 +61,9 @@ Transactions:
 
 ### Other
 
-- [acarl/pg-restify](https://github.com/acarl/pg-restify) - Creates a generic REST API for a postgres database using restify.
+- [acarl/pg-restify](https://github.com/acarl/pg-restify) - Creates a generic REST API for a PostgreSQL database using restify.
 - [archfirst/joinjs](https://github.com/archfirst/joinjs) - A simple library to map the results of complex joins to nested JavaScript objects (alternative to full-blown ORMs).
 - [nuodata/nuodata-db-api](https://github.com/nuodata/nuodata-db-api) - REST API for a PostgreSQL database.
 - [vitaly-t/pg-minify](https://github.com/vitaly-t/pg-minify) - Minifies PostgreSQL scripts.
-- [pg-generator](https://www.pg-generator.com) - Template Based Scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
-- [pg-structure](https://www.pg-structure.com) - Node.js library to get structure of a PostgreSQL database automatically as a detailed object.
+- [pg-generator](https://www.pg-generator.com/) - Template-based scaffolding for PostgreSQL. Command line utility which generates files for each table and schema of a PostgreSQL database.
+- [pg-structure](https://www.pg-structure.com/) - Node library to get structure of a PostgreSQL database automatically as a detailed object.
