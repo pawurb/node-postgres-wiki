@@ -50,6 +50,7 @@ Transactions:
 ### SQL template tags
 
 - [131/sql-template](https://github.com/131/sql-template)
+- [felixfbecker/node-sql-template-strings](https://github.com/felixfbecker/node-sql-template-strings) - Supports multiple database drivers and named prepared statements.
 - [sequencework/sql](https://github.com/sequencework/sql) - Tag with convenient querying functions.
 - [XeCycle/pg-template-tag](https://github.com/XeCycle/pg-template-tag)
 
