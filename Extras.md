@@ -40,17 +40,17 @@ Standalone PostgreSQL packages.
 
 ### SQL template tags
 
-- [131/sql-template](https://github.com/131/sql-template) - pg compliant query builder (using ES6 template string)
-- [sequencework/sql](https://github.com/sequencework/sql) - SQL template tag with convenient querying functions
-- [XeCycle/pg-template-tag](https://github.com/XeCycle/pg-template-tag) - Write queries with ES6 tagged template literals, a "poor man's query builder".
+- [131/sql-template](https://github.com/131/sql-template)
+- [sequencework/sql](https://github.com/sequencework/sql) - tag with convenient querying functions
+- [XeCycle/pg-template-tag](https://github.com/XeCycle/pg-template-tag)
 
 
 ### Query builders
 
-- [brianc/node-sql](https://github.com/brianc/node-sql) - SQL generation for node.js
-- [CSNW/sql-bricks](https://github.com/CSNW/sql-bricks) - Transparent, Schemaless SQL Generation
+- [brianc/node-sql](https://github.com/brianc/node-sql)
+- [CSNW/sql-bricks](https://github.com/CSNW/sql-bricks)
 - [datalanche/node-pg-format](https://github.com/datalanche/node-pg-format) - Safely and easily create dynamic SQL queries with this Node implementation of [PostgreSQL format()](http://www.postgresql.org/docs/9.3/static/functions-string.html#FUNCTIONS-STRING-FORMAT).
-- [hiddentao/squel](https://hiddentao.github.io/squel/) - SQL query string builder for Javascript
+- [hiddentao/squel](https://hiddentao.github.io/squel/)
 
 
 ### Other
