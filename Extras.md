@@ -23,14 +23,20 @@ Standalone PostgreSQL packages.
 
 ### API wrappers
 
-- [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive) - a lightweight [RxJS 5](https://github.com/ReactiveX/rxjs) wrapper for `node-postgres`
 - [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
-- [iceddev/pg-transact](https://github.com/iceddev/pg-transact) - A nicer API on node-postgres transactions
-- [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs) - An [RxJS](https://github.com/Reactive-Extensions/RxJS) wrapper based on [haoxins/pg-then](https://github.com/haoxins/pg-then)
 - [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async)
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
 - [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher level wrapper around node-postgres to handle connection settings, sql generation, transactions and ease data access.
 - [vitaly-t/pg-promise](https://github.com/vitaly-t/pg-promise)
+
+[RxJS](https://github.com/ReactiveX/rxjs):
+
+- [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive)
+- [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs)
+
+Transactions:
+
+- [iceddev/pg-transact](https://github.com/iceddev/pg-transact)
 
 
 ### Database interfaces
