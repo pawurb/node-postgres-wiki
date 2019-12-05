@@ -23,16 +23,15 @@ Standalone PostgreSQL packages.
 
 ### API wrappers
 
-- [coderhaoxin/pg-then](https://github.com/coderhaoxin/pg-then) A tiny wrapper of `pg` for promise api.
 - [haoliangyu/pg-reactive](https://github.com/haoliangyu/pg-reactive) - a lightweight [RxJS 5](https://github.com/ReactiveX/rxjs) wrapper for `node-postgres`
 - [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
 - [iceddev/pg-transact](https://github.com/iceddev/pg-transact) - A nicer API on node-postgres transactions
-- [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs) Another tiny wrapper like `pg-then` but for [RxJS](https://github.com/Reactive-Extensions/RxJS)
-- [kriasoft/node-pg-client](https://github.com/kriasoft/node-pg-client) - Promise-based wrapper for `node-postgres` designed for easy use with ES7 async/await.
-- [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async) - Tiny but powerful Promise based PostgreSQL client designed for easy use with ES7 async/await.
+- [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs) - An [RxJS](https://github.com/Reactive-Extensions/RxJS) based on [coderhaoxin/pg-then](https://github.com/coderhaoxin/pg-then)
+- [kriasoft/node-pg-client](https://github.com/kriasoft/node-pg-client)
+- [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async)
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
 - [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher level wrapper around node-postgres to handle connection settings, sql generation, transactions and ease data access.
-- [vitaly-t/pg-promise](https://github.com/vitaly-t/pg-promise) - Use node-postgres via [Promises/A+](https://promisesaplus.com/).
+- [vitaly-t/pg-promise](https://github.com/vitaly-t/pg-promise)
 
 
 ### Database interfaces
