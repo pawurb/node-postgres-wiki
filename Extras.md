@@ -27,7 +27,6 @@ Standalone PostgreSQL packages.
 - [holdfenytolvaj/pogi](https://github.com/holdfenytolvaj/pogi) - convenient DbHandler over pg, just what you need :) (typescript,async,jsonb,you name it) .
 - [iceddev/pg-transact](https://github.com/iceddev/pg-transact) - A nicer API on node-postgres transactions
 - [jadbox/pg-rxjs](https://github.com/jadbox/pg-rxjs) - An [RxJS](https://github.com/Reactive-Extensions/RxJS) based on [coderhaoxin/pg-then](https://github.com/coderhaoxin/pg-then)
-- [kriasoft/node-pg-client](https://github.com/kriasoft/node-pg-client)
 - [langpavel/node-pg-async](https://github.com/langpavel/node-pg-async)
 - [sehrope/node-pg-db](https://github.com/sehrope/node-pg-db) - Simpler interface, named parameter support, transaction management and event hooks.
 - [Suor/pg-bricks](https://github.com/Suor/pg-bricks) - A higher level wrapper around node-postgres to handle connection settings, sql generation, transactions and ease data access.
