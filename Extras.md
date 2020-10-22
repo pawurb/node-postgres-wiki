@@ -20,6 +20,7 @@ Standalone PostgreSQL packages.
 - [emilbayes/pg-ipc](https://github.com/emilbayes/pg-ipc) - IPC over PostgreSQL `LISTEN`/`NOTIFY`/`UNLISTEN` exposed as an `EventEmitter`.
 - [kibae/pg-logical-replication](https://github.com/kibae/pg-logical-replication) - PostgreSQL logical replication client.
 - [recursivefunk/pg-gen](https://github.com/recursivefunk/pg-gen) - Paginate through large result sets with cursors.
+- [postgres-extras](https://github.com/pawurb/node-postgres-extras) - PostgreSQL database performance insights.
 
 
 ### API wrappers
